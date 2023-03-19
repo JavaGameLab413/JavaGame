@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(){
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             // 執行xml檔
-            val intent = Intent(this, Start::class.java)
+            val intent = Intent(this, Login::class.java)
             // 啟動新的 Activity
             startActivity(intent)
         }
