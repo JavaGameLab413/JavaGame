@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/base_background" />
+        app:srcCompat="@drawable/base_background"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,14 +31,15 @@
             android:layout_width="85dp"
             android:layout_height="66dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/playerId"
             android:layout_width="212dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="名稱"
+            android:text="@string/playerId"
             android:textSize="24sp" />
 
         <ImageView
@@ -45,7 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+            app:srcCompat="@android:mipmap/sym_def_app_icon"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/lvText"
@@ -53,7 +56,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="LV"
-            android:textSize="34sp" />
+            android:textColor="#000000"
+            android:textSize="34sp"
+            tools:ignore="HardcodedText,TextContrastCheck" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,28 +75,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@android:mipmap/sym_def_app_icon"
-            tools:ignore="SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
 
         <ImageButton
             android:id="@+id/history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/record"
-            tools:ignore="SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
 
         <ImageButton
             android:id="@+id/shop"
             android:layout_width="76dp"
             android:layout_height="71dp"
             app:srcCompat="@drawable/shop"
-            tools:ignore="SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/backPack"
             android:layout_width="66dp"
             android:layout_height="66dp"
             app:srcCompat="@drawable/bag"
-            tools:ignore="SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
