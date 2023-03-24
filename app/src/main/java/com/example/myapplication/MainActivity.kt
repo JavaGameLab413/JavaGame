@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Start::class.java)
             // 啟動新的 Activity
             startActivity(intent)
+            //test
         }
 
         btLogin.setOnClickListener {
