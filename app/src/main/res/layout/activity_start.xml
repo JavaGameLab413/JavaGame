@@ -25,16 +25,18 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck">
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="85dp"
-            android:layout_height="66dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
-            tools:ignore="ContentDescription"
-            tools:srcCompat="@drawable/head3" />
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/head3"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/playerId"
@@ -63,16 +65,24 @@
             tools:ignore="HardcodedText,TextContrastCheck" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/role"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/kidremovebg"
-        android:scaleType="centerInside"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="120dp"
-        tools:ignore="ContentDescription,HardcodedText,MissingConstraints"
-        android:contentDescription="TODO" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+          >
+        <ImageView
+            android:id="@+id/role"
+            android:scaleType="centerInside"
+            android:layout_width="400dp"
+            android:layout_height="500dp"
+            android:layout_gravity="center"
+            android:background="@drawable/kidremovebg"
+            tools:ignore="ContentDescription"
+        />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
