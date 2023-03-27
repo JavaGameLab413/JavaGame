@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
@@ -28,7 +29,16 @@ class Login : AppCompatActivity() {
         // Create a new document with a generated ID
         val newDocRef = db.collection("users").document()
         var serialNumber: Int = 0
+        //設置登入按鈕功能
+        login.setOnClickListener {
+            //如果有輸入帳號及跳出浮框
+            if (account.text.toString().isNotEmpty()){
+                Toast.makeText(this,"登入成功!",Toast.LENGTH_SHORT).show()
+            }
+            else{
 
+            }
+        }
         add.setOnClickListener {
             serialNumber += 1
 
