@@ -39,10 +39,9 @@ class Login : AppCompatActivity() {
 
             }
         }
+        //新增帳號功能按鈕監聽
         add.setOnClickListener {
             serialNumber += 1
-
-
 
             // Set the document data
             val data = hashMapOf(
