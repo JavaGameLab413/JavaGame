@@ -31,7 +31,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
             R.id.fight -> {
                 val intent = Intent(this, Fight::class.java)
                 startActivity(intent)
-                Log.d("test", "This is Debug.");
             }
             R.id.history -> {
                 val intent = Intent(this, History::class.java)
@@ -40,6 +39,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
                 startActivity(intent)
+                Log.d("test", "This is Debug.");
             }
             R.id.backPack -> {
                 val intent = Intent(this, BackPack::class.java)
