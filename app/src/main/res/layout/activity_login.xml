@@ -30,7 +30,8 @@
                     android:layout_height="wrap_content"
                     android:ems="15"
                     android:inputType="textPersonName"
-                    android:hint="這邊輸入你的帳號喔!" />
+                    android:hint="這邊輸入你的帳號喔!"
+                    android:background="@null"/>
             </TableRow>
 
             <TableRow
@@ -49,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:ems="15"
                     android:inputType="textPersonName"
-                    android:hint="這邊輸入的密碼會被隱藏起來喔!"/>
+                    android:hint="這邊輸入的密碼會被隱藏起來喔!"
+                    android:background="@null"/>
             </TableRow>
 
         </TableLayout>
