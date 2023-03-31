@@ -21,23 +21,43 @@ class Login : AppCompatActivity() {
         val change = findViewById<Button>(R.id.ButtonChange)
         val add = findViewById<Button>(R.id.ButtonAdd)
         //輸入的文字框(帳號密碼)
-        val account = findViewById<EditText>(R.id.InputAccount)
-        val password = findViewById<EditText>(R.id.InputPassword)
+        val inputAccount = findViewById<EditText>(R.id.InputAccount)
+        val inputPassword = findViewById<EditText>(R.id.InputPassword)
 
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val newDocRef = db.collection("users").document()
+        val readDocRed = db.collection("users")
         var serialNumber: Int = 0
         //設置登入按鈕功能
         login.setOnClickListener {
-            //如果有輸入帳號及跳出浮框
-            if (account.text.toString().isNotEmpty()){
-                Toast.makeText(this,"登入成功!",Toast.LENGTH_SHORT).show()
-            }
-            else{
-
-            }
+            Log.d("test", inputAccount.text.toString())
+            readDocRed.whereEqualTo("account", inputAccount.text.toString()).get()
+                .addOnSuccessListener { documents ->
+                    if (documents.size() > 0) {
+                        // 找到使用者，檢查密碼
+                        val user = documents.first()
+                        val password = user.getString("password")
+                        if (password == inputPassword.text.toString()) {
+                            // 密碼正確，登錄成功
+                            Toast.makeText(this,"登入成功!",Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Login success!")
+                        } else {
+                            // 密碼錯誤
+                            Toast.makeText(this,"登入失敗!",Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Incorrect password!")
+                        }
+                    } else {
+                        // 找不到使用者
+                        Toast.makeText(this,"登入失敗!",Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "User not found!")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // 讀取資料失敗
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
         }
         //新增帳號功能按鈕監聽
         add.setOnClickListener {
@@ -45,8 +65,8 @@ class Login : AppCompatActivity() {
 
             // Set the document data
             val data = hashMapOf(
-                "account" to account.text.toString(),
-                "password" to password.text.toString(),
+                "account" to inputAccount.text.toString(),
+                "password" to inputPassword.text.toString(),
                 "serialNumber" to serialNumber
             )
 
