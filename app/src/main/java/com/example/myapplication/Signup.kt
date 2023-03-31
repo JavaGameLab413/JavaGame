@@ -33,10 +33,15 @@ class Signup : AppCompatActivity(){
         signup.setOnClickListener{
 
 
+
             Log.d("MainActivity", name.text.toString())
             Log.d("MainActivity", account.text.toString())
             Log.d("MainActivity", password.text.toString())
+
+
         }
+
+
 
     }
 

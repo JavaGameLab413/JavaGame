@@ -22,7 +22,7 @@
                 android:id="@+id/TextName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="暱稱:" />
+                android:text="暱稱 :" />
 
             <EditText
                 android:id="@+id/InputName"
