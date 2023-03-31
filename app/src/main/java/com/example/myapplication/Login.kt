@@ -21,7 +21,6 @@ class Login : AppCompatActivity() {
         val login = findViewById<Button>(R.id.ButtonLogin)
         val change = findViewById<Button>(R.id.ButtonChange)
         val add = findViewById<Button>(R.id.ButtonAdd)
-        val test = findViewById<Button>(R.id.test)
         //輸入的文字框(帳號密碼)
         val inputAccount = findViewById<EditText>(R.id.InputAccount)
         val inputPassword = findViewById<EditText>(R.id.InputPassword)
@@ -82,11 +81,11 @@ class Login : AppCompatActivity() {
                 }
         }
 
-        test.setOnClickListener{
-            val intent = Intent(this, Signup::class.java)
-            startActivity(intent)
-
-        }
+//        test.setOnClickListener{
+//            val intent = Intent(this, Signup::class.java)
+//            startActivity(intent)
+//
+//        }
 
     }
 }
