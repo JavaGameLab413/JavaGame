@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ class Login : AppCompatActivity() {
         val login = findViewById<Button>(R.id.ButtonLogin)
         val change = findViewById<Button>(R.id.ButtonChange)
         val add = findViewById<Button>(R.id.ButtonAdd)
+        val test = findViewById<Button>(R.id.test)
         //輸入的文字框(帳號密碼)
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
@@ -59,5 +61,12 @@ class Login : AppCompatActivity() {
                     Log.e("MainActivity", "Error adding data to Firestorm")
                 }
         }
+
+        test.setOnClickListener{
+            val intent = Intent(this, Signup::class.java)
+            startActivity(intent)
+
+        }
+
     }
 }

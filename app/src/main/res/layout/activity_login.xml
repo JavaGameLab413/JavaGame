@@ -81,6 +81,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="新增" />
+
+            <Button
+                android:id="@+id/test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="註冊測試" />
         </LinearLayout>
 
     </LinearLayout>
