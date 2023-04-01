@@ -86,11 +86,6 @@ class Signup : AppCompatActivity(){
                 }
 
 
-            Log.d("test", name.text.toString())
-            Log.d("test", account.text.toString())
-            Log.d("test", password.text.toString())
-
-
         }
 
 
