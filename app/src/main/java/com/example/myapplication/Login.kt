@@ -72,13 +72,17 @@ class Login : AppCompatActivity() {
             )
 
             // Write the data to the document
-            newDocRef.set(data)
-                .addOnSuccessListener {
-                    Log.d("MainActivity", "Data added to Firestorm")
-                }
-                .addOnFailureListener {
-                    Log.e("MainActivity", "Error adding data to Firestorm")
-                }
+//            newDocRef.set(data)
+//                .addOnSuccessListener {
+//                    Log.d("MainActivity", "Data added to Firestorm")
+//                }
+//                .addOnFailureListener {
+//                    Log.e("MainActivity", "Error adding data to Firestorm")
+//                }
+
+            val intent = Intent(this, Signup::class.java)
+            startActivity(intent)
+
         }
 
 //        test.setOnClickListener{
