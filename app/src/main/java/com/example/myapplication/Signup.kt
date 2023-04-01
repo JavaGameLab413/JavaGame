@@ -33,31 +33,24 @@ class Signup : AppCompatActivity(){
         val writeUser = db.collection("users").document()
         val writeData = db.collection("propoty").document()
 
-
+        var serialNumber:Int =-1
 
         signup.setOnClickListener{
 
-//            var max = db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
-//                .limit(1).get().toString()
-//
-//            Log.d("test", max)
-//            var max2 = db.collection("users")
-//                .orderBy("serialNumber", Query.Direction.DESCENDING).limit(1)
-//                .get()
+            //由大到小排序並取得第一位的值
+             db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
+                .limit(1).get().addOnSuccessListener { documents ->
+                    serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
+                    Log.d("aaa", serialNumber.toString())
 
-            var serialNumber:Int = 9
-
-//            var serialNumber : Int = Integer.parseInt(db.collection("users")
-//                .orderBy("serialNumber", Query.Direction.DESCENDING).limit(1)
-//                .get().toString())
-
+                }
 
             newDocRef.whereEqualTo("account",account.text.toString()).get()
                 .addOnSuccessListener { documents ->
                     if(documents.size()==0){
-                        serialNumber++
-                   //     Log.d("test", max.toString())
 
+                        serialNumber ++
+                        Log.d("bbb", serialNumber.toString())
                         // Set the document data
                         val data = hashMapOf(
                             "account" to account.text.toString(),
@@ -66,12 +59,6 @@ class Signup : AppCompatActivity(){
                         )
 
                         writeUser.set(data)
-                            .addOnSuccessListener {
-                            Log.d("MainActivity", "Data added to Firestorm")
-                        }
-                            .addOnFailureListener {
-                                Log.e("MainActivity", "Error adding data to Firestorm")
-                            }
 
                         val data2 = hashMapOf(
                             "name" to name.text.toString(),
