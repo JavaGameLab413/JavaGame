@@ -26,20 +26,6 @@
         app:srcCompat="@drawable/yellow_card"
         app:tint="#80F0E68C" />
 
-    <Button
-        android:id="@+id/ButtonLogin"
-        android:layout_width="318dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="453dp"
-        android:layout_marginEnd="45dp"
-        android:layout_weight="1"
-        android:text="登入"
-        app:backgroundTint="#80000000"
-        app:layout_constraintEnd_toEndOf="@+id/loginBackground"
-        app:layout_constraintStart_toStartOf="@+id/loginBackground"
-        app:layout_constraintTop_toTopOf="@+id/yellow_card" />
-
     <ImageView
         android:id="@+id/loginframe"
         android:layout_width="wrap_content"
@@ -67,34 +53,6 @@
         app:layout_constraintStart_toStartOf="@+id/loginframe"
         app:layout_constraintTop_toTopOf="@+id/loginframe" />
 
-    <EditText
-        android:id="@+id/InputAccount"
-        android:layout_width="195dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/textframe"
-        android:ems="15"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/loginframe"
-        app:layout_constraintTop_toTopOf="@+id/loginframe" />
-
-    <EditText
-        android:id="@+id/InputPassword"
-        android:layout_width="195dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/textframe"
-        android:ems="15"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/loginframe"
-        app:layout_constraintTop_toTopOf="@+id/loginframe" />
-
     <TextView
         android:id="@+id/TextAccount"
         android:layout_width="wrap_content"
@@ -118,6 +76,48 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/loginframe"
         app:layout_constraintTop_toTopOf="@+id/loginframe" />
+
+    <EditText
+        android:id="@+id/InputAccount"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/textframe"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginframe"
+        app:layout_constraintTop_toTopOf="@+id/loginframe" />
+
+    <EditText
+        android:id="@+id/InputPassword"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/textframe"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginframe"
+        app:layout_constraintTop_toTopOf="@+id/loginframe" />
+
+    <Button
+        android:id="@+id/ButtonLogin"
+        android:layout_width="318dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="453dp"
+        android:layout_marginEnd="45dp"
+        android:layout_weight="1"
+        android:text="登入"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="@+id/loginBackground"
+        app:layout_constraintStart_toStartOf="@+id/loginBackground"
+        app:layout_constraintTop_toTopOf="@+id/yellow_card" />
 
     <Button
         android:id="@+id/ButtonAdd"

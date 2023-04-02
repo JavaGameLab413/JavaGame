@@ -1,97 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Signup">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/signupBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background"
+        tools:ignore="ContentDescription" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/TextName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="暱稱 :" />
-
-            <EditText
-                android:id="@+id/InputName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="15"
-                android:inputType="textPersonName"
-                android:hint="這邊輸入你的暱稱喔!"
-                android:background="@null"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/TextAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accountText" />
-
-            <EditText
-                android:id="@+id/InputAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="15"
-                android:inputType="textPersonName"
-                android:hint="這邊輸入你的帳號喔!"
-                android:background="@null"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/TextPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="密碼 : " />
-
-            <EditText
-                android:id="@+id/InputPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="15"
-                android:inputType="textPersonName"
-                android:hint="這邊輸入的密碼會被隱藏起來喔!"
-                android:background="@null"/>
-        </TableRow>
-
-    </TableLayout>
-
-    <LinearLayout
+    <ImageView
+        android:id="@+id/yellow_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yellow_card"
+        app:tint="#80F0E68C" />
 
-        <Button
-            android:id="@+id/ButtonSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="註冊" />
-    </LinearLayout>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/signupframe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="45dp"
+        app:layout_constraintEnd_toEndOf="@+id/signupBackground"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/signupBackground"
+        app:layout_constraintTop_toTopOf="@+id/signupBackground"
+        app:srcCompat="@drawable/signup_frame" />
 
+    <TextView
+        android:id="@+id/signupView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="132dp"
+        android:text="註冊帳號"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:drawableTint="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/signupframe"
+        app:layout_constraintStart_toStartOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
 
+    <TextView
+        android:id="@+id/TextName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="120dp"
+        android:text="暱稱 :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
 
+    <TextView
+        android:id="@+id/TextAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="220dp"
+        android:text="@string/accountText"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+
+    <TextView
+        android:id="@+id/TextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="320dp"
+        android:text="密碼 : "
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+
+    <EditText
+        android:id="@+id/InputName"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/textframe"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+
+    <EditText
+        android:id="@+id/InputAccount"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/textframe"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+
+    <EditText
+        android:id="@+id/InputPassword"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/textframe"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/signupframe"
+        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+
+    <Button
+        android:id="@+id/ButtonSignup"
+        android:layout_width="318dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="576dp"
+        android:layout_marginEnd="45dp"
+        android:layout_weight="1"
+        android:text="註冊"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="@+id/signupBackground"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/signupBackground"
+        app:layout_constraintTop_toTopOf="@+id/signupBackground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
