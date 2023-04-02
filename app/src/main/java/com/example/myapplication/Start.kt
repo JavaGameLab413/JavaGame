@@ -18,6 +18,11 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
+
+        //實作文本(名稱)
+        var textView = findViewById<TextView>(R.id.playerId)
+        textView.text = GlobalVariable.getName()
+
         //設置按鈕監聽
         fight.setOnClickListener(this)
         history.setOnClickListener(this)
