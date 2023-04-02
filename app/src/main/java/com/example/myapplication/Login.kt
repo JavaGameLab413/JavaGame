@@ -48,7 +48,8 @@ class Login : AppCompatActivity() {
                             //抓流水號
                             val serialNumber = user.getLong("serialNumber").toString()
                             //設全域變數
-                            GlobalVariable.setName(serialNumber)
+                            GlobalVariable.setNumber(serialNumber)
+                            Log.d("test", GlobalVariable.getNumber())
 
 
                         } else {

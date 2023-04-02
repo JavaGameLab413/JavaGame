@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
@@ -19,15 +20,25 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
 
-        //實作文本(名稱)
-        var textView = findViewById<TextView>(R.id.playerId)
-        textView.text = GlobalVariable.getName()
-
         //設置按鈕監聽
         fight.setOnClickListener(this)
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
+
+        //實作文本(名稱)
+        val playername = findViewById<TextView>(R.id.playerId)
+        val playermoney = findViewById<TextView>(R.id.gold)
+
+        //取得名稱
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("propoty").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber())).get().addOnSuccessListener { documents ->
+
+            playername.text = documents.first().getString("name")
+            playermoney.text = documents.first().getLong("money").toString()+" G"
+        }
+
 
     }
     //施行按鈕方法

@@ -3,16 +3,19 @@ package com.example.myapplication
 import android.app.Application
 
 class GlobalVariable : Application(){
+
     companion object{
         //存放全域變數
-        private var playername: String = ""
+        private var playernumber: String = "-1"
         //修改 變數値
-        fun setName(name: String){
-            this.playername = name
+        fun setNumber(name: String){
+            this.playernumber = name
         }
         //取得 變數值
-        fun getName(): String{
-            return playername
+        fun getNumber(): String{
+            return playernumber
         }
+
+
     }
 }
