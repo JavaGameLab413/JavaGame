@@ -30,7 +30,7 @@ class Login : AppCompatActivity() {
         // Create a new document with a generated ID
         val newDocRef = db.collection("users").document()
         val readDocRed = db.collection("users")
-        var serialNumber: Int = 0
+
         //設置登入按鈕功能
         login.setOnClickListener {
             Log.d("test", inputAccount.text.toString())
@@ -44,6 +44,13 @@ class Login : AppCompatActivity() {
                             // 密碼正確，登錄成功
                             Toast.makeText(this,"登入成功!",Toast.LENGTH_SHORT).show()
                             Log.d(TAG, "Login success!")
+
+                            //抓流水號
+                            val serialNumber = user.getLong("serialNumber").toString()
+                            //設全域變數
+                            GlobalVariable.setName(serialNumber)
+
+
                         } else {
                             // 密碼錯誤
                             Toast.makeText(this,"登入失敗!",Toast.LENGTH_SHORT).show()
@@ -62,14 +69,13 @@ class Login : AppCompatActivity() {
         }
         //新增帳號功能按鈕監聽
         add.setOnClickListener {
-            serialNumber += 1
 
             // Set the document data
-            val data = hashMapOf(
-                "account" to inputAccount.text.toString(),
-                "password" to inputPassword.text.toString(),
-                "serialNumber" to serialNumber
-            )
+//            val data = hashMapOf(
+//                "account" to inputAccount.text.toString(),
+//                "password" to inputPassword.text.toString(),
+//                "serialNumber" to serialNumber
+//            )
 
             // Write the data to the document
 //            newDocRef.set(data)
