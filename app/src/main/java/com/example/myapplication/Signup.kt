@@ -26,12 +26,12 @@ class Signup : AppCompatActivity(){
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
 
-        // Access Firebase Firestorm
+        // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val newDocRef = db.collection("users")
         val writeUser = db.collection("users").document()
-        val writeData = db.collection("propoty").document()
+        val writeData = db.collection("property").document()
 
         var serialNumber:Int =-1
 
@@ -39,16 +39,15 @@ class Signup : AppCompatActivity(){
 
             //由大到小排序並取得第一位的值
              db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
-                .limit(1).get().addOnSuccessListener { documents ->
+                .limit(1).get()
+                 .addOnSuccessListener { documents ->
                     serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
-                    Log.d("aaa", serialNumber.toString())
-
-                }
+                    Log.d("流水號最大值 :", serialNumber.toString())
+                 }
 
             newDocRef.whereEqualTo("account",account.text.toString()).get()
                 .addOnSuccessListener { documents ->
                     if(documents.size()==0){
-
                         serialNumber ++
                         Log.d("bbb", serialNumber.toString())
                         // Set the document data

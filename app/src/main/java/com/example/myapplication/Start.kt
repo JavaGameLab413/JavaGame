@@ -27,18 +27,18 @@ class Start : AppCompatActivity(), View.OnClickListener {
         backPack.setOnClickListener(this)
 
         //實作文本(名稱)
-        val playername = findViewById<TextView>(R.id.playerId)
-        val playermoney = findViewById<TextView>(R.id.gold)
+        val playerName = findViewById<TextView>(R.id.playerId)
+        val playerMoney = findViewById<TextView>(R.id.gold)
 
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("propoty").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber())).get().addOnSuccessListener { documents ->
-
-            playername.text = documents.first().getString("name")
-            playermoney.text = documents.first().getLong("money").toString()+" G"
-        }
-
+        db.collection("property").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+            .get()
+            .addOnSuccessListener { documents ->
+                playerName.text = documents.first().getString("name")
+                playerMoney.text = documents.first().getLong("money").toString()+" G"
+            }
 
     }
     //施行按鈕方法
