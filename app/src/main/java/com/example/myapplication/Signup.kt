@@ -37,58 +37,51 @@ class Signup : AppCompatActivity(){
 
         signup.setOnClickListener{
 
-            //由大到小排序並取得第一位的值
+            //由大到小排序並取得流水號的最大值
              db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
                 .limit(1).get()
                  .addOnSuccessListener { documents ->
                     serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
                     Log.d("流水號最大值 :", serialNumber.toString())
                  }
-
+            //看帳號是否存在，如果不存在就可以建立帳號
             newDocRef.whereEqualTo("account",account.text.toString()).get()
-                .addOnSuccessListener { documents ->
-                    if(documents.size()==0){
-                        serialNumber ++
-                        Log.d("新增的流水號", serialNumber.toString())
-                        // Set the document data
-                        val data = hashMapOf(
-                            "account" to account.text.toString(),
-                            "password" to password.text.toString(),
-                            "serialNumber" to serialNumber
-                        )
+            .addOnSuccessListener { documents ->
+                if(documents.size()==0){
+                    serialNumber ++
+                    Log.d("新增的流水號", serialNumber.toString())
+                    // Set the document data
+                    val data = hashMapOf(
+                        "account" to account.text.toString(),
+                        "password" to password.text.toString(),
+                        "serialNumber" to serialNumber
+                    )
 
-                        writeUser.set(data)
+                    writeUser.set(data)
 
-                        val data2 = hashMapOf(
-                            "name" to name.text.toString(),
-                            "lv" to 1,
-                            "history" to 0,
-                            "money" to 0,
-                            "serialNumber" to serialNumber
-                        )
+                    val data2 = hashMapOf(
+                        "name" to name.text.toString(),
+                        "lv" to 1,
+                        "history" to 0,
+                        "money" to 0,
+                        "serialNumber" to serialNumber
+                    )
 
-                        writeData.set(data2)
+                    writeData.set(data2)
 
-                        Toast.makeText(this,"註冊成功!",Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Signup success!")
+                    Toast.makeText(this,"註冊成功!",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "Signup success!")
 
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-
-                    }
-                    else{
-                        Toast.makeText(this,"帳號已存在!",Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Signup fail!")
-                    }
-
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
 
                 }
-
-
+                else{
+                    Toast.makeText(this,"帳號已存在!",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "Signup fail!")
+                }
+            }
         }
-
-
-
     }
 
 }
