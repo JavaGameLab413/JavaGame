@@ -49,7 +49,7 @@ class Signup : AppCompatActivity(){
                 .addOnSuccessListener { documents ->
                     if(documents.size()==0){
                         serialNumber ++
-                        Log.d("bbb", serialNumber.toString())
+                        Log.d("新增的流水號", serialNumber.toString())
                         // Set the document data
                         val data = hashMapOf(
                             "account" to account.text.toString(),
