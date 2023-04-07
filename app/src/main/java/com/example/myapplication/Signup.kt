@@ -20,12 +20,10 @@ class Signup : AppCompatActivity(){
 
         //按鈕
         val signup = findViewById<Button>(R.id.ButtonSignup)
-
         //輸入的文字框(帳號密碼)
         val name = findViewById<EditText>(R.id.InputName)
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
-
         // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
@@ -50,13 +48,13 @@ class Signup : AppCompatActivity(){
                 if(documents.size()==0){
                     serialNumber ++
                     Log.d("新增的流水號", serialNumber.toString())
-                    // Set the document data
+                    // 將資料存放在data
                     val data = hashMapOf(
                         "account" to account.text.toString(),
                         "password" to password.text.toString(),
                         "serialNumber" to serialNumber
                     )
-
+                    //將 data 寫入資料庫
                     writeUser.set(data)
 
                     val data2 = hashMapOf(
@@ -66,19 +64,19 @@ class Signup : AppCompatActivity(){
                         "money" to 0,
                         "serialNumber" to serialNumber
                     )
-
+                    //將資料寫入資料庫
                     writeData.set(data2)
 
+                    //顯示註冊成功的彈窗
                     Toast.makeText(this,"註冊成功!",Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "Signup success!")
-
+                    //切換畫面至登入
                     val intent = Intent(this, Login::class.java)
                     startActivity(intent)
-
                 }
                 else{
+                    //顯示註冊失敗的彈窗
                     Toast.makeText(this,"帳號已存在!",Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "Signup fail!")
                 }
             }
         }
