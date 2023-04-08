@@ -20,76 +20,66 @@ class Signup : AppCompatActivity(){
 
         //按鈕
         val signup = findViewById<Button>(R.id.ButtonSignup)
-
         //輸入的文字框(帳號密碼)
         val name = findViewById<EditText>(R.id.InputName)
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
-
-        // Access Firebase Firestorm
+        // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val newDocRef = db.collection("users")
         val writeUser = db.collection("users").document()
-        val writeData = db.collection("propoty").document()
+        val writeData = db.collection("property").document()
 
         var serialNumber:Int =-1
 
         signup.setOnClickListener{
 
-            //由大到小排序並取得第一位的值
+            //由大到小排序並取得流水號的最大值
              db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
-                .limit(1).get().addOnSuccessListener { documents ->
+                .limit(1).get()
+                 .addOnSuccessListener { documents ->
                     serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
-                    Log.d("aaa", serialNumber.toString())
-
-                }
-
+                    Log.d("流水號最大值 :", serialNumber.toString())
+                 }
+            //看帳號是否存在，如果不存在就可以建立帳號
             newDocRef.whereEqualTo("account",account.text.toString()).get()
-                .addOnSuccessListener { documents ->
-                    if(documents.size()==0){
+            .addOnSuccessListener { documents ->
+                if(documents.size()==0){
+                    serialNumber ++
+                    Log.d("新增的流水號", serialNumber.toString())
+                    // 將資料存放在data
+                    val data = hashMapOf(
+                        "account" to account.text.toString(),
+                        "password" to password.text.toString(),
+                        "serialNumber" to serialNumber
+                    )
+                    //將 data 寫入資料庫
+                    writeUser.set(data)
 
-                        serialNumber ++
-                        Log.d("bbb", serialNumber.toString())
-                        // Set the document data
-                        val data = hashMapOf(
-                            "account" to account.text.toString(),
-                            "password" to password.text.toString(),
-                            "serialNumber" to serialNumber
-                        )
+                    val data2 = hashMapOf(
+                        "name" to name.text.toString(),
+                        "lv" to 1,
+                        "history" to 0,
+                        "money" to 0,
+                        "serialNumber" to serialNumber
+                    )
+                    //將資料寫入資料庫
+                    writeData.set(data2)
 
-                        writeUser.set(data)
-
-                        val data2 = hashMapOf(
-                            "name" to name.text.toString(),
-                            "lv" to 1,
-                            "history" to 0,
-                            "money" to 0,
-                            "serialNumber" to serialNumber
-                        )
-
-                        writeData.set(data2)
-
-                        Toast.makeText(this,"註冊成功!",Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Signup success!")
-
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-
-                    }
-                    else{
-                        Toast.makeText(this,"帳號已存在!",Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Signup fail!")
-                    }
-
-
+                    //顯示註冊成功的彈窗
+                    Toast.makeText(this,"註冊成功!",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "Signup success!")
+                    //切換畫面至登入
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
                 }
-
-
+                else{
+                    //顯示註冊失敗的彈窗
+                    Toast.makeText(this,"帳號已存在!",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-
-
-
     }
 
 }
