@@ -10,8 +10,7 @@
         android:id="@+id/loginBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/background"
         tools:ignore="ContentDescription" />
 
@@ -19,8 +18,7 @@
         android:id="@+id/yellow_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/yellow_card"
         app:tint="#80F0E68C"
         tools:ignore="ContentDescription" />
