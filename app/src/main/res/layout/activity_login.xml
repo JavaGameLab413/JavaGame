@@ -81,13 +81,13 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/text_frame"
         android:ems="15"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/loginFrame"
         app:layout_constraintTop_toTopOf="@+id/loginFrame"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/InputPassword"
@@ -97,13 +97,13 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/text_frame"
         android:ems="15"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/loginFrame"
         app:layout_constraintTop_toTopOf="@+id/loginFrame"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/ButtonLogin"
