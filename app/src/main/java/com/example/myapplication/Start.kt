@@ -33,10 +33,10 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("property").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection("propertys").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
             .get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name")
+                playerName.text = documents.first().getString("name").toString()
                 playerMoney.text = documents.first().getLong("money").toString()+" G"
             }
 
