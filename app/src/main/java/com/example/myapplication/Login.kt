@@ -2,13 +2,12 @@ package com.example.myapplication
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
@@ -28,7 +27,7 @@ class Login : AppCompatActivity() {
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val newDocRef = db.collection("users").document()
+        db.collection("users").document()
         val readDocRed = db.collection("users")
 
         //設置登入按鈕功能
@@ -72,23 +71,6 @@ class Login : AppCompatActivity() {
         }
         //新增帳號功能按鈕監聽
         add.setOnClickListener {
-
-            // Set the document data
-//            val data = hashMapOf(
-//                "account" to inputAccount.text.toString(),
-//                "password" to inputPassword.text.toString(),
-//                "serialNumber" to serialNumber
-//            )
-
-            // Write the data to the document
-//            newDocRef.set(data)
-//                .addOnSuccessListener {
-//                    Log.d("MainActivity", "Data added to Firestorm")
-//                }
-//                .addOnFailureListener {
-//                    Log.e("MainActivity", "Error adding data to Firestorm")
-//                }
-
             val intent = Intent(this, Signup::class.java)
             startActivity(intent)
 
