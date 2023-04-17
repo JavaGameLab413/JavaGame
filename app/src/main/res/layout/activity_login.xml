@@ -24,7 +24,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/yellow_card"
-        app:tint="#80F0E68C" />
+        app:tint="#80F0E68C"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/loginFrame"
@@ -36,7 +37,8 @@
         app:layout_constraintEnd_toEndOf="@+id/loginBackground"
         app:layout_constraintStart_toStartOf="@+id/loginBackground"
         app:layout_constraintTop_toTopOf="@+id/loginBackground"
-        app:srcCompat="@drawable/login_frame" />
+        app:srcCompat="@drawable/login_frame"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/loginView"
@@ -51,7 +53,8 @@
         app:drawableTint="#000000"
         app:layout_constraintEnd_toEndOf="@+id/loginFrame"
         app:layout_constraintStart_toStartOf="@+id/loginFrame"
-        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/TextAccount"
@@ -75,7 +78,8 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/loginFrame"
-        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/InputAccount"
@@ -89,7 +93,9 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/loginFrame"
-        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/InputPassword"
@@ -103,17 +109,19 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/loginFrame"
-        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/ButtonLogin"
         android:layout_width="318dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="453dp"
         android:layout_marginEnd="45dp"
         android:layout_weight="1"
-        android:text="登入"
+        android:text="@string/login"
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="@+id/loginBackground"
         app:layout_constraintStart_toStartOf="@+id/loginBackground"
@@ -122,12 +130,12 @@
     <Button
         android:id="@+id/ButtonAdd"
         android:layout_width="318dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="528dp"
         android:layout_marginEnd="45dp"
         android:layout_weight="1"
-        android:text="註冊"
+        android:text="@string/sign"
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="@+id/loginBackground"
         app:layout_constraintStart_toStartOf="@+id/loginBackground"
@@ -141,7 +149,7 @@
         android:layout_marginTop="599dp"
         android:layout_marginEnd="270dp"
         android:layout_weight="1"
-        android:text="修改"
+        android:text="@string/fix"
         app:layout_constraintEnd_toEndOf="@+id/loginBackground"
         app:layout_constraintStart_toStartOf="@+id/loginBackground"
         app:layout_constraintTop_toTopOf="@+id/loginBackground" />
