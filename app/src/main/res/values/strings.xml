@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Java Gane</string>
     <string name="playerId">名稱</string>
     <string name="account">帳號 :</string>
     <string name="login">登入</string>
