@@ -1,12 +1,13 @@
 package com.example.myapplication
 
 import android.content.ContentValues.TAG
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
@@ -20,35 +21,61 @@ class Login : AppCompatActivity() {
         val change = findViewById<Button>(R.id.ButtonChange)
         val add = findViewById<Button>(R.id.ButtonAdd)
         //輸入的文字框(帳號密碼)
-        val account = findViewById<EditText>(R.id.InputAccount)
-        val password = findViewById<EditText>(R.id.InputPassword)
+        val inputAccount = findViewById<EditText>(R.id.InputAccount)
+        val inputPassword = findViewById<EditText>(R.id.InputPassword)
 
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val newDocRef = db.collection("users").document()
-        var serialNumber: Int = 0
+        db.collection("users").document()
+        val readDocRed = db.collection("users")
 
-        add.setOnClickListener {
-            serialNumber += 1
+        //設置登入按鈕功能
+        login.setOnClickListener {
+            Log.d("test", inputAccount.text.toString())
+            readDocRed.whereEqualTo("account", inputAccount.text.toString()).get()
+                .addOnSuccessListener { documents ->
+                    if (documents.size() > 0) {
+                        // 找到使用者，檢查密碼
+                        val user = documents.first()
+                        val password = user.getString("password")
+                        if (password == inputPassword.text.toString()) {
+                            // 密碼正確，登錄成功
+                            Toast.makeText(this,"登入成功!",Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Login success!")
+                            //切換畫面
+                            val intent = Intent(this, Start::class.java)
+                            startActivity(intent)
+                            //抓流水號
+                            val serialNumber = user.getLong("serialNumber").toString()
+                            //設全域變數
+                            GlobalVariable.setNumber(serialNumber)
+                            Log.d("test", GlobalVariable.getNumber())
 
 
-
-            // Set the document data
-            val data = hashMapOf(
-                "account" to account.text.toString(),
-                "password" to password.text.toString(),
-                "serialNumber" to serialNumber
-            )
-
-            // Write the data to the document
-            newDocRef.set(data)
-                .addOnSuccessListener {
-                    Log.d("MainActivity", "Data added to Firestorm")
+                        } else {
+                            // 密碼錯誤
+                            Toast.makeText(this,"登入失敗!",Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Incorrect password!")
+                        }
+                    } else {
+                        // 找不到使用者
+                        Toast.makeText(this,"登入失敗!",Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "User not found!")
+                    }
                 }
-                .addOnFailureListener {
-                    Log.e("MainActivity", "Error adding data to Firestorm")
+                .addOnFailureListener { exception ->
+                    // 讀取資料失敗
+                    Log.w(TAG, "Error getting documents.", exception)
                 }
         }
+        //新增帳號功能按鈕監聽
+        add.setOnClickListener {
+            val intent = Intent(this, Signup::class.java)
+            startActivity(intent)
+
+        }
+
+
     }
 }

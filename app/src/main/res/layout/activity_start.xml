@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/playerId"
+            android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
         <ImageView
@@ -55,12 +56,12 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/lvText"
+            android:id="@+id/gold"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="LV"
-            android:textColor="#000000"
+            android:text="0G"
+            android:textColor="#FFFFFF"
             android:textSize="34sp"
             tools:ignore="HardcodedText,TextContrastCheck" />
     </LinearLayout>
@@ -112,6 +113,15 @@
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
         <ImageButton
+            android:id="@+id/backPack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_round"
+            app:srcCompat="@drawable/bag"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
+
+        <ImageButton
             android:id="@+id/shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,14 +130,6 @@
             app:srcCompat="@drawable/shop"
             tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck" />
 
-        <ImageButton
-            android:id="@+id/backPack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_round"
-            app:srcCompat="@drawable/bag"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
