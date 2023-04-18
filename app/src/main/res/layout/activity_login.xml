@@ -6,80 +6,141 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/loginBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/background"
+        tools:ignore="ContentDescription" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/yellow_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/yellow_card"
+        app:tint="#80F0E68C"
+        tools:ignore="ContentDescription" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/loginFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toStartOf="@+id/loginBackground"
+        app:layout_constraintTop_toTopOf="@+id/loginBackground"
+        app:srcCompat="@drawable/login_frame"
+        tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:id="@+id/TextAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="帳號 : " />
+    <TextView
+        android:id="@+id/loginView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/loginGame"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:drawableTint="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/loginFrame"
+        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
 
-                <EditText
-                    android:id="@+id/InputAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </TableRow>
+    <TextView
+        android:id="@+id/TextAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/loginFrame"
+        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/TextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="160dp"
+        android:text="@string/password"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/loginFrame"
+        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
 
-                <TextView
-                    android:id="@+id/TextPassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="密碼 : " />
+    <EditText
+        android:id="@+id/InputAccount"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/text_frame"
+        android:ems="15"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginFrame"
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-                <EditText
-                    android:id="@+id/InputPassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </TableRow>
+    <EditText
+        android:id="@+id/InputPassword"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/text_frame"
+        android:ems="15"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginFrame"
+        app:layout_constraintTop_toTopOf="@+id/loginFrame"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
 
-        </TableLayout>
+    <Button
+        android:id="@+id/ButtonLogin"
+        android:layout_width="318dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="453dp"
+        android:layout_marginEnd="45dp"
+        android:text="@string/login"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="@+id/loginBackground"
+        app:layout_constraintStart_toStartOf="@+id/loginBackground"
+        app:layout_constraintTop_toTopOf="@+id/yellow_card" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/ButtonAdd"
+        android:layout_width="318dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="528dp"
+        android:layout_marginEnd="45dp"
+        android:layout_weight="1"
+        android:text="@string/sign"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="@+id/loginBackground"
+        app:layout_constraintStart_toStartOf="@+id/loginBackground"
+        app:layout_constraintTop_toTopOf="@+id/loginBackground" />
 
-            <Button
-                android:id="@+id/ButtonLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="登入" />
-
-            <Button
-                android:id="@+id/ButtonChange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="修改" />
-
-            <Button
-                android:id="@+id/ButtonAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="新增" />
-        </LinearLayout>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/ButtonChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="599dp"
+        android:layout_marginEnd="270dp"
+        android:layout_weight="1"
+        android:text="@string/fix"
+        app:layout_constraintEnd_toEndOf="@+id/loginBackground"
+        app:layout_constraintStart_toStartOf="@+id/loginBackground"
+        app:layout_constraintTop_toTopOf="@+id/loginBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
