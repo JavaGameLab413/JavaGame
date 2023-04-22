@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Java Game</string>
+    <string name="app_name">Java Gane</string>
     <string name="playerId">名稱</string>
     <string name="account">帳號 :</string>
     <string name="login">登入</string>
     <string name="sign">註冊</string>
-    <string name="delete">刪除帳號</string>
+    <string name="fix">修改</string>
     <string name="loginGame">登入遊戲</string>
     <string name="password">密碼 :</string>
 </resources>
