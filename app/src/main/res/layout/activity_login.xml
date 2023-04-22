@@ -21,7 +21,9 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/yellow_card"
         app:tint="#80F0E68C"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-16dp" />
 
     <ImageView
         android:id="@+id/loginFrame"
@@ -131,14 +133,15 @@
         app:layout_constraintTop_toTopOf="@+id/loginBackground" />
 
     <Button
-        android:id="@+id/ButtonChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="599dp"
-        android:layout_marginEnd="270dp"
+        android:id="@+id/ButtonDeleteAccount"
+        android:layout_width="318dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="596dp"
+        android:layout_marginEnd="45dp"
         android:layout_weight="1"
-        android:text="@string/fix"
+        android:text="@string/delete"
+        app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="@+id/loginBackground"
         app:layout_constraintStart_toStartOf="@+id/loginBackground"
         app:layout_constraintTop_toTopOf="@+id/loginBackground" />
