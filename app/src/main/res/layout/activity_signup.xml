@@ -24,10 +24,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/yellow_card"
-        app:tint="#80F0E68C" />
+        app:tint="#80F0E68C"
+        tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/signupframe"
+        android:id="@+id/signupFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -36,7 +37,8 @@
         app:layout_constraintEnd_toEndOf="@+id/signupBackground"
         app:layout_constraintStart_toStartOf="@+id/signupBackground"
         app:layout_constraintTop_toTopOf="@+id/signupBackground"
-        app:srcCompat="@drawable/signup_frame" />
+        app:srcCompat="@drawable/signup_frame"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/signupView"
@@ -49,9 +51,9 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         app:drawableTint="#000000"
-        app:layout_constraintEnd_toEndOf="@+id/signupframe"
-        app:layout_constraintStart_toStartOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <TextView
         android:id="@+id/TextName"
@@ -62,8 +64,8 @@
         android:text="暱稱 :"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <TextView
         android:id="@+id/TextAccount"
@@ -74,8 +76,8 @@
         android:text="@string/account"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <TextView
         android:id="@+id/TextPassword"
@@ -86,8 +88,8 @@
         android:text="密碼 : "
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <EditText
         android:id="@+id/InputName"
@@ -100,8 +102,9 @@
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/InputAccount"
@@ -114,8 +117,9 @@
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/InputPassword"
@@ -125,11 +129,12 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/text_frame"
         android:ems="15"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/signupframe"
-        app:layout_constraintTop_toTopOf="@+id/signupframe" />
+        app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/ButtonSignup"
@@ -143,7 +148,8 @@
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="@+id/signupBackground"
         app:layout_constraintStart_toStartOf="@+id/signupBackground"
-        app:layout_constraintTop_toTopOf="@+id/signupBackground" />
+        app:layout_constraintTop_toTopOf="@+id/signupBackground"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

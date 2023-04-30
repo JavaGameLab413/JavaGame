@@ -10,82 +10,96 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hall"
         tools:ignore="ContentDescription" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/userInfoBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck">
+        app:srcCompat="@drawable/user_info_background" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/head3"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/playerId"
-            android:layout_width="89dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/playerId"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/lv"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/coin"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/gold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="0G"
-            android:textColor="#FFFFFF"
-            android:textSize="34sp"
-            tools:ignore="HardcodedText,TextContrastCheck" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/gold"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="0G"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@+id/level"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/playerId"
+        app:layout_constraintTop_toTopOf="@+id/playerId"
+        tools:ignore="HardcodedText,MissingConstraints,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/playerId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/playerId"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
-          >
-        <ImageView
-            android:id="@+id/role"
-            android:scaleType="centerInside"
-            android:layout_width="400dp"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:background="@drawable/kidremovebg"
-            tools:ignore="ContentDescription"
-        />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/userInfoBackground" />
+
+    <TextView
+        android:id="@+id/userTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="初心者"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toEndOf="@+id/playerId"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Lv:1"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/userTitle"
+        app:layout_constraintTop_toTopOf="@+id/userTitle" />
+
+    <ImageView
+        android:id="@+id/role"
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="132dp"
+        android:background="@drawable/kidremovebg"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.191"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -101,7 +115,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/button_round"
             app:srcCompat="@drawable/start"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/history"
@@ -119,7 +133,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/button_round"
             app:srcCompat="@drawable/bag"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/shop"

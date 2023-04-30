@@ -12,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Start : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //啟用自定義的主題
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         //實作按鈕
