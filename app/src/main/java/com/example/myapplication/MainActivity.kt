@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         //將畫面設定為按鈕
         val entry: ImageButton = findViewById(R.id.put_data)
         val btLogin = findViewById<Button>(R.id.buttonLogin2)
+        val btGPT = findViewById<Button>(R.id.gpt)
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             // 執行xml檔
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         btLogin.setOnClickListener {
             val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+        btGPT.setOnClickListener{
+            val intent = Intent(this, ChatGPT::class.java)
             startActivity(intent)
         }
 
