@@ -27,7 +27,7 @@ public class ChatGPT extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_gpt);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView tvAnswer = findViewById(R.id.textViewAnswer);
-        Button buttonSend = findViewById(R.id.btSend);
+        Button buttonSend = findViewById(R.id.buttonSend);
         Log.e("test", "Create");
         buttonSend.setOnClickListener((View view) -> {
             String question = ((EditText)findViewById(R.id.edittextInput)).getText().toString();
