@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fight">
-
+    tools:context=".Fight_01">
 
     <ImageView
-        android:id="@+id/backGround"
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fight"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:adjustViewBounds="true"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/fight"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -62,8 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
             android:text="0G"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
@@ -71,74 +66,78 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="112dp"
-        android:layout_height="56dp"
-        android:text="@string/java"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Type"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.194" />
 
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="319dp"
         android:layout_height="430dp"
-        app:layout_constraintBottom_toBottomOf="@+id/backGround"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="UnknownId">
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <Button
-                android:id="@+id/buttonSection1"
+                android:id="@+id/buttonQ1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:textColor="@color/black"
-                android:text="@string/type" />
+                android:textSize="20dp"
+                android:text="@string/q1" />
 
             <Button
-                android:id="@+id/buttonSection2"
+                android:id="@+id/buttonQ2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:textColor="@color/black"
-                android:text="@string/export" />
+                android:textSize="20dp"
+                android:text="@string/q2" />
 
             <Button
-                android:id="@+id/buttonSection3"
+                android:id="@+id/buttonQ3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:textColor="@color/black"
-                android:text="@string/numberThree" />
+                android:textSize="20dp"
+                android:text="@string/q3" />
 
             <Button
-                android:id="@+id/buttonSection4"
+                android:id="@+id/buttonQ4"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:textColor="@color/black"
-                android:text="@string/numberFour" />
+                android:textSize="20dp"
+                android:text="@string/q4" />
 
             <Button
-                android:id="@+id/buttonSection5"
+                android:id="@+id/buttonQ5"
                 android:layout_width="match_parent"
-                android:layout_height="98dp"
+                android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:textColor="@color/black"
-                android:text="@string/numberFive" />
-
+                android:textSize="20dp"
+                android:text="@string/q5" />
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
