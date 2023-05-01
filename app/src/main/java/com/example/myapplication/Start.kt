@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
+    private val propertysDatabaseCollectionName = "propertys"
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
@@ -28,19 +29,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
 
-        //實作文本(名稱)
-        val playerName = findViewById<TextView>(R.id.playerId)
-        val playerMoney = findViewById<TextView>(R.id.gold)
 
-        //取得名稱
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("propertys").whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
-            .get()
-            .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
-                playerMoney.text = documents.first().getLong("money").toString()+" G"
-            }
 
     }
     //施行按鈕方法
@@ -57,14 +46,36 @@ class Start : AppCompatActivity(), View.OnClickListener {
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
                 startActivity(intent)
-                Log.d("test", "This is Debug.");
+                // 關閉頁面
+                // finish()
+                Log.d("test", "This is Debug.")
             }
             R.id.backPack -> {
                 val intent = Intent(this, BackPack::class.java)
                 startActivity(intent)
             }
+
         }
     }
 
+    //刷新頁面
+    override fun onResume() {
+        super.onResume()
+        //實作文本(名稱)
+        val playerName = findViewById<TextView>(R.id.playerId)
+        val playerMoney = findViewById<TextView>(R.id.gold)
+        val playerLevel = findViewById<TextView>(R.id.level)
+
+        //取得名稱
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+            .get()
+            .addOnSuccessListener { documents ->
+                playerName.text = documents.first().getString("name").toString()
+                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
+                playerLevel.text = String.format("Lv: %s",documents.first().getString("lv").toString())
+            }
+    }
 
 }
