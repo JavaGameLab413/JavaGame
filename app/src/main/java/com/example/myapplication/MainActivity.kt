@@ -6,6 +6,7 @@ import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun entry(view: View) {}
 
 
 }
