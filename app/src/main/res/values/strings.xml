@@ -7,4 +7,5 @@
     <string name="delete">刪除帳號</string>
     <string name="loginGame">登入遊戲</string>
     <string name="password">密碼 :</string>
+    <string name="money">0 G</string>
 </resources>
