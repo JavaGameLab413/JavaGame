@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#BEDDA897"
     tools:context=".MainActivity">
 
     <ImageButton
@@ -59,6 +60,7 @@
         android:layout_marginStart="117dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="116dp"
+        android:background="#423C3C"
         android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
