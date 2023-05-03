@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val propertysDatabaseCollectionName = "propertys"
+    private val propertiesDatabaseCollectionName = "properties"
 
 
     @SuppressLint("MissingInflatedId")
@@ -43,8 +43,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val information = db.collection(propertysDatabaseCollectionName).document(GlobalVariable.getNumber())
-        val writeData = db.collection(propertysDatabaseCollectionName).document(GlobalVariable.getNumber())
+        val information = db.collection(propertiesDatabaseCollectionName).document(GlobalVariable.getNumber())
+        val writeData = db.collection(propertiesDatabaseCollectionName).document(GlobalVariable.getNumber())
 
         when (view?.id) {
             R.id.commodity1 -> {
@@ -104,7 +104,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     private fun changeMoney(){
         val playerMoney = findViewById<TextView>(R.id.gold)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
             .get()
             .addOnSuccessListener { documents ->
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
@@ -122,7 +122,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()

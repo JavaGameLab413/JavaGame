@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
-    private val propertysDatabaseCollectionName = "propertys"
+    private val propertiesDatabaseCollectionName = "properties"
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
@@ -69,7 +69,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()

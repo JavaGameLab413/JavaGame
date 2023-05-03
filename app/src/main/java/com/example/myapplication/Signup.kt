@@ -60,7 +60,7 @@ class Signup : AppCompatActivity(){
                             Log.d("新增的流水號", serialNumber.toString())
 
                             //查是否重複名稱
-                            db.collection("propertys").whereEqualTo("name",name.text.toString()).get()
+                            db.collection("properties").whereEqualTo("name",name.text.toString()).get()
                                 .addOnSuccessListener{doc ->
                                     if(doc.size()==0){
                                         // 將資料存放在data
@@ -71,7 +71,7 @@ class Signup : AppCompatActivity(){
                                         )
 
                                         val writeUser = db.collection("users").document(serialNumber.toString())
-                                        val writeData = db.collection("propertys").document(serialNumber.toString())
+                                        val writeData = db.collection("properties").document(serialNumber.toString())
 
                                         //將 data 寫入資料庫
                                         writeUser.set(data)
