@@ -74,7 +74,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getString("lv").toString())
+                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
     }
 
