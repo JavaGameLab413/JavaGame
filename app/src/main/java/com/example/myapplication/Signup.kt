@@ -94,6 +94,8 @@ class Signup : AppCompatActivity(){
                                         val intent = Intent(this, Start::class.java)
                                         startActivity(intent)
                                         GlobalVariable.setNumber(serialNumber.toString())
+                                        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                                        sharedPreferences.edit().putString("ID", serialNumber.toString()).apply()
                                     }
                                     else{
                                         Toast.makeText(this, "此名稱已存在!", Toast.LENGTH_SHORT).show()

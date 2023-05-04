@@ -59,6 +59,9 @@ class Login : AppCompatActivity() {
                             GlobalVariable.setNumber(serialNumber)
                             Log.d("test", GlobalVariable.getNumber())
 
+                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                            sharedPreferences.edit().putString("ID", serialNumber).apply()
+
 
                         } else {
                             // 密碼錯誤

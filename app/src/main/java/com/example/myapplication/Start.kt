@@ -66,10 +66,13 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
 
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
+
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
