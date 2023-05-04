@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".History">
 
+    <ImageButton
+        android:id="@+id/back2"
+        android:layout_width="75dp"
+        android:layout_height="63dp"
+        android:contentDescription="@string/back"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.895"
+        app:srcCompat="@drawable/button_round"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="match_parent"

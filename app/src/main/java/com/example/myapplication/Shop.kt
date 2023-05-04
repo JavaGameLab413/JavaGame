@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -34,6 +35,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         //設置按鈕監聽
         commodity1.setOnClickListener(this)
         commodity2.setOnClickListener(this)
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }
     }
 
     //施行按鈕方法
@@ -162,7 +167,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             money_healing2.visibility = View.VISIBLE
         }
 
+
+
     }
+
 
     private fun changeMoney(){
         val playerMoney = findViewById<TextView>(R.id.gold)

@@ -1,10 +1,12 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,6 +15,7 @@ class FightMain : AppCompatActivity() {
 
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
@@ -25,6 +28,10 @@ class FightMain : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(questionTypeDatabaseCollectionName)
+        /*val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }*/
 
         // 使用get()方法取得集合中所有的文檔快照
         collectionRef.get()

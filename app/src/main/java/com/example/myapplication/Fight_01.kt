@@ -1,17 +1,24 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 class Fight_01 : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight01)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
+        /*val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }*/
 
         val Q_TypeDatabaseCollectionName = "qtype"
         val Q_TypeDatabaseQuestionField = "Question"
