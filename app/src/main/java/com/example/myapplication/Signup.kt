@@ -49,7 +49,7 @@ class Signup : AppCompatActivity(){
                 db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
                     .limit(1).get()
                     .addOnSuccessListener { documents ->
-                        serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
+                        serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())+1
                         Log.d("流水號最大值 :", serialNumber.toString())
                     }
                 //看帳號是否存在，如果不存在就可以建立帳號
@@ -91,8 +91,9 @@ class Signup : AppCompatActivity(){
                                         Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
                                         Log.d(TAG, "Signup success!")
                                         //切換畫面至登入
-                                        val intent = Intent(this, Login::class.java)
+                                        val intent = Intent(this, Start::class.java)
                                         startActivity(intent)
+                                        GlobalVariable.setNumber(serialNumber.toString())
                                     }
                                     else{
                                         Toast.makeText(this, "此名稱已存在!", Toast.LENGTH_SHORT).show()
