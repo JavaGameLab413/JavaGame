@@ -53,8 +53,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         val commodity1 = findViewById<ImageView>(R.id.commodity1)
         val commodity2 = findViewById<ImageView>(R.id.commodity2)
-        val money_healing = findViewById<TextView>(R.id.money_healing)
-        val money_healing2 = findViewById<TextView>(R.id.money_healing2)
+        val money_healing = findViewById<TextView>(R.id.moneyHealing)
+        val money_healing2 = findViewById<TextView>(R.id.moneyHealing2)
         val refresh = findViewById<Button>(R.id.refresh)
         when (view?.id) {
             R.id.commodity1 -> {
