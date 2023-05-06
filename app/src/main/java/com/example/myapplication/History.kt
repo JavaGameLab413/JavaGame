@@ -11,9 +11,10 @@ class History : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        /*val back: ImageButton = findViewById(R.id.back)
+        val back: ImageButton = findViewById(R.id.back)
+
         back.setOnClickListener (){
             finish()
-        }*/
+        }
     }
 }

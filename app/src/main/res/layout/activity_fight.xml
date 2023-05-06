@@ -142,7 +142,7 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/back3"
+        android:id="@+id/back"
         android:layout_width="75dp"
         android:layout_height="63dp"
         android:layout_weight="1"
