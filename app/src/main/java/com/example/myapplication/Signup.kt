@@ -94,6 +94,7 @@ class Signup : AppCompatActivity(){
                                         val intent = Intent(this, Start::class.java)
                                         startActivity(intent)
                                         GlobalVariable.setNumber(serialNumber.toString())
+                                        //將ID寫入本地資料庫User
                                         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
                                         sharedPreferences.edit().putString("ID", serialNumber.toString()).apply()
                                     }

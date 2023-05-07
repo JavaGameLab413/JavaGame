@@ -65,7 +65,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
-
+        //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
 

@@ -102,6 +102,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //刷新金錢
     private fun changeMoney(){
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
@@ -114,6 +115,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //每次進入頁面刷新
     override fun onResume() {
         super.onResume()
         changeMoney()
@@ -123,7 +125,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //取得名稱
         val db = FirebaseFirestore.getInstance()
-
+        //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))

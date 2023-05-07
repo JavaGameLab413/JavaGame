@@ -59,6 +59,7 @@ class Login : AppCompatActivity() {
                             GlobalVariable.setNumber(serialNumber)
                             Log.d("test", GlobalVariable.getNumber())
 
+                            //將ID寫入本地資料庫User
                             val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
                             sharedPreferences.edit().putString("ID", serialNumber).apply()
 
