@@ -55,9 +55,6 @@ class Login : AppCompatActivity() {
                             startActivity(intent)
                             //抓流水號
                             val serialNumber = user.getLong("serialNumber").toString()
-                            //設全域變數
-                            GlobalVariable.setNumber(serialNumber)
-                            Log.d("test", GlobalVariable.getNumber())
 
                             //將ID寫入本地資料庫User
                             val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
