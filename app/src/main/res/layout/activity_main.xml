@@ -48,11 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/yujiboku_regular"
-        android:text="@string/title"
+        android:text="程式惡魔城"
         android:textAlignment="center"
         android:textColor="#C1AE82"
-        android:background="#77000000"
-        android:textSize="40sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +60,17 @@
         app:layout_constraintVertical_bias="0.2" />
 
 
+    <Button
+        android:id="@+id/sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
     <Button
         android:id="@+id/gpt"

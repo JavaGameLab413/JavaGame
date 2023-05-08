@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -19,29 +20,43 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //將畫面設定為按鈕
         val entry: ImageButton = findViewById(R.id.put_data)
-        val btLogin = findViewById<Button>(R.id.buttonLogin2)
+        val signOut = findViewById<Button>(R.id.sign_out)
         val btGPT = findViewById<Button>(R.id.gpt)
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
-            // 執行xml檔
-            val intent = Intent(this, Start::class.java)
-            // 啟動新的 Activity
-            startActivity(intent)
-            //test
+
+            //判斷先前有無登入過
+
+            //抓ID，如果沒有回傳-1
+            sharedPreferences.getString("ID", "-1")
+            //若為-1，登入
+            if(sharedPreferences.getString("ID", "-1").toString()=="-1"){
+                // 執行xml檔
+                val intent = Intent(this, Login::class.java)
+                // 啟動新的 Activity
+                startActivity(intent)
+            }
+            else{
+                // 執行xml檔
+                val intent = Intent(this, Start::class.java)
+                // 啟動新的 Activity
+                startActivity(intent)
+            }
+
         }
 
-        btLogin.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-        }
         btGPT.setOnClickListener{
             val intent = Intent(this, ChatGPT::class.java)
             startActivity(intent)
         }
-
+        signOut.setOnClickListener{
+            sharedPreferences.edit().putString("ID","-1").apply()
+            Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun entry(view: View) {}
-
 
 }
