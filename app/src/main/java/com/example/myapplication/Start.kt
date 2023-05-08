@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -57,6 +58,31 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
         }
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        supportFragmentManager.popBackStack()
+    }
+    class MainActivity : AppCompatActivity(), View.OnKeyListener {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+
+            // 将当前 Activity 设置为 OnKeyListener
+            window.decorView.setOnKeyListener(this)
+        }
+    override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
+        // 检查按下的键是否是返回键，并在这种情况下调用 onBackPressed() 方法
+        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP) {
+            onBackPressed()
+            return true
+        }
+
+        return false
+    }
+}
+
 
     //刷新頁面
     override fun onResume() {
