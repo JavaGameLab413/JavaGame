@@ -34,7 +34,7 @@
         android:text="@string/starGame"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="#D5C58D"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,32 +45,32 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="79dp"
         android:fontFamily="@font/yujiboku_regular"
         android:text="程式惡魔城"
         android:textAlignment="center"
-        android:textColor="#C1AE82"
-        android:textSize="36sp"
+        android:textColor="#4C6C0F"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/put_data"
-        app:layout_constraintVertical_bias="0.2" />
-
+        app:layout_constraintVertical_bias="0.207" />
 
     <Button
         android:id="@+id/sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_out"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/gpt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintVertical_bias="0.988" />
 
     <Button
         android:id="@+id/gpt"
