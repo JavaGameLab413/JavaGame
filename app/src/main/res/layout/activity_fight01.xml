@@ -16,54 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fight"
         tools:ignore="MissingConstraints" />
-
-    <LinearLayout
+    <include
+        layout="@layout/activity_player_info_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <TextView
-            android:id="@+id/playerId"
-            android:layout_width="89dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/playerId"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/head3"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/lv"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/coin"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/gold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="0G"
-            android:textColor="#FFFFFF"
-            android:textSize="34sp"
-            tools:ignore="HardcodedText,TextContrastCheck" />
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textView2"
