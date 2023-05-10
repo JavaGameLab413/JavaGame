@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
-    private val propertysDatabaseCollectionName = "propertys"
+    private val propertiesDatabaseCollectionName = "properties"
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
@@ -65,16 +65,19 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
 
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getString("lv").toString())
+                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
     }
 

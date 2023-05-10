@@ -46,6 +46,7 @@
         app:srcCompat="@drawable/role"
         tools:ignore="ContentDescription" />
 
+
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
@@ -94,8 +95,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="A. public"
-            android:textColor="#795548"
-            tools:ignore="VisualLintButtonSize" />
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/OptionsB"
@@ -103,8 +103,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="B. class"
-            android:textColor="#795548"
-            tools:ignore="VisualLintButtonSize" />
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/OptionsC"
@@ -112,8 +111,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="C. static"
-            android:textColor="#795548"
-            tools:ignore="TextSizeCheck,VisualLintButtonSize" />
+            android:textColor="#000000"
+            tools:ignore="TextSizeCheck" />
 
         <Button
             android:id="@+id/OptionsD"
@@ -121,7 +120,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="D. void"
-            android:textColor="#795548"
-            tools:ignore="VisualLintButtonSize" />
+
+            android:textColor="#000000" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

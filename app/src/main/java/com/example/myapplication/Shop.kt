@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val propertysDatabaseCollectionName = "propertys"
+    private val propertiesDatabaseCollectionName = "properties"
 
 
     @SuppressLint("MissingInflatedId")
@@ -40,11 +40,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(view: View?) {
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val information = db.collection(propertysDatabaseCollectionName).document(GlobalVariable.getNumber())
-        val writeData = db.collection(propertysDatabaseCollectionName).document(GlobalVariable.getNumber())
+        val information = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
 
         when (view?.id) {
             R.id.commodity1 -> {
@@ -101,10 +102,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //刷新金錢
     private fun changeMoney(){
         val playerMoney = findViewById<TextView>(R.id.gold)
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
@@ -112,6 +115,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //每次進入頁面刷新
     override fun onResume() {
         super.onResume()
         changeMoney()
@@ -121,12 +125,14 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //取得名稱
         val db = FirebaseFirestore.getInstance()
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-        db.collection(propertysDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(GlobalVariable.getNumber()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
-                playerLevel.text = String.format("Lv: %s",documents.first().getString("lv").toString())
+                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
     }
 }

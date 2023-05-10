@@ -26,26 +26,15 @@
         app:srcCompat="@drawable/background"
         tools:ignore="ContentDescription" />
 
-    <Button
-        android:id="@+id/buttonLogin2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="172dp"
-        android:text="@string/logIn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="196dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="632dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="550dp"
         android:text="@string/starGame"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="#D5C58D"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,20 +42,35 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextSizeCheck" />
 
-    <ImageView
-        android:id="@+id/imageView7"
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="275dp"
+        android:layout_height="79dp"
+        android:fontFamily="@font/yujiboku_regular"
+        android:text="程式惡魔城"
+        android:textAlignment="center"
+        android:textColor="#4C6C0F"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/put_data"
+        app:layout_constraintVertical_bias="0.207" />
+
+    <Button
+        android:id="@+id/sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="116dp"
-        android:background="#423C3C"
-        android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        android:text="@string/sign_out"
+        app:layout_constraintBottom_toTopOf="@+id/gpt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/title"
-        tools:ignore="ImageContrastCheck" />
+        app:layout_constraintVertical_bias="0.988" />
 
     <Button
         android:id="@+id/gpt"

@@ -49,7 +49,7 @@ class Signup : AppCompatActivity(){
                 db.collection("users").orderBy("serialNumber",Query.Direction.DESCENDING)
                     .limit(1).get()
                     .addOnSuccessListener { documents ->
-                        serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())
+                        serialNumber = Integer.parseInt(documents.first().getLong("serialNumber").toString())+1
                         Log.d("流水號最大值 :", serialNumber.toString())
                     }
                 //看帳號是否存在，如果不存在就可以建立帳號
@@ -60,7 +60,7 @@ class Signup : AppCompatActivity(){
                             Log.d("新增的流水號", serialNumber.toString())
 
                             //查是否重複名稱
-                            db.collection("propertys").whereEqualTo("name",name.text.toString()).get()
+                            db.collection("properties").whereEqualTo("name",name.text.toString()).get()
                                 .addOnSuccessListener{doc ->
                                     if(doc.size()==0){
                                         // 將資料存放在data
@@ -71,7 +71,7 @@ class Signup : AppCompatActivity(){
                                         )
 
                                         val writeUser = db.collection("users").document(serialNumber.toString())
-                                        val writeData = db.collection("propertys").document(serialNumber.toString())
+                                        val writeData = db.collection("properties").document(serialNumber.toString())
 
                                         //將 data 寫入資料庫
                                         writeUser.set(data)
@@ -91,8 +91,12 @@ class Signup : AppCompatActivity(){
                                         Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
                                         Log.d(TAG, "Signup success!")
                                         //切換畫面至登入
-                                        val intent = Intent(this, Login::class.java)
+                                        val intent = Intent(this, Start::class.java)
                                         startActivity(intent)
+
+                                        //將ID寫入本地資料庫User
+                                        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                                        sharedPreferences.edit().putString("ID", serialNumber.toString()).apply()
                                     }
                                     else{
                                         Toast.makeText(this, "此名稱已存在!", Toast.LENGTH_SHORT).show()
