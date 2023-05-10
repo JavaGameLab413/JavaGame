@@ -22,15 +22,18 @@ class FightMain : AppCompatActivity() {
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
+        val correctOutput = "答案正確!"
+        val errorOutput = "答案錯誤!"
 
-        btOptionsA.setOnClickListener {
+
+                btOptionsA.setOnClickListener {
             if(answer=="a"){
-                Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
             }
             else{
-                Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
 
@@ -47,12 +50,12 @@ class FightMain : AppCompatActivity() {
         }
         btOptionsB.setOnClickListener {
             if(answer=="b"){
-                Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
             }
             else{
-                Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
@@ -66,12 +69,12 @@ class FightMain : AppCompatActivity() {
         }
         btOptionsC.setOnClickListener {
             if(answer == "c"){
-                Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
             }
             else{
-                Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
@@ -85,12 +88,12 @@ class FightMain : AppCompatActivity() {
         }
         btOptionsD.setOnClickListener {
             if(answer=="d"){
-                Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
             }
             else{
-                Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
@@ -161,8 +164,9 @@ fun correct(){
 
     information.get().addOnSuccessListener { documents ->
         var money :Int = Integer.parseInt(documents.getLong("money").toString())
-            money += 10
-            writeData.update("money",money)
+        val addMoney =10
+        money += addMoney
+        writeData.update("money",money)
 
     }
 
