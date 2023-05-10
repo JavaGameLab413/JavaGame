@@ -153,23 +153,25 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "Error getting random document: ", exception)
             }
     }
-}
+    private fun correct() {
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val propertiesDatabaseCollectionName = "properties"
 
-fun correct(){
-    val propertiesDatabaseCollectionName = "properties"
+        val db = FirebaseFirestore.getInstance()
+        val information = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        information.get().addOnSuccessListener { documents ->
+            var money: Int = Integer.parseInt(documents.getLong("money").toString())
+            val addMoney = 10
+            money += addMoney
+            writeData.update("money", money)
 
-    val db = FirebaseFirestore.getInstance()
-    val information = db.collection(propertiesDatabaseCollectionName).document(GlobalVariable.getNumber())
-    val writeData = db.collection(propertiesDatabaseCollectionName).document(GlobalVariable.getNumber())
-
-    information.get().addOnSuccessListener { documents ->
-        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-        val addMoney =10
-        money += addMoney
-        writeData.update("money",money)
-
+        }
     }
-
 }
+
+
+
+
 
 
