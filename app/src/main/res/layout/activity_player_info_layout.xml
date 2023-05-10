@@ -19,7 +19,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="123dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/left"
@@ -81,8 +82,8 @@
                 android:id="@+id/userTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="16dp"
                 android:text="初心者"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
