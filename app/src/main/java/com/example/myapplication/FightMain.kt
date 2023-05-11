@@ -28,10 +28,7 @@ class FightMain : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(questionTypeDatabaseCollectionName)
-        /*val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
-            finish()
-        }*/
+
 
         // 使用get()方法取得集合中所有的文檔快照
         collectionRef.get()
@@ -133,6 +130,10 @@ class FightMain : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting random document: ", exception)
             }
+         val back: ImageButton = findViewById(R.id.back)
+ back.setOnClickListener (){
+     finish()
+ }
 
     }
 }

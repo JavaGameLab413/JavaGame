@@ -275,12 +275,12 @@
     <ImageButton
         android:id="@+id/back"
         android:layout_width="60dp"
-        android:layout_height="54dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/back"
-        app:srcCompat="@drawable/button_round"
+        app:srcCompat="@android:drawable/ic_menu_revert"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="116dp" />
+        tools:layout_editor_absoluteY="121dp" />
 
     //
 

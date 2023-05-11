@@ -15,10 +15,7 @@ class Fight_01 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight01)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
-        /*val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
-            finish()
-        }*/
+        val back: ImageButton = findViewById(R.id.back)
 
         val Q_TypeDatabaseCollectionName = "qtype"
         val Q_TypeDatabaseQuestionField = "Question"
@@ -45,8 +42,13 @@ class Fight_01 : AppCompatActivity() {
                         val Question = documents.first()
                         val answer = Question.getString(Q_TypeDatabaseanswerField)
 
+
                     }
                 }
+        }
+        back.setOnClickListener (){
+            val intent = Intent(this, Fight::class.java)
+            startActivity(intent)
         }
     }
 }

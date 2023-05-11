@@ -23,7 +23,8 @@ class Fight : AppCompatActivity() {
         }
 
         back.setOnClickListener (){
-            finish()
+            val intent = Intent(this, Start::class.java)
+            startActivity(intent)
         }
     }
     }
