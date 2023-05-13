@@ -26,7 +26,7 @@ class FightMain : AppCompatActivity() {
         val errorOutput = "答案錯誤!"
 
 
-                btOptionsA.setOnClickListener {
+        btOptionsA.setOnClickListener {
             if(answer=="a"){
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
