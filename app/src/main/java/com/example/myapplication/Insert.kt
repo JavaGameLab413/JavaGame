@@ -41,7 +41,6 @@ class Insert : AppCompatActivity() {
                     sure.setOnClickListener {
                         val con = checkField()
 
-
                         if(con){
                             writeUsers()
                         }
@@ -67,6 +66,7 @@ class Insert : AppCompatActivity() {
 
                         if(con){
                             writeQuestion()
+                            clearText()
                         }
 
 
@@ -98,14 +98,25 @@ class Insert : AppCompatActivity() {
     }
 
     private fun checkField() :Boolean {
-        for(i in editTextCount downTo 0){
-            val checkEditText = findViewById<EditText>(editTextCount)
+        var id: Any
+        for(i in editTextCount downTo 1){
+            id=i
+            val checkEditText = findViewById<EditText>(id)
             if(checkEditText.text.toString()==""){
-                Toast.makeText(this,"所有欄位不可為空不可為空!!!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"所有欄位不可為空!!!",Toast.LENGTH_SHORT).show()
                 return false
             }
         }
         return true
+    }
+
+    private fun clearText(){
+        var id :Any
+        for(i in editTextCount downTo 1){
+            id = i
+            val editText = findViewById<EditText>(id)
+            editText.text.clear()
+        }
     }
 
     private  fun writeUsers(){
@@ -165,6 +176,7 @@ class Insert : AppCompatActivity() {
                                         //顯示寫入成功的彈窗
                                         Toast.makeText(this, "寫入成功!", Toast.LENGTH_SHORT).show()
                                         Log.d(ContentValues.TAG, "Input success!")
+                                        clearText()
                                 }
 
                             }
@@ -216,6 +228,8 @@ class Insert : AppCompatActivity() {
         Log.d(ContentValues.TAG, "Input success!")
 
     }
+
+
 }
 
 
