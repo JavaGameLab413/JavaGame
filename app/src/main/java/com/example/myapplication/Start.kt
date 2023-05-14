@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Start : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
@@ -28,6 +31,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
+
 
 
 
@@ -79,6 +83,16 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
+
+        //音樂
+        mediaPlayer = MediaPlayer.create(this, R.raw.start)
+        mediaPlayer.isLooping = true
+        mediaPlayer.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.release()
     }
 
 }
