@@ -15,30 +15,30 @@ class FightSelect : AppCompatActivity() {
         setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
 
-        val Q_TypeDatabaseCollectionName = "qtype"
-        val Q_TypeDatabaseQuestionField = "Question"
-        val Q_TypeDatabaseanswerField = "answer"
+        val questionDataCollectionName = "qtype"
+        val questionDataQuestionField = "Question"
+        val questionDataAnswerField = "answer"
 
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val questionNumber = Random.nextInt(10) + 1
         val QuestionNumber =
-            db.collection(Q_TypeDatabaseCollectionName).document(questionNumber.toString())
-        val readDocRed = db.collection(Q_TypeDatabaseCollectionName)
+            db.collection(questionDataCollectionName).document(questionNumber.toString())
+        val readDocRed = db.collection(questionDataCollectionName)
 
         btq1.setOnClickListener {
             val intent = Intent(this, FightMain::class.java)
             startActivity(intent)
 
             readDocRed.whereEqualTo(
-                Q_TypeDatabaseQuestionField,
-                Q_TypeDatabaseanswerField.toString()
+                questionDataQuestionField,
+                questionDataAnswerField.toString()
             ).get()
                 .addOnSuccessListener { documents ->
                     if (documents.size() > 0) {
 
                         val Question = documents.first()
-                        val answer = Question.getString(Q_TypeDatabaseanswerField)
+                        val answer = Question.getString(questionDataAnswerField)
 
                     }
                 }
