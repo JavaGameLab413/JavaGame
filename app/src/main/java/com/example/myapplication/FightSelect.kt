@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,41 +9,17 @@ import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
-class Fight_01 : AppCompatActivity() {
+class FightSelect : AppCompatActivity() {
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fight01)
+        setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
 
-        val Q_TypeDatabaseCollectionName = "qtype"
-        val Q_TypeDatabaseQuestionField = "Question"
-        val Q_TypeDatabaseanswerField = "answer"
-
-        val db = FirebaseFirestore.getInstance()
-        // Create a new document with a generated ID
-        val questionNumber = Random.nextInt(10) + 1
-        val QuestionNumber =
-            db.collection(Q_TypeDatabaseCollectionName).document(questionNumber.toString())
-        val readDocRed = db.collection(Q_TypeDatabaseCollectionName)
-
-        btq1.setOnClickListener {
+ btq1.setOnClickListener {
             val intent = Intent(this, FightMain::class.java)
             startActivity(intent)
-
-            readDocRed.whereEqualTo(
-                Q_TypeDatabaseQuestionField,
-                Q_TypeDatabaseanswerField.toString()
-            ).get()
-                .addOnSuccessListener { documents ->
-                    if (documents.size() > 0) {
-
-                        val Question = documents.first()
-                        val answer = Question.getString(Q_TypeDatabaseanswerField)
-
-                    }
-                }
         }
     }
 
@@ -54,8 +29,14 @@ class Fight_01 : AppCompatActivity() {
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
+        val playerTitle = findViewById<TextView>(R.id.userTitle)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        //設置自定義文字格式
+        playerName.setTextAppearance(R.style.AppTheme)
+        playerMoney.setTextAppearance(R.style.AppTheme)
+        playerLevel.setTextAppearance(R.style.AppTheme)
+        playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
 
         //取得名稱

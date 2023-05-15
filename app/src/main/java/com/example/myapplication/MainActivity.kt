@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
-        //setTheme(R.style.AppTheme);
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //將畫面設定為按鈕
@@ -53,18 +53,11 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        btGPT.setOnClickListener{
-            val intent = Intent(this, ChatGPT::class.java)
-            startActivity(intent)
-        }
         signOut.setOnClickListener{
             sharedPreferences.edit().putString("ID","-1").apply()
             Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
         }
-        insert.setOnClickListener {
-            val intent = Intent(this, Insert::class.java)
-            startActivity(intent)
-        }
+
     }
 
     fun entry(view: View) {}

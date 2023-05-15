@@ -23,7 +23,7 @@
             android:name=".FightMain"
             android:exported="false" />
         <activity
-            android:name=".Fight_01"
+            android:name=".FightSelect"
             android:exported="false" />
         <activity
             android:name=".ChatGPT"

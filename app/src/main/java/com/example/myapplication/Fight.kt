@@ -13,12 +13,14 @@ class Fight : AppCompatActivity() {
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //啟用自定義的主題
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         btSection1.setOnClickListener {
-            val intent = Intent(this, Fight_01::class.java)
+            val intent = Intent(this, FightSelect::class.java)
             startActivity(intent)
         }
     }
