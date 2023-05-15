@@ -2,28 +2,120 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FightMain : AppCompatActivity() {
-
-
+    private var sum =0
+    private var answer =""
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
-        val btOptionsA = findViewById<Button>(R.id.buttonOptions1)
-        val btOptionsB = findViewById<Button>(R.id.buttonOptions2)
-        val btOptionsC = findViewById<Button>(R.id.buttonOptions3)
-        val btOptionsD = findViewById<Button>(R.id.buttonOptions4)
-        val mainQuestion = findViewById<TextView>(R.id.QView4)
+        val btOptionsA = findViewById<Button>(R.id.OptionsA)
+        val btOptionsB = findViewById<Button>(R.id.OptionsB)
+        val btOptionsC = findViewById<Button>(R.id.OptionsC)
+        val btOptionsD = findViewById<Button>(R.id.OptionsD)
+        val correctOutput = "答案正確!"
+        val errorOutput = "答案錯誤!"
+
+
+        btOptionsA.setOnClickListener {
+            if(answer=="a"){
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The correct answer!")
+                correct()
+            }
+            else{
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The answer wrong!")
+            }
+
+            sum++
+            Log.d(TAG, sum.toString())
+            if(sum==6){
+                finish()
+                sum =0
+            }else{
+                onResume()
+            }
+
+
+        }
+        btOptionsB.setOnClickListener {
+            if(answer=="b"){
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The correct answer!")
+                correct()
+            }
+            else{
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The answer wrong!")
+            }
+            sum++
+            Log.d(TAG, sum.toString())
+            if(sum==6){
+                finish()
+                sum =0
+            }else{
+                onResume()
+            }
+        }
+        btOptionsC.setOnClickListener {
+            if(answer == "c"){
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The correct answer!")
+                correct()
+            }
+            else{
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The answer wrong!")
+            }
+            sum++
+            Log.d(TAG, sum.toString())
+            if(sum==6){
+                finish()
+                sum =0
+            }else{
+                onResume()
+            }
+        }
+        btOptionsD.setOnClickListener {
+            if(answer=="d"){
+                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The correct answer!")
+                correct()
+            }
+            else{
+                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "The answer wrong!")
+            }
+            sum++
+            Log.d(TAG, sum.toString())
+            if(sum==6){
+                finish()
+                sum =0
+            }else{
+                onResume()
+            }
+        }
+
+
+    }
+    override fun onResume() {
+        super.onResume()
+        val btOptionsA = findViewById<Button>(R.id.OptionsA)
+        val btOptionsB = findViewById<Button>(R.id.OptionsB)
+        val btOptionsC = findViewById<Button>(R.id.OptionsC)
+        val btOptionsD = findViewById<Button>(R.id.OptionsD)
+        val mainQuestion = findViewById<TextView>(R.id.question)
         val questionTypeDatabaseCollectionName = "questionsType"
 
         val db = FirebaseFirestore.getInstance()
@@ -45,7 +137,7 @@ class FightMain : AppCompatActivity() {
                 val bOption = randomDocument.getString("b")
                 val cOption = randomDocument.getString("c")
                 val dOption = randomDocument.getString("d")
-                val answer = randomDocument.getString("ans").toString()
+                answer = randomDocument.getString("ans").toString()
 
                 // TODO: 使用讀取到的變數
                 mainQuestion.text = question.toString()
@@ -54,86 +146,41 @@ class FightMain : AppCompatActivity() {
                 btOptionsC.text = cOption.toString()
                 btOptionsD.text = dOption.toString()
 
-                if (answer=="a"){
-                    btOptionsA.setOnClickListener {
-                        Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The correct answer!")
-                    }
-                    btOptionsB.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsC.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsD.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                }else if(answer =="b"){
-                    btOptionsA.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsB.setOnClickListener {
-                        Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The correct answer!")
-                    }
-                    btOptionsC.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsD.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                }else if(answer.toString()=="c"){
-                    btOptionsA.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsB.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsC.setOnClickListener {
-                        Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The correct answer!")
+                Log.d(TAG, answer)
 
-                    }
-                    btOptionsD.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
 
-                }else if(answer =="d"){
-                    btOptionsA.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsB.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsC.setOnClickListener {
-                        Toast.makeText(this, "答案錯誤!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The answer wrong!")
-                    }
-                    btOptionsD.setOnClickListener {
-                        Toast.makeText(this, "答案正確!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "The correct answer!")
-                    }
 
-                }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting random document: ", exception)
             }
+
          val back: ImageButton = findViewById(R.id.back)
  back.setOnClickListener (){
      finish()
  }
 
     }
+    private fun correct() {
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val propertiesDatabaseCollectionName = "properties"
+
+        val db = FirebaseFirestore.getInstance()
+        val information = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        information.get().addOnSuccessListener { documents ->
+            var money: Int = Integer.parseInt(documents.getLong("money").toString())
+            val addMoney = 10
+            money += addMoney
+            writeData.update("money", money)
+
+
+        }
+    }
 }
+
+
+
+
+
+

@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class Login : AppCompatActivity() {
 
     private val userDatabaseCollectionName = "users"
-    private val propertysDatabaseCollectionName = "propertys"
+    private val propertiesDatabaseCollectionName = "properties"
     private val userDatabaseAccountField = "account"
     private val userDatabasePasswordField = "password"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +55,10 @@ class Login : AppCompatActivity() {
                             startActivity(intent)
                             //抓流水號
                             val serialNumber = user.getLong("serialNumber").toString()
-                            //設全域變數
-                            GlobalVariable.setNumber(serialNumber)
-                            Log.d("test", GlobalVariable.getNumber())
+
+                            //將ID寫入本地資料庫User
+                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                            sharedPreferences.edit().putString("ID", serialNumber).apply()
 
 
                         } else {
@@ -96,7 +97,7 @@ class Login : AppCompatActivity() {
                         // 刪除符合條件的文檔
                         document.reference.delete()
                             .addOnSuccessListener {
-                                FirebaseFirestore.getInstance().collection(propertysDatabaseCollectionName)
+                                FirebaseFirestore.getInstance().collection(propertiesDatabaseCollectionName)
                                     .document(document.id)
                                     .delete()
                                 Toast.makeText(this, "已刪除資料", Toast.LENGTH_SHORT).show()
