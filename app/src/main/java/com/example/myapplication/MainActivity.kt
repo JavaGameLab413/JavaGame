@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val entry: ImageButton = findViewById(R.id.put_data)
         val signOut = findViewById<Button>(R.id.sign_out)
         val btGPT = findViewById<Button>(R.id.gpt)
+        val insert = findViewById<Button>(R.id.insert)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity() {
         signOut.setOnClickListener{
             sharedPreferences.edit().putString("ID","-1").apply()
             Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
+        }
+        insert.setOnClickListener {
+            val intent = Intent(this, Insert::class.java)
+            startActivity(intent)
         }
     }
 
