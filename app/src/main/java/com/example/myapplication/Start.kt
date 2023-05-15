@@ -9,15 +9,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var database: Button
-    private lateinit var gpt: Button
+    private lateinit var btDatabase: Button
+    private lateinit var btGPT: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
@@ -29,8 +28,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
-        database = findViewById(R.id.insert)
-        gpt = findViewById(R.id.gpt)
+        btDatabase = findViewById(R.id.insert)
+        btGPT = findViewById(R.id.gpt)
 
 
         //設置按鈕監聽
@@ -38,8 +37,12 @@ class Start : AppCompatActivity(), View.OnClickListener {
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
-        database.setOnClickListener {
+        btDatabase.setOnClickListener {
             val intent = Intent(this, Insert::class.java)
+            startActivity(intent)
+        }
+        btGPT.setOnClickListener{
+            val intent = Intent(this, ChatGPT::class.java)
             startActivity(intent)
         }
 
@@ -70,6 +73,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
     //刷新頁面
     override fun onResume() {
         super.onResume()
@@ -94,9 +98,9 @@ class Start : AppCompatActivity(), View.OnClickListener {
                     Log.d("game","是測試者")
 
                 }else{
-                    if (database.visibility == View.VISIBLE or gpt.visibility){
-                        database.visibility = View.INVISIBLE
-                        gpt.visibility = View.INVISIBLE
+                    if (btDatabase.visibility == View.VISIBLE or btGPT.visibility){
+                        btDatabase.visibility = View.INVISIBLE
+                        btGPT.visibility = View.INVISIBLE
                     }
 
                 }
