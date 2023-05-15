@@ -14,7 +14,7 @@ class Fight : AppCompatActivity() {
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         btSection1.setOnClickListener {
-            val intent = Intent(this, Fight_01::class.java)
+            val intent = Intent(this, FightSelect::class.java)
             startActivity(intent)
         }
     }

@@ -7,12 +7,12 @@ import android.widget.Button
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
-class Fight_01 : AppCompatActivity() {
+class FightSelect : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fight01)
+        setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
 
         val Q_TypeDatabaseCollectionName = "qtype"
