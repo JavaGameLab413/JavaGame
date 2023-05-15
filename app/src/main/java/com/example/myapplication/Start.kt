@@ -5,15 +5,19 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var database: Button
+    private lateinit var gpt: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
@@ -25,15 +29,19 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
+        database = findViewById(R.id.insert)
+        gpt = findViewById(R.id.gpt)
+
 
         //設置按鈕監聽
         fight.setOnClickListener(this)
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
-
-
-
+        database.setOnClickListener {
+            val intent = Intent(this, Insert::class.java)
+            startActivity(intent)
+        }
 
     }
     //施行按鈕方法
@@ -82,12 +90,28 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 playerName.text = documents.first().getString("name").toString()
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                if (playerName.text == "a"){
+                    Log.d("game","是測試者")
+
+                }else{
+                    if (database.visibility == View.VISIBLE or gpt.visibility){
+                        database.visibility = View.INVISIBLE
+                        gpt.visibility = View.INVISIBLE
+                    }
+
+                }
             }
 
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.start)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+
+        if (playerName.toString() == "a"){
+            Log.d("test","test")
+        }else{
+
+        }
     }
 
     override fun onPause() {
