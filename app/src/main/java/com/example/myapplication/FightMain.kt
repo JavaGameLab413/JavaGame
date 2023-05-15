@@ -121,7 +121,7 @@ class FightMain : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(questionTypeDatabaseCollectionName)
-
+        //自定義的字體
         mainQuestion.setTextAppearance(R.style.AppTheme)
         // 使用get()方法取得集合中所有的文檔快照
         collectionRef.get()
