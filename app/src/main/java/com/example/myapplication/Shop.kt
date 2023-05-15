@@ -124,7 +124,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 //出現位置
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
 
-
+//
             }
 
             R.id.commodity2 -> {
