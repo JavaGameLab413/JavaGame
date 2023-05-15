@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.Image
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import android.widget.ImageButton
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var mediaPlayer: MediaPlayer
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         val btGPT = findViewById<Button>(R.id.gpt)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
 
@@ -59,4 +64,16 @@ class MainActivity : AppCompatActivity() {
 
     fun entry(view: View) {}
 
+    override fun onResume() {
+        super.onResume()
+        //音樂
+        mediaPlayer = MediaPlayer.create(this, R.raw.main)
+        mediaPlayer.isLooping = true
+        mediaPlayer.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.release()
+    }
 }
