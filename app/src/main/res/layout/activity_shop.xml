@@ -17,6 +17,7 @@
         app:srcCompat="@drawable/store"
         tools:ignore="ContentDescription" />
 
+
     <ImageView
         android:id="@+id/userInfoBackground"
         android:layout_width="match_parent"
@@ -84,6 +85,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/userTitle"
         app:layout_constraintTop_toTopOf="@+id/userTitle" />
+
+    <include
+        layout="@layout/activity_player_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <ImageView
         android:id="@+id/imageView5"

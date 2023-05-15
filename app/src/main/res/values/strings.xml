@@ -26,4 +26,7 @@
     <string name="money">0 G</string>
     <string name="back">返回</string>
     <string name="todo1">TODO</string>
+    <string name="sign_out">登出</string>
+    <string name="signup_title">註冊帳號</string>
+    <string name="name">暱稱 :</string>
 </resources>
