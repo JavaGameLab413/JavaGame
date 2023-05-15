@@ -298,7 +298,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     isClippingEnabled=true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                }
+                }//
 
                 //點選按鈕動作
                 myContentView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
