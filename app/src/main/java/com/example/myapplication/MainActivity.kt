@@ -2,12 +2,9 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.Image
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -26,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         //將畫面設定為按鈕
         val entry: ImageButton = findViewById(R.id.put_data)
         val signOut = findViewById<Button>(R.id.sign_out)
-        val btGPT = findViewById<Button>(R.id.gpt)
-        val insert = findViewById<Button>(R.id.insert)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
@@ -63,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun entry(view: View) {}
+
 
     override fun onResume() {
         super.onResume()
