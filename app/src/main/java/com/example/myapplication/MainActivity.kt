@@ -11,9 +11,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         signOut.setOnClickListener{
             sharedPreferences.edit().putString("ID","-1").apply()
             Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
+            onResume()
         }
 
     }
@@ -68,6 +71,17 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.main)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        if(sharedPreferences.getString("ID", "-1")=="-1"){
+            val singOut = findViewById<Button>(R.id.sign_out)
+            singOut.isVisible = false
+        }else{
+            val singOut = findViewById<Button>(R.id.sign_out)
+            singOut.isVisible = true
+        }
+
     }
 
     override fun onPause() {
