@@ -1,15 +1,16 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
-class Fight : AppCompatActivity() {
+class Fight : AppCompatActivity() , View.OnClickListener{
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,37 @@ class Fight : AppCompatActivity() {
             val intent = Intent(this, FightSelect::class.java)
             startActivity(intent)
         }
+
+        val btSection2 = findViewById<Button>(R.id.buttonSection2)
+        val btSection3 = findViewById<Button>(R.id.buttonSection3)
+        val btSection4 = findViewById<Button>(R.id.buttonSection4)
+        val btSection5 = findViewById<Button>(R.id.buttonSection5)
+
+        btSection2.setOnClickListener(this)
+        btSection3.setOnClickListener(this)
+        btSection4.setOnClickListener(this)
+        btSection5.setOnClickListener(this)
     }
+
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.buttonSection2 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonSection3 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonSection4 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonSection5 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)
