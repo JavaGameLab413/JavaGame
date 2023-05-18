@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="122dp"
         android:text="1.以下哪個關鍵字用來宣告一個類別?"
-        android:textColor="@color/black"
+        android:textColor="#FFFEFE"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintEnd_toEndOf="parent"
