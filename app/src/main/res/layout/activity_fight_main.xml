@@ -95,7 +95,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="A. public"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/OptionsB"
@@ -103,7 +104,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="B. class"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/OptionsC"
@@ -112,7 +114,7 @@
             android:backgroundTint="#FFD39B"
             android:text="C. static"
             android:textColor="#000000"
-            tools:ignore="TextSizeCheck" />
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/OptionsD"
@@ -120,8 +122,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFD39B"
             android:text="D. void"
-
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
