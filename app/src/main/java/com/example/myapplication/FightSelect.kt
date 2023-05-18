@@ -4,12 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.random.Random
 
-class FightSelect : AppCompatActivity() {
+class FightSelect : AppCompatActivity() , View.OnClickListener{
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +21,34 @@ class FightSelect : AppCompatActivity() {
  btq1.setOnClickListener {
             val intent = Intent(this, FightMain::class.java)
             startActivity(intent)
+        }
+
+        val btq2 = findViewById<Button>(R.id.buttonQ2)
+        val btq3 = findViewById<Button>(R.id.buttonQ3)
+        val btq4 = findViewById<Button>(R.id.buttonQ4)
+        val btq5 = findViewById<Button>(R.id.buttonQ5)
+
+        btq2.setOnClickListener (this)
+        btq3.setOnClickListener (this)
+        btq4.setOnClickListener (this)
+        btq5.setOnClickListener (this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.buttonQ2 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonQ3 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonQ4 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+            R.id.buttonQ5 -> {
+                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
