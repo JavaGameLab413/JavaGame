@@ -4,12 +4,10 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -56,9 +54,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.history -> {
-                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, History::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, History::class.java)
+                startActivity(intent)
             }
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
@@ -68,9 +65,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("test", "This is Debug.")
             }
             R.id.backPack -> {
-                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, BackPack::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, BackPack::class.java)
+                startActivity(intent)
             }
 
         }
@@ -108,7 +104,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
                 }
             }
-
 
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.start)

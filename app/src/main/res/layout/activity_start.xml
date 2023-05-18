@@ -17,6 +17,7 @@
         tools:ignore="ContentDescription" />
 
     <include
+        android:id="@+id/include"
         layout="@layout/activity_player_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -36,6 +37,31 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.191"
         tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:text="輸入資料庫"
+        app:backgroundTint="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <Button
+        android:id="@+id/gpt"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="chatGPT"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/insert" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

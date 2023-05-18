@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +9,12 @@ import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
-class Fight_01 : AppCompatActivity() {
+class FightSelect : AppCompatActivity() {
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fight01)
+        setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
         val Q_TypeDatabaseCollectionName = "qtype"
         val Q_TypeDatabaseQuestionField = "Question"
