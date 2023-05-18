@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/hall"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <include
         android:id="@+id/include"
@@ -42,7 +42,7 @@
         android:id="@+id/insert"
         android:layout_width="wrap_content"
         android:layout_height="51dp"
-        android:text="輸入資料庫"
+        android:text="@string/inputdatabase"
         app:backgroundTint="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +55,9 @@
     <Button
         android:id="@+id/gpt"
         android:layout_width="wrap_content"
+
         android:layout_height="48dp"
-        android:text="chatGPT"
+        android:text="@string/chatgpt"
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

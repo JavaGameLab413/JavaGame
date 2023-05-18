@@ -12,27 +12,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Fight : AppCompatActivity() , View.OnClickListener{
     private val propertiesDatabaseCollectionName = "properties"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
-        setTheme(R.style.AppTheme);
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
+
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         btSection1.setOnClickListener {
             val intent = Intent(this, FightSelect::class.java)
             startActivity(intent)
         }
-
-        val btSection2 = findViewById<Button>(R.id.buttonSection2)
-        val btSection3 = findViewById<Button>(R.id.buttonSection3)
-        val btSection4 = findViewById<Button>(R.id.buttonSection4)
-        val btSection5 = findViewById<Button>(R.id.buttonSection5)
-
-        btSection2.setOnClickListener(this)
-        btSection3.setOnClickListener(this)
-        btSection4.setOnClickListener(this)
-        btSection5.setOnClickListener(this)
     }
 
 
@@ -63,8 +53,11 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
+
+
         //取得名稱
         val db = FirebaseFirestore.getInstance()
+
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
@@ -72,5 +65,6 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
+
     }
 }
