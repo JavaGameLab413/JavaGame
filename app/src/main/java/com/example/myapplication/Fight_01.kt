@@ -24,8 +24,7 @@ class Fight_01 : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val questionNumber = Random.nextInt(10) + 1
-        val QuestionNumber =
-            db.collection(Q_TypeDatabaseCollectionName).document(questionNumber.toString())
+        db.collection(Q_TypeDatabaseCollectionName).document(questionNumber.toString())
         val readDocRed = db.collection(Q_TypeDatabaseCollectionName)
 
         btq1.setOnClickListener {
@@ -34,19 +33,19 @@ class Fight_01 : AppCompatActivity() {
 
             readDocRed.whereEqualTo(
                 Q_TypeDatabaseQuestionField,
-                Q_TypeDatabaseanswerField.toString()
+                Q_TypeDatabaseanswerField
             ).get()
                 .addOnSuccessListener { documents ->
                     if (documents.size() > 0) {
 
                         val Question = documents.first()
-                        val answer = Question.getString(Q_TypeDatabaseanswerField)
+                        Question.getString(Q_TypeDatabaseanswerField)
 
 
                     }
                 }
         }
-        back.setOnClickListener (){
+        back.setOnClickListener {
             val intent = Intent(this, Fight::class.java)
             startActivity(intent)
         }

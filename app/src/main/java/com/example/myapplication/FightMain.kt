@@ -156,7 +156,7 @@ class FightMain : AppCompatActivity() {
             }
 
          val back: ImageButton = findViewById(R.id.back)
- back.setOnClickListener (){
+ back.setOnClickListener {
      finish()
  }
 
