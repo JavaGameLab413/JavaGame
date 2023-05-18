@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -15,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class Start : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var btDatabase: Button
+    private lateinit var btGPT: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
@@ -26,15 +30,22 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
+        btDatabase = findViewById(R.id.insert)
+        btGPT = findViewById(R.id.gpt)
 
         //設置按鈕監聽
         fight.setOnClickListener(this)
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
-
-
-
+        btDatabase.setOnClickListener {
+            val intent = Intent(this, Insert::class.java)
+            startActivity(intent)
+        }
+        btGPT.setOnClickListener{
+            val intent = Intent(this, ChatGPT::class.java)
+            startActivity(intent)
+        }
 
     }
     //施行按鈕方法
@@ -45,8 +56,9 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.history -> {
-                val intent = Intent(this, History::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, History::class.java)
+//                startActivity(intent)
             }
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
@@ -56,36 +68,13 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("test", "This is Debug.")
             }
             R.id.backPack -> {
-                val intent = Intent(this, BackPack::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, BackPack::class.java)
+//                startActivity(intent)
             }
 
         }
     }
-
-    override fun onBackPressed() {
-        val intent = Intent(this, Login::class.java)
-        startActivity(intent)
-        supportFragmentManager.popBackStack()
-    }
-    class MainActivity : AppCompatActivity(), View.OnKeyListener {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
-
-            // 将当前 Activity 设置为 OnKeyListener
-            window.decorView.setOnKeyListener(this)
-        }
-    override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
-        // 检查按下的键是否是返回键，并在这种情况下调用 onBackPressed() 方法
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP) {
-            onBackPressed()
-            return true
-        }
-
-        return false
-    }
-}
 
 
     //刷新頁面
@@ -102,18 +91,34 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
+
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                if (playerName.text == "a"){
+                    Log.d("game","是測試者")
+                }else{
+                    if (btDatabase.visibility == View.VISIBLE or btGPT.visibility){
+                        btDatabase.visibility = View.INVISIBLE
+                        btGPT.visibility = View.INVISIBLE
+                    }
+
+                }
             }
+
 
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.start)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+
+        if (playerName.toString() == "a"){
+            Log.d("test","test")
+        }else{
+        }
     }
 
     override fun onPause() {
