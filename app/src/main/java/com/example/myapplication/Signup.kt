@@ -90,8 +90,9 @@ class Signup : AppCompatActivity(){
                                         //顯示註冊成功的彈窗
                                         Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
                                         Log.d(TAG, "Signup success!")
+
                                         //切換畫面至登入
-                                        val intent = Intent(this, Start::class.java)
+                                        val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
 
                                         //將ID寫入本地資料庫User

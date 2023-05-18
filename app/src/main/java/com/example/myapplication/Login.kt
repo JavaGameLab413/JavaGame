@@ -51,7 +51,7 @@ class Login : AppCompatActivity() {
                             Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
                             Log.d(TAG, "Login success!")
                             //切換畫面
-                            val intent = Intent(this, Start::class.java)
+                            val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             //抓流水號
                             val serialNumber = user.getLong("serialNumber").toString()
