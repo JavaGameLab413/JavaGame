@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FightMain">
+    tools:context=".FightMain"
+    tools:ignore="ExtraText">
 
     <ImageView
         android:id="@+id/background"
@@ -64,8 +65,8 @@
 
     <ImageView
         android:id="@+id/questionBackground"
-        android:layout_width="match_parent"
-        android:layout_height="137dp"
+        android:layout_width="413dp"
+        android:layout_height="127dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,9 +74,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/rectangle2"
         tools:ignore="ContentDescription" />
+
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:contentDescription="TODO"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

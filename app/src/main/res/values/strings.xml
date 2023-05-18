@@ -24,6 +24,8 @@
     <string name="q5">Q5</string>
     <string name="Type">類型</string>
     <string name="money">0 G</string>
+    <string name="back">返回</string>
+    <string name="todo1">TODO</string>
     <string name="sign_out">登出</string>
     <string name="signup_title">註冊帳號</string>
     <string name="name">暱稱 :</string>
