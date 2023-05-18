@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 class Start : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private lateinit var mediaPlayer: MediaPlayer
@@ -20,7 +21,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         //實作按鈕
@@ -90,7 +91,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
@@ -117,7 +117,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         if (playerName.toString() == "a"){
             Log.d("test","test")
         }else{
-            Log.d("test","test_01")
+
         }
     }
 
