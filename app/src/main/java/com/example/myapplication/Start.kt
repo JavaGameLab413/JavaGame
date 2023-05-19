@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -30,6 +31,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val backPack: ImageButton = findViewById(R.id.backPack)
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
+
 
         //設置按鈕監聽
         fight.setOnClickListener(this)
@@ -54,8 +56,9 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.history -> {
-                val intent = Intent(this, History::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, History::class.java)
+//                startActivity(intent)
             }
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
@@ -65,8 +68,9 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("test", "This is Debug.")
             }
             R.id.backPack -> {
-                val intent = Intent(this, BackPack::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, BackPack::class.java)
+//                startActivity(intent)
             }
 
         }
@@ -87,7 +91,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
@@ -96,6 +99,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
                 if (playerName.text == "a"){
                     Log.d("game","是測試者")
+
                 }else{
                     if (btDatabase.visibility == View.VISIBLE or btGPT.visibility){
                         btDatabase.visibility = View.INVISIBLE
@@ -113,6 +117,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         if (playerName.toString() == "a"){
             Log.d("test","test")
         }else{
+
         }
     }
 

@@ -2,18 +2,17 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.Image
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         //將畫面設定為按鈕
         val entry: ImageButton = findViewById(R.id.put_data)
         val signOut = findViewById<Button>(R.id.sign_out)
-        val btGPT = findViewById<Button>(R.id.gpt)
-        val insert = findViewById<Button>(R.id.insert)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
@@ -53,21 +50,15 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        btGPT.setOnClickListener{
-            val intent = Intent(this, ChatGPT::class.java)
-            startActivity(intent)
-        }
         signOut.setOnClickListener{
             sharedPreferences.edit().putString("ID","-1").apply()
             Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
+            onResume()
         }
-        insert.setOnClickListener {
-            val intent = Intent(this, Insert::class.java)
-            startActivity(intent)
-        }
+
     }
 
-    fun entry(view: View) {}
+
 
     override fun onResume() {
         super.onResume()
@@ -75,6 +66,17 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.main)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        if(sharedPreferences.getString("ID", "-1")=="-1"){
+            val singOut = findViewById<Button>(R.id.sign_out)
+            singOut.isVisible = false
+        }else{
+            val singOut = findViewById<Button>(R.id.sign_out)
+            singOut.isVisible = true
+        }
+
     }
 
     override fun onPause() {

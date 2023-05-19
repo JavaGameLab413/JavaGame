@@ -16,8 +16,8 @@ class FightMain : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
+        //啟用自定義的主題
+//        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
         val btOptionsA = findViewById<Button>(R.id.OptionsA)
@@ -121,8 +121,8 @@ class FightMain : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(questionTypeDatabaseCollectionName)
-
-
+        //自定義的字體
+        mainQuestion.setTextAppearance(R.style.AppTheme)
         // 使用get()方法取得集合中所有的文檔快照
         collectionRef.get()
             .addOnSuccessListener { documents ->

@@ -20,12 +20,14 @@
         android:adjustViewBounds="true"/>
 
     <include
+        android:id="@+id/include3"
         layout="@layout/activity_player_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="112dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:text="@string/java"
         android:textColor="@color/black"
@@ -33,18 +35,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintTop_toBottomOf="@+id/include3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="319dp"
         android:layout_height="430dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/backGround"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="UnknownId">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,40 +59,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:textColor="@color/black"
-                android:text="@string/type" />
+                android:text="@string/type"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/buttonSection2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:textColor="@color/black"
-                android:text="@string/export" />
+                android:text="@string/export"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/buttonSection3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:textColor="@color/black"
-                android:text="@string/numberThree" />
+                android:text="@string/numberThree"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/buttonSection4"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:textColor="@color/black"
-                android:text="@string/numberFour" />
+                android:text="@string/numberFour"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/buttonSection5"
                 android:layout_width="match_parent"
                 android:layout_height="98dp"
                 android:backgroundTint="#FFD39B"
-                android:textColor="@color/black"
-                android:text="@string/numberFive" />
+                android:text="@string/numberFive"
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </ScrollView>
