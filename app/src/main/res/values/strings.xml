@@ -29,4 +29,6 @@
     <string name="name">暱稱 :</string>
     <string name="chatgpt">chatGPT</string>
     <string name="inputdatabase">輸入資料庫</string>
+    <string name="refresh">刷新</string>
+    <string name="back">back</string>
 </resources>
