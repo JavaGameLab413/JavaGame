@@ -42,23 +42,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextSizeCheck" />
 
-
-    <TextView
+    <ImageView
         android:id="@+id/title"
-        android:layout_width="275dp"
-        android:layout_height="79dp"
-        android:fontFamily="@font/yujiboku_regular"
-        android:text="程式惡魔城"
+        android:layout_width="238dp"
+        android:layout_height="102dp"
         android:textAlignment="center"
-        android:textColor="#4C6C0F"
-        android:textSize="48sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/put_data"
-        app:layout_constraintVertical_bias="0.207" />
+        app:layout_constraintVertical_bias="0.207"
+        app:srcCompat="@drawable/main" />
 
     <Button
         android:id="@+id/sign_out"
