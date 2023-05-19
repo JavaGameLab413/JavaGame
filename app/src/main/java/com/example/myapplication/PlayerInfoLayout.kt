@@ -8,6 +8,8 @@ class PlayerInfoLayout : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_player_info_layout)
 		//啟用自定義的主題
-        setTheme(R.style.AppTheme)
+
+        setTheme(R.style.AppTheme);
+
 	}
 }

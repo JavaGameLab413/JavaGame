@@ -55,7 +55,7 @@
     <Button
         android:id="@+id/gpt"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="47dp"
         android:text="chatGPT"
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="parent"

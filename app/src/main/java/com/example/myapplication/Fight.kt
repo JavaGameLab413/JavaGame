@@ -18,6 +18,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
+
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         btSection1.setOnClickListener {
             val intent = Intent(this, FightSelect::class.java)
@@ -63,8 +64,10 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
+
         //取得名稱
         val db = FirebaseFirestore.getInstance()
+
         db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
             .get()
             .addOnSuccessListener { documents ->
@@ -72,5 +75,6 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
+
     }
 }
