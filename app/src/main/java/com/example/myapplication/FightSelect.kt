@@ -18,7 +18,10 @@ class FightSelect : AppCompatActivity() , View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
-
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }
 
  btq1.setOnClickListener {
             val intent = Intent(this, FightMain::class.java)
