@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +18,10 @@ class FightSelect : AppCompatActivity() , View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }
 
  btq1.setOnClickListener {
             val intent = Intent(this, FightMain::class.java)
@@ -78,6 +83,7 @@ class FightSelect : AppCompatActivity() , View.OnClickListener{
                 playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
                 playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
             }
+
 
     }
 

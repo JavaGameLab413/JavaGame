@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,6 +35,11 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         btSection3.setOnClickListener(this)
         btSection4.setOnClickListener(this)
         btSection5.setOnClickListener(this)
+
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }
     }
 
 

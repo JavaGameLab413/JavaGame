@@ -15,7 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class HttpRequest {
     public void sendPOST(String url, RequestBody requestBody, OnCallback callback){
-        /**建立連線*/
+        //建立連線
         OkHttpClient client = new OkHttpClient()
                 .newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -23,13 +23,13 @@ public class HttpRequest {
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
                 .build();
 
-        /**設置傳送需求*/
+        //設置傳送需求
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", "Bearer "+ChatGPT.YOUR_KEY)
                 .post(requestBody)
                 .build();
-        /**設置回傳*/
+        //設置回傳
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -39,6 +39,7 @@ public class HttpRequest {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String res = response.body().string();
                 callback.onOKCall(res);
             }
