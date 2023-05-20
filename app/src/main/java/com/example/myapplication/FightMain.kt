@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,10 @@ class FightMain : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+        /*val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener (){
+            finish()
+        }*/
         //啟用自定義的主題
 //        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
@@ -26,6 +31,7 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         val correctOutput = "答案正確!"
         val errorOutput = "答案錯誤!"
+
 
 
         btOptionsA.setOnClickListener {
@@ -110,6 +116,7 @@ class FightMain : AppCompatActivity() {
 
 
     }
+
     override fun onResume() {
         super.onResume()
         val btOptionsA = findViewById<Button>(R.id.OptionsA)
