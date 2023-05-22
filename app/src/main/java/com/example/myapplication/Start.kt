@@ -4,6 +4,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -19,6 +20,26 @@ class Start : AppCompatActivity(), View.OnClickListener {
     private lateinit var btDatabase: Button
     private lateinit var btGPT: Button
 
+
+    class MainActivity : AppCompatActivity(), View.OnKeyListener {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+
+            // 将当前 Activity 设置为 OnKeyListener
+            window.decorView.setOnKeyListener(this)
+        }
+
+        override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
+            // 检查按下的键是否是返回键，并在这种情况下调用 onBackPressed() 方法
+            if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP) {
+                onBackPressed()
+                return true
+            }
+
+            return false
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         //啟用自定義的主題
         setTheme(R.style.AppTheme);
