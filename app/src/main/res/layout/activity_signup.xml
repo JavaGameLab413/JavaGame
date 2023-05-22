@@ -151,6 +151,7 @@
         android:layout_marginEnd="45dp"
         android:layout_weight="1"
         android:text="@string/sign"
+        android:textColor="@color/white"
         app:backgroundTint="#80000000"
         app:layout_constraintEnd_toEndOf="@+id/signupBackground"
         app:layout_constraintStart_toStartOf="@+id/signupBackground"
