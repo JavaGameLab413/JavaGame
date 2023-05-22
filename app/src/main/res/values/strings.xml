@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Java Game</string>
+    <string name="app_name">程式惡魔城</string>
     <string name="playerId">名稱</string>
     <string name="account">帳號 :</string>
     <string name="login">登入</string>
