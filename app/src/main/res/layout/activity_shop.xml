@@ -30,14 +30,14 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="339dp"
+        android:layout_width="wrap_content"
         android:layout_height="466dp"
         android:background="@drawable/newshopbackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.74">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        app:layout_constraintVertical_bias="0.05">
 
         <LinearLayout
             android:id="@+id/screen"
