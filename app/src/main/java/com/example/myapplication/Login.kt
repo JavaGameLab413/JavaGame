@@ -26,21 +26,17 @@ class Login : AppCompatActivity() {
         val login = findViewById<Button>(R.id.ButtonLogin)
         val delete = findViewById<Button>(R.id.ButtonDeleteAccount)
         val add = findViewById<Button>(R.id.ButtonAdd)
-
         //輸入的文字框(帳號密碼)
         val inputAccount = findViewById<EditText>(R.id.InputAccount)
         val inputPassword = findViewById<EditText>(R.id.InputPassword)
-
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
-        // Create a new document with a generated ID
-        db.collection(userDatabaseCollectionName).document()
         val readDocRed = db.collection(userDatabaseCollectionName)
 
         //設置登入按鈕功能
         login.setOnClickListener {
             //Log.d("test", inputAccount.text.toString())
-            readDocRed.whereEqualTo(userDatabaseAccountField , inputAccount.text.toString()).get()
+            readDocRed.whereEqualTo(userDatabaseAccountField, inputAccount.text.toString()).get()
                 .addOnSuccessListener { documents ->
                     if (documents.size() > 0) {
                         // 找到使用者，檢查密碼
@@ -60,7 +56,6 @@ class Login : AppCompatActivity() {
                             val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
                             sharedPreferences.edit().putString("ID", serialNumber).apply()
 
-
                         } else {
                             // 密碼錯誤
                             Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
@@ -71,8 +66,7 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "User not found!")
                     }
-                }
-                .addOnFailureListener { exception ->
+                }.addOnFailureListener { exception ->
                     // 讀取資料失敗
                     Log.w(TAG, "Error getting documents.", exception)
                 }
@@ -88,31 +82,27 @@ class Login : AppCompatActivity() {
             val userPassword = inputPassword.text.toString()
 
             val query = FirebaseFirestore.getInstance().collection(userDatabaseCollectionName)
-                .whereEqualTo(userDatabaseAccountField ,userAccount)
-                .whereEqualTo(userDatabasePasswordField ,userPassword)
+                .whereEqualTo(userDatabaseAccountField, userAccount)
+                .whereEqualTo(userDatabasePasswordField, userPassword)
 
-            query.get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        // 刪除符合條件的文檔
-                        document.reference.delete()
-                            .addOnSuccessListener {
-                                FirebaseFirestore.getInstance().collection(propertiesDatabaseCollectionName)
-                                    .document(document.id)
-                                    .delete()
-                                Toast.makeText(this, "已刪除資料", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e(TAG, "刪除資料失敗: ", e)
-                                Toast.makeText(this, "刪除資料失敗", Toast.LENGTH_SHORT).show()
-                            }
-
+            query.get().addOnSuccessListener { documents ->
+                for (document in documents) {
+                    // 刪除符合條件的文檔
+                    document.reference.delete().addOnSuccessListener {
+                        FirebaseFirestore.getInstance()
+                            .collection(propertiesDatabaseCollectionName)
+                            .document(document.id).delete()
+                        Toast.makeText(this, "已刪除資料", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener { e ->
+                        Log.e(TAG, "刪除資料失敗: ", e)
+                        Toast.makeText(this, "刪除資料失敗", Toast.LENGTH_SHORT).show()
                     }
+
                 }
-                .addOnFailureListener { e ->
-                    Log.e(TAG, "查無此帳號: ", e)
-                    Toast.makeText(this, "查詢資料失敗", Toast.LENGTH_SHORT).show()
-                }
+            }.addOnFailureListener { e ->
+                Log.e(TAG, "查無此帳號: ", e)
+                Toast.makeText(this, "查詢資料失敗", Toast.LENGTH_SHORT).show()
+            }
         }
         //新增帳號功能按鈕監聽
         add.setOnClickListener {
@@ -120,7 +110,6 @@ class Login : AppCompatActivity() {
             startActivity(intent)
 
         }
-
 
     }
 }

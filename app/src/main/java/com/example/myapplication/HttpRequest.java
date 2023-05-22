@@ -14,7 +14,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class HttpRequest {
-    public void sendPOST(String url, RequestBody requestBody, OnCallback callback){
+    public void sendPOST(String url, RequestBody requestBody, OnCallback callback) {
         //建立連線
         OkHttpClient client = new OkHttpClient()
                 .newBuilder()
@@ -26,7 +26,7 @@ public class HttpRequest {
         //設置傳送需求
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer "+ChatGPT.YOUR_KEY)
+                .header("Authorization", "Bearer " + ChatGPT.YOUR_KEY)
                 .post(requestBody)
                 .build();
         //設置回傳
@@ -45,8 +45,10 @@ public class HttpRequest {
             }
         });
     }
-    interface OnCallback{
+
+    interface OnCallback {
         void onOKCall(String respond);
+
         void onFailCall(String error);
     }
 }

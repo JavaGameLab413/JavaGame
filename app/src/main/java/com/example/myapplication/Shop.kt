@@ -48,7 +48,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //返回按鈕
         val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
+        back.setOnClickListener() {
             finish()
         }
     }
@@ -61,8 +61,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val information = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val information = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
 
         val commodity1 = findViewById<ImageView>(R.id.commodity1)
         val commodity2 = findViewById<ImageView>(R.id.commodity2)
@@ -77,7 +79,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         when (view?.id) {
 
             R.id.commodity1 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -88,9 +94,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -101,16 +107,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity1.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -129,7 +135,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.commodity2 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -140,9 +150,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -153,16 +163,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity2.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -181,7 +191,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.commodity3 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -192,9 +206,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -205,16 +219,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity3.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -232,7 +246,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.commodity4 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -243,9 +261,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -256,16 +274,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity4.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -283,7 +301,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.commodity5 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -294,9 +316,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }//
@@ -307,16 +329,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity5.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -334,7 +356,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.commodity6 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -345,9 +371,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -358,16 +384,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity6.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -385,7 +411,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.commodity7 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -396,9 +426,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -409,16 +439,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity7.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -436,7 +466,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.commodity8 -> {
-                val myContentView = layoutInflater.inflate(R.layout.shop_confirm, findViewById(android.R.id.content),false)
+                val myContentView = layoutInflater.inflate(
+                    R.layout.shop_confirm,
+                    findViewById(android.R.id.content),
+                    false
+                )
                 myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
 
@@ -447,9 +481,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //沒添加會一直創建新的
                     isFocusable = true
                     //視窗外是否可觸碰
-                    isTouchModal=false
+                    isTouchModal = false
                     //全屏背景
-                    isClippingEnabled=true
+                    isClippingEnabled = true
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
@@ -460,16 +494,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money :Int = Integer.parseInt(documents.getLong("money").toString())
-                        if(money>=50){
+                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        if (money >= 50) {
                             money -= 50
-                            writeData.update("money",money)
+                            writeData.update("money", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity8.visibility = View.INVISIBLE
 
 
-                        }else{
+                        } else {
                             Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
 
@@ -500,18 +534,21 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         }
 
 
-
     }
 
 
-    private fun changeMoney(){
+    private fun changeMoney() {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
+            "serialNumber",
+            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
+        )
             .get()
             .addOnSuccessListener { documents ->
-                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
+                playerMoney.text =
+                    String.format("%s G", documents.first().getLong("money").toString())
             }
 
     }
@@ -529,11 +566,15 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
+            "serialNumber",
+            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
+        )
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
-                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                playerLevel.text =
+                    String.format("Lv: %s", documents.first().getLong("lv").toString())
             }
     }
 }
