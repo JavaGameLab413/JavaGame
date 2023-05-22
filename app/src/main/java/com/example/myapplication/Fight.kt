@@ -21,16 +21,15 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         setContentView(R.layout.activity_fight)
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
-        btSection1.setOnClickListener {
-            val intent = Intent(this, FightSelect::class.java)
-            startActivity(intent)
-        }
-
         val btSection2 = findViewById<Button>(R.id.buttonSection2)
         val btSection3 = findViewById<Button>(R.id.buttonSection3)
         val btSection4 = findViewById<Button>(R.id.buttonSection4)
         val btSection5 = findViewById<Button>(R.id.buttonSection5)
 
+        btSection1.setOnClickListener {
+            val intent = Intent(this, FightSelect::class.java)
+            startActivity(intent)
+        }
         btSection2.setOnClickListener(this)
         btSection3.setOnClickListener(this)
         btSection4.setOnClickListener(this)
@@ -70,7 +69,6 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
-
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 

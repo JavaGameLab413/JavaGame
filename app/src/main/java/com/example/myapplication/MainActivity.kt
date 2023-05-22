@@ -26,22 +26,18 @@ class MainActivity : AppCompatActivity() {
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
-
             //判斷先前有無登入過
-
             //抓ID，如果沒有回傳-1
             sharedPreferences.getString("ID", "-1")
             //若為-1，登入
-            if(sharedPreferences.getString("ID", "-1").toString()=="-1"){
+            if (sharedPreferences.getString("ID", "-1").toString() == "-1") {
                 // 執行xml檔
                 val intent = Intent(this, Login::class.java)
                 // 啟動新的 Activity
                 startActivity(intent)
-            }
-            else{
+            } else {
                 // 執行xml檔
                 val intent = Intent(this, Start::class.java)
                 // 啟動新的 Activity
@@ -50,14 +46,13 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        signOut.setOnClickListener{
-            sharedPreferences.edit().putString("ID","-1").apply()
+        signOut.setOnClickListener {
+            sharedPreferences.edit().putString("ID", "-1").apply()
             Toast.makeText(this, "登出成功!", Toast.LENGTH_SHORT).show()
             onResume()
         }
 
     }
-
 
 
     override fun onResume() {
@@ -69,10 +64,10 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-        if(sharedPreferences.getString("ID", "-1")=="-1"){
+        if (sharedPreferences.getString("ID", "-1") == "-1") {
             val singOut = findViewById<Button>(R.id.sign_out)
             singOut.isVisible = false
-        }else{
+        } else {
             val singOut = findViewById<Button>(R.id.sign_out)
             singOut.isVisible = true
         }

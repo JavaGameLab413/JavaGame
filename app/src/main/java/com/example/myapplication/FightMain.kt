@@ -17,12 +17,6 @@ class FightMain : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-        /*val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
-            finish()
-        }*/
-        //啟用自定義的主題
-//        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
         val btOptionsA = findViewById<Button>(R.id.OptionsA)
@@ -31,8 +25,6 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         val correctOutput = "答案正確!"
         val errorOutput = "答案錯誤!"
-
-
 
         btOptionsA.setOnClickListener {
             if(answer=="a"){
@@ -44,7 +36,6 @@ class FightMain : AppCompatActivity() {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
-
             sum++
             Log.d(TAG, sum.toString())
             if(sum==6){
@@ -53,8 +44,6 @@ class FightMain : AppCompatActivity() {
             }else{
                 onResume()
             }
-
-
         }
         btOptionsB.setOnClickListener {
             if(answer=="b"){
@@ -114,7 +103,6 @@ class FightMain : AppCompatActivity() {
             }
         }
 
-
     }
 
     override fun onResume() {
@@ -125,9 +113,9 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         val mainQuestion = findViewById<TextView>(R.id.question)
         val questionTypeDatabaseCollectionName = "questionsType"
-
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(questionTypeDatabaseCollectionName)
+
         //自定義的字體
         mainQuestion.setTextAppearance(R.style.AppTheme)
         // 使用get()方法取得集合中所有的文檔快照

@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FightSelect : AppCompatActivity() , View.OnClickListener{
+class FightSelect : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,24 +19,22 @@ class FightSelect : AppCompatActivity() , View.OnClickListener{
         setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
         val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
-            finish()
-        }
-
- btq1.setOnClickListener {
-            val intent = Intent(this, FightMain::class.java)
-            startActivity(intent)
-        }
-
         val btq2 = findViewById<Button>(R.id.buttonQ2)
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
 
-        btq2.setOnClickListener (this)
-        btq3.setOnClickListener (this)
-        btq4.setOnClickListener (this)
-        btq5.setOnClickListener (this)
+        back.setOnClickListener() {
+            finish()
+        }
+        btq1.setOnClickListener {
+            val intent = Intent(this, FightMain::class.java)
+            startActivity(intent)
+        }
+        btq2.setOnClickListener(this)
+        btq3.setOnClickListener(this)
+        btq4.setOnClickListener(this)
+        btq5.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -66,25 +64,27 @@ class FightSelect : AppCompatActivity() , View.OnClickListener{
         val playerTitle = findViewById<TextView>(R.id.userTitle)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        //取得名稱
+        val db = FirebaseFirestore.getInstance()
+
         //設置自定義文字格式
         playerName.setTextAppearance(R.style.AppTheme)
         playerMoney.setTextAppearance(R.style.AppTheme)
         playerLevel.setTextAppearance(R.style.AppTheme)
         playerTitle.setTextAppearance(R.style.AppTheme)
-        Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
+        Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        //取得名稱
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
+            "serialNumber",
+            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
+        )
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
-                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                playerMoney.text =
+                    String.format("%s G", documents.first().getLong("money").toString())
+                playerLevel.text =
+                    String.format("Lv: %s", documents.first().getLong("lv").toString())
             }
-
-
     }
-
 }
