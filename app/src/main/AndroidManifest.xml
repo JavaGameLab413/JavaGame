@@ -21,12 +21,10 @@
             android:exported="false" />
         <activity
             android:name=".FightMain"
-            android:exported="false"
-            android:theme="@style/Fullscreen"/>
+            android:exported="false" />
         <activity
             android:name=".FightSelect"
-            android:exported="false"
-            android:theme="@style/Fullscreen"/>
+            android:exported="false" />
         <activity
             android:name=".ChatGPT"
             android:exported="false" />
