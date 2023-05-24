@@ -93,7 +93,11 @@ class Signup : AppCompatActivity() {
                                         Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
                                         Log.d(TAG, "Signup success!")
 
-                                        //切換畫面至登入
+                                        //切換畫面至開始
+                                        finish()
+                                        val close = Intent(this, MainActivity::class.java)
+                                        startActivity(close)
+                                        finish()
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
 
