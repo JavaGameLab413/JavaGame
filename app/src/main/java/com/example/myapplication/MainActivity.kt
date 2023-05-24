@@ -7,36 +7,29 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.WindowInsets.Type.*
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
 
-
-    class MainActivity : AppCompatActivity(), View.OnKeyListener {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-
-            setContentView(R.layout.activity_main)
-
-            // 将当前 Activity 设置为 OnKeyListener
-            window.decorView.setOnKeyListener(this)
+    @Override
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val home = Intent(Intent.ACTION_MAIN)
+            home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            home.addCategory(Intent.CATEGORY_HOME)
+            startActivity(home)
+            return true
         }
-
-        override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
-            // 检查按下的键是否是返回键，并在这种情况下调用 onBackPressed() 方法
-            if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP) {
-                onBackPressed()
-                return true
-            }
-
-            return false
-        }
+        return super.onKeyDown(keyCode, event)
     }
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
