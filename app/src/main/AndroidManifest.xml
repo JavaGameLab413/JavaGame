@@ -28,26 +28,36 @@
         <activity
             android:name=".ChatGPT"
             android:exported="false" />
-        <activity android:name=".Login" />
-        <activity android:name=".Signup" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Signup"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".BackPack"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".History"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".Fight"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".Shop"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".Start"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
