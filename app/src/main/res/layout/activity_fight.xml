@@ -6,11 +6,111 @@
     android:layout_height="match_parent"
     tools:context=".Fight">
 
+
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/backGround"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:srcCompat="@drawable/fight"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/activity_player_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="@string/java"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="319dp"
+        android:layout_height="430dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backGround"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonSection1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:backgroundTint="#FFD39B"
+                android:text="@string/type"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/buttonSection2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:backgroundTint="#FFD39B"
+                android:text="@string/export"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/buttonSection3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:backgroundTint="#FFD39B"
+                android:text="@string/numberThree"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/buttonSection4"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:backgroundTint="#FFD39B"
+                android:text="@string/numberFour"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/buttonSection5"
+                android:layout_width="match_parent"
+                android:layout_height="98dp"
+                android:backgroundTint="#FFD39B"
+                android:text="@string/numberFive"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.193"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="MissingConstraints,UnknownIdInLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

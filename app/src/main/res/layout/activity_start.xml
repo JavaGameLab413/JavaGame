@@ -10,84 +10,66 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hall"
         tools:ignore="ContentDescription" />
 
-    <LinearLayout
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_player_info_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck">
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/head3"
-            tools:ignore="ContentDescription" />
+    <ImageView
+        android:id="@+id/role"
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="132dp"
+        android:background="@drawable/kidremovebg"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.191"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/playerId"
-            android:layout_width="89dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/playerId"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/lv"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/coin"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/gold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="0G"
-            android:textColor="#FFFFFF"
-            android:textSize="34sp"
-            tools:ignore="HardcodedText,TextContrastCheck" />
-    </LinearLayout>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/insert"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="51dp"
+        android:text="輸入資料庫"
+        android:textColor="@color/white"
+        app:backgroundTint="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-          >
-        <ImageView
-            android:id="@+id/role"
-            android:scaleType="centerInside"
-            android:layout_width="400dp"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:background="@drawable/kidremovebg"
-            tools:ignore="ContentDescription"
-        />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <Button
+        android:id="@+id/gpt"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:text="chatGPT"
+        android:textColor="@color/white"
+        app:backgroundTint="#80000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/insert" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +83,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/button_round"
             app:srcCompat="@drawable/start"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/history"
@@ -119,7 +101,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/button_round"
             app:srcCompat="@drawable/bag"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/shop"
