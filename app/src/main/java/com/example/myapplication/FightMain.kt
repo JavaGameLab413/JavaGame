@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
@@ -9,14 +10,17 @@ import android.view.View
 import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Objects
 
 class FightMain : AppCompatActivity() {
-    private var sum =0
-    private var answer =""
+    private var sum = 0
+    private var answer = ""
+    private var enemyAnimator: ObjectAnimator? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,82 +30,80 @@ class FightMain : AppCompatActivity() {
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
+
         val correctOutput = "答案正確!"
         val errorOutput = "答案錯誤!"
 
         btOptionsA.setOnClickListener {
-            if(answer=="a"){
+            if (answer == "a") {
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
+
                 correct()
-            }
-            else{
+            } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
             Log.d(TAG, sum.toString())
-            if(sum==6){
+            if (sum == 6) {
                 finish()
-                sum =0
-            }else{
+                sum = 0
+            } else {
                 onResume()
             }
         }
         btOptionsB.setOnClickListener {
-            if(answer=="b"){
+            if (answer == "b") {
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
-            }
-            else{
+            } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
             Log.d(TAG, sum.toString())
-            if(sum==6){
+            if (sum == 6) {
                 finish()
-                sum =0
-            }else{
+                sum = 0
+            } else {
                 onResume()
             }
         }
         btOptionsC.setOnClickListener {
-            if(answer == "c"){
+            if (answer == "c") {
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
-            }
-            else{
+            } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
             Log.d(TAG, sum.toString())
-            if(sum==6){
+            if (sum == 6) {
                 finish()
-                sum =0
-            }else{
+                sum = 0
+            } else {
                 onResume()
             }
         }
         btOptionsD.setOnClickListener {
-            if(answer=="d"){
+            if (answer == "d") {
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The correct answer!")
                 correct()
-            }
-            else{
+            } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
             }
             sum++
             Log.d(TAG, sum.toString())
-            if(sum==6){
+            if (sum == 6) {
                 finish()
-                sum =0
-            }else{
+                sum = 0
+            } else {
                 onResume()
             }
         }
@@ -148,19 +150,28 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, answer)
 
 
-
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting random document: ", exception)
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        //釋放動畫資源
+        enemyAnimator?.cancel()
+        enemyAnimator = null
     }
     private fun correct() {
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val propertiesDatabaseCollectionName = "properties"
 
         val db = FirebaseFirestore.getInstance()
-        val information = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val information = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
         information.get().addOnSuccessListener { documents ->
             var money: Int = Integer.parseInt(documents.getLong("money").toString())
             val addMoney = 10
@@ -168,6 +179,7 @@ class FightMain : AppCompatActivity() {
             writeData.update("money", money)
 
         }
+        startAnimation()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -175,14 +187,13 @@ class FightMain : AppCompatActivity() {
         val window = this.window
 
         val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.also {
                 it.hide(statusBars())
                 it.hide(navigationBars())
             }
 
-        }
-        else {
+        } else {
             // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
             decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -191,6 +202,19 @@ class FightMain : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+    }
+    fun startAnimation(){
+        enemyAnimator?.cancel()
+
+      val enemy: ImageView = findViewById(R.id.enemy)
+        enemyAnimator = ObjectAnimator.ofFloat(enemy, "translationX", -15f, 15f)
+            .apply {
+                duration = 200
+                repeatCount = 1
+                repeatMode = ObjectAnimator.REVERSE
+
+            }
+        enemyAnimator?.start()
     }
 }
 
