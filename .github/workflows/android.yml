@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run : echo "this is test"
     - uses: actions/checkout@v3
     - name: set up JDK 11
       uses: actions/setup-java@v3
@@ -25,3 +24,10 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Build Release APK
+      run: ./gradlew assembleRelease
+    - name: Releasing using Hub
+      uses: kyze8439690/action-release-releaseapk@master
+      env:
+       GITHUB_TOKEN: ${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}
+       APP_FOLDER: app
