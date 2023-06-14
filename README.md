@@ -1,5 +1,5 @@
-# Project
-
+# JavaGame
+[![Android CI](https://github.com/JavaGameLab413/JavaGame/actions/workflows/android.yml/badge.svg)](https://github.com/JavaGameLab413/JavaGame/actions/workflows/android.yml)
 
 
 ## Getting started
