@@ -23,9 +23,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
     - name: Build APK
       run: ./gradlew assembleDebug  # 替换为您使用的 Gradle 任务
 
