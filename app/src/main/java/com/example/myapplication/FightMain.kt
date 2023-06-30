@@ -11,6 +11,7 @@ import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,9 @@ class FightMain : AppCompatActivity() {
     private var sum = 0
     private var answer = ""
     private var enemyAnimator: ObjectAnimator? = null
+    private lateinit var enemyHp: ProgressBar
+    private lateinit var playerHp: ProgressBar
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +34,13 @@ class FightMain : AppCompatActivity() {
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
-
         val correctOutput = "答案正確!"
         val errorOutput = "答案錯誤!"
 
+        enemyHp = findViewById(R.id.enemyHp)
+        playerHp = findViewById(R.id.playerHp)
+        enemyHp.progress = enemyHp.max
+        playerHp.progress = playerHp.max
         btOptionsA.setOnClickListener {
             if (answer == "a") {
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
@@ -43,10 +50,11 @@ class FightMain : AppCompatActivity() {
             } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
+                playerHp.progress -= 1
             }
             sum++
             Log.d(TAG, sum.toString())
-            if (sum == 6) {
+            if (sum == 6 || playerHp.progress == 0) {
                 finish()
                 sum = 0
             } else {
@@ -61,10 +69,11 @@ class FightMain : AppCompatActivity() {
             } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
+                playerHp.progress -= 1
             }
             sum++
             Log.d(TAG, sum.toString())
-            if (sum == 6) {
+            if (sum == 6 || playerHp.progress == 0) {
                 finish()
                 sum = 0
             } else {
@@ -79,10 +88,11 @@ class FightMain : AppCompatActivity() {
             } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
+                playerHp.progress -= 1
             }
             sum++
             Log.d(TAG, sum.toString())
-            if (sum == 6) {
+            if (sum == 6 || playerHp.progress == 0) {
                 finish()
                 sum = 0
             } else {
@@ -97,10 +107,11 @@ class FightMain : AppCompatActivity() {
             } else {
                 Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "The answer wrong!")
+                playerHp.progress -= 1
             }
             sum++
             Log.d(TAG, sum.toString())
-            if (sum == 6) {
+            if (sum == 6 || playerHp.progress == 0) {
                 finish()
                 sum = 0
             } else {
@@ -164,6 +175,7 @@ class FightMain : AppCompatActivity() {
         enemyAnimator = null
     }
     private fun correct() {
+
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val propertiesDatabaseCollectionName = "properties"
 
@@ -179,6 +191,7 @@ class FightMain : AppCompatActivity() {
             writeData.update("money", money)
 
         }
+        enemyHp.progress -= 1
         startAnimation()
     }
 
@@ -203,7 +216,7 @@ class FightMain : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
-    fun startAnimation(){
+    private fun startAnimation(){
         enemyAnimator?.cancel()
 
       val enemy: ImageView = findViewById(R.id.enemy)
