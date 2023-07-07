@@ -50,6 +50,8 @@ class Login : AppCompatActivity() {
                             Log.d(TAG, "Login success!")
                             //切換畫面
                             finish()
+
+
                             //抓流水號
                             val serialNumber = user.getLong("serialNumber").toString()
 

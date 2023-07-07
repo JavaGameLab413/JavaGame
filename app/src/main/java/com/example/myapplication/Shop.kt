@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import android.view.WindowInsets.Type.statusBars
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
@@ -55,6 +58,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     //施行按鈕方法
 
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(view: View?) {
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
@@ -75,64 +79,96 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val commodity7 = findViewById<ImageView>(R.id.commodity7)
         val commodity8 = findViewById<ImageView>(R.id.commodity8)
 
+
         val refresh = findViewById<Button>(R.id.refresh)
+        var sum =5
         when (view?.id) {
 
-            R.id.commodity1 -> {
-                val myContentView = layoutInflater.inflate(
-                    R.layout.shop_confirm,
-                    findViewById(android.R.id.content),
-                    false
-                )
-                myContentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                R.id.commodity1 -> {
+                    var myPurchaseView = layoutInflater.inflate(
+                        R.layout.purchase_quantity,
+                        findViewById(android.R.id.content),
+                        false
+                    )
+                    myPurchaseView.measure(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    )
 
 
-                val popupWindow = PopupWindow(this).apply {
-                    contentView = myContentView
-                    width = ViewGroup.LayoutParams.MATCH_PARENT
-                    height = ViewGroup.LayoutParams.WRAP_CONTENT
-                    //沒添加會一直創建新的
-                    isFocusable = true
-                    //視窗外是否可觸碰
-                    isTouchModal = false
-                    //全屏背景
-                    isClippingEnabled = true
-                    //透明背景
-                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                }
-
-                //點選按鈕動作
-                myContentView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
-
-                    popupWindow.dismiss()
-
-                    information.get().addOnSuccessListener { documents ->
-                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
-                        if (money >= 50) {
-                            money -= 50
-                            writeData.update("money", money)
-                            Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
-                            changeMoney()
-                            commodity1.visibility = View.INVISIBLE
+                    val numberTextview = findViewById<TextView>(R.id.numberTextview)
+                    var counter = 1
 
 
-                        } else {
-                            Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
+                    val popupWindow = PopupWindow(this).apply {
+                        contentView = myPurchaseView
+                        width = ViewGroup.LayoutParams.MATCH_PARENT
+                        height = ViewGroup.LayoutParams.WRAP_CONTENT
+                        //沒添加會一直創建新的
+                        isFocusable = true
+                        //視窗外是否可觸碰
+                        isTouchModal = false
+                        //全屏背景
+                        isClippingEnabled = true
+                        //透明背景
+                        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    }
+                    if(counter in 0..5) {
+                        myPurchaseView.findViewById<Button>(R.id.addnumber).setOnClickListener {
+                            counter++
+
+                        }
+
+                        myPurchaseView.findViewById<Button>(R.id.minusnumber).setOnClickListener {
+                            counter--
+                            Log.d("1", counter.toString())
+                        }
+                    } else {
+                        counter = 5
+                        Toast.makeText(this, "超過數量!!", Toast.LENGTH_SHORT).show()
+                    }
+
+
+
+                    myPurchaseView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
+                        popupWindow.dismiss()
+                        information.get().addOnSuccessListener { documents ->
+                            var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                            var purchasemoner = 50 * counter
+                            if (money >= purchasemoner) {
+                                money = money - purchasemoner
+                                writeData.update("money", money)
+                                Toast.makeText(
+                                    this,
+                                    "購買成功!!總共花費" + purchasemoner + "G",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                changeMoney()
+
+                                if(sum in 1..5) {
+                                    sum -= counter
+                                }else{
+                                    commodity1.visibility = View.INVISIBLE
+                                }
+
+                            } else {
+                                Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
+                            }
+
                         }
 
                     }
+                    myPurchaseView.findViewById<ImageButton>(R.id.no).setOnClickListener {
+                        popupWindow.dismiss()
+                        Toast.makeText(this, "已取消購買", Toast.LENGTH_SHORT).show()
+                    }
+
+                    //出現位置
+                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+
 
                 }
-                myContentView.findViewById<ImageButton>(R.id.no).setOnClickListener {
-                    popupWindow.dismiss()
-                    Toast.makeText(this, "已取消購買", Toast.LENGTH_SHORT).show()
-                }
 
-                //出現位置
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
-
-//
-            }
 
             R.id.commodity2 -> {
                 val myContentView = layoutInflater.inflate(

@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
+
         <TextView
             android:id="@+id/info"
             android:layout_width="wrap_content"
@@ -28,6 +29,8 @@
             android:text="是否花費50G進行購買此商品?"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -58,4 +61,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

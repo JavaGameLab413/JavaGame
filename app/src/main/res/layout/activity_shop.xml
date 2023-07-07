@@ -30,13 +30,15 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="wrap_content"
-        android:layout_height="466dp"
+        android:layout_width="328dp"
+        android:layout_height="445dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/newshopbackground"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back"
+        app:layout_constraintTop_toTopOf="@+id/include4"
         app:layout_constraintVertical_bias="0.05">
 
         <LinearLayout
@@ -80,6 +82,7 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/healingpotion"
                     tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -211,16 +214,12 @@
     <ImageButton
         android:id="@+id/back"
         android:layout_width="60dp"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.185"
         app:srcCompat="@android:drawable/ic_menu_revert"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="118dp" />
 
     //
 
