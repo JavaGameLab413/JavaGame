@@ -80,7 +80,7 @@
                     android:layout_marginEnd="30dp"
                     android:background="#00FFFFFF"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
+                    app:srcCompat="@drawable/powerup"
                     tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
             </LinearLayout>
