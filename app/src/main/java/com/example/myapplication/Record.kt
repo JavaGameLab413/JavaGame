@@ -7,10 +7,10 @@ import android.view.View
 import android.view.WindowInsets.Type.*
 
 
-class History : AppCompatActivity() {
+class Record : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
+        setContentView(R.layout.activity_record)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
