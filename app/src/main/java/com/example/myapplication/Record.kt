@@ -1,17 +1,64 @@
 package com.example.myapplication
 
+import android.animation.ObjectAnimator
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets.Type.*
+import android.view.animation.AccelerateDecelerateInterpolator
 
 
 class Record : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
+// Switch between the two layouts with an animation
+        val layout1 = findViewById<View>(R.id.layout1)
+        val layout2 = findViewById<View>(R.id.layout2)
+
+        // Animate layout1 to the right and layout2 to the left
+        fun animateToLeft() {
+            ObjectAnimator.ofFloat(layout1, "translationX", -800f).apply {
+                duration = 5000
+                interpolator = AccelerateDecelerateInterpolator()
+                start()
+            }
+
+            ObjectAnimator.ofFloat(layout2, "translationX", 0f).apply {
+                duration = 4500
+                interpolator = AccelerateDecelerateInterpolator()
+                start()
+            }
+        }
+
+        // Animate layout1 to the left and layout2 to the right
+        fun animateToRight() {
+            ObjectAnimator.ofFloat(layout1, "translationX", 0f).apply {
+                duration = 4500
+                interpolator = AccelerateDecelerateInterpolator()
+                start()
+            }
+
+            ObjectAnimator.ofFloat(layout2, "translationX", 800f).apply {
+                duration = 5000
+                interpolator = AccelerateDecelerateInterpolator()
+                start()
+            }
+        }
+
+        // Switch between the two layouts when clicking a button or any other event trigger
+        // Example: a button click listener
+        val button = findViewById<View>(R.id.change)
+        button.setOnClickListener {
+            if (layout1.translationX == 0f) {
+                animateToLeft()
+            } else {
+                animateToRight()
+            }
+        }
     }
+
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
