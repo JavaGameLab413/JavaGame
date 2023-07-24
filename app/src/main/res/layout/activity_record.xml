@@ -36,16 +36,16 @@
         android:id="@+id/change"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:background="#00FFFFFF"
+        android:contentDescription="@string/change"
         android:scaleType="fitXY"
+        android:background="#CCFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.97"
-        app:srcCompat="@drawable/change"
-        android:contentDescription="@string/change" />
+        app:srcCompat="@drawable/change" />
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -58,17 +58,20 @@
 
         <LinearLayout
             android:id="@+id/layout1"
-            android:layout_width="match_parent"
+            android:layout_width="330dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:translationX="0dp">
+            android:translationX="0dp"
+            android:background="#99000000">
 
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:text="@string/plot"
                 android:textColor="@color/white"
                 android:textSize="40sp" />
@@ -89,7 +92,8 @@
                         android:backgroundTint="#FFD39B"
                         android:text="@string/plot1"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                     <Button
                         android:id="@+id/plot2"
@@ -98,7 +102,8 @@
                         android:backgroundTint="#FFD39B"
                         android:text="@string/plot2"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                 </LinearLayout>
 
@@ -112,15 +117,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:translationX="800dp"
-            tools:ignore="VisualLintBounds">
+            tools:ignore="VisualLintBounds"
+            android:background="#99FFFFFF">
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:text="@string/teach"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="40sp" />
 
             <ScrollView
@@ -139,7 +147,8 @@
                         android:backgroundTint="#FFD39B"
                         android:text="@string/teach1"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                     <Button
                         android:id="@+id/teach2"
@@ -148,7 +157,8 @@
                         android:backgroundTint="#FFD39B"
                         android:text="@string/teach2"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                 </LinearLayout>
 
