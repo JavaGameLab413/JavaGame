@@ -51,11 +51,7 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-            if (playerHp.progress == 0) {
-                finish()
-            } else {
-                onResume()
-            }
+            checkFinish()
         }
         btOptionsB.setOnClickListener {
             if (answer == "b") {
@@ -67,12 +63,7 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-
-            if (playerHp.progress == 0) {
-                finish()
-            } else {
-                onResume()
-            }
+            checkFinish()
         }
         btOptionsC.setOnClickListener {
             if (answer == "c") {
@@ -84,13 +75,7 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-
-
-            if (playerHp.progress == 0 || enemyHp.progress == 0) {
-                finish()
-            } else {
-                onResume()
-            }
+            checkFinish()
         }
         btOptionsD.setOnClickListener {
             if (answer == "d") {
@@ -102,9 +87,17 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
+            checkFinish()
 
         }
 
+    }
+    fun checkFinish(){
+        if (playerHp.progress == 0 || enemyHp.progress == 0) {
+            finish()
+        } else {
+            onResume()
+        }
     }
 
     override fun onResume() {
