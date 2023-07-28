@@ -7,12 +7,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets.Type.*
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageButton
 
 
 class Record : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
+
+        //返回按鈕
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener{
+            finish()
+        }
+
 // Switch between the two layouts with an animation
         val layout1 = findViewById<View>(R.id.layout1)
         val layout2 = findViewById<View>(R.id.layout2)

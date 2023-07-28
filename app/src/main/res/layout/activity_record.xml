@@ -36,15 +36,15 @@
         android:id="@+id/change"
         android:layout_width="65dp"
         android:layout_height="65dp"
+        android:background="#00FFFFFF"
         android:contentDescription="@string/change"
         android:scaleType="fitXY"
-        android:background="#CCFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"
+        app:layout_constraintVertical_bias="0.95"
         app:srcCompat="@drawable/change" />
 
     <FrameLayout
@@ -54,15 +54,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintVertical_bias="0.4">
 
         <LinearLayout
             android:id="@+id/layout1"
             android:layout_width="330dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:translationX="0dp"
-            android:background="#99000000">
+            android:translationX="0dp">
 
 
             <TextView
@@ -117,8 +116,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:translationX="800dp"
-            tools:ignore="VisualLintBounds"
-            android:background="#99FFFFFF">
+            tools:ignore="VisualLintBounds">
 
             <TextView
                 android:id="@+id/textView3"
@@ -128,7 +126,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
                 android:text="@string/teach"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="40sp" />
 
             <ScrollView
