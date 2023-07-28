@@ -19,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Objects
 
 class FightMain : AppCompatActivity() {
-    private var sum = 0
     private var answer = ""
     private var enemyAnimator: ObjectAnimator? = null
     private lateinit var enemyHp: ProgressBar
@@ -52,11 +51,8 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-            sum++
-            Log.d(TAG, sum.toString())
-            if (sum == 6 || playerHp.progress == 0) {
+            if (playerHp.progress == 0) {
                 finish()
-                sum = 0
             } else {
                 onResume()
             }
@@ -71,11 +67,9 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-            sum++
-            Log.d(TAG, sum.toString())
-            if (sum == 6 || playerHp.progress == 0) {
+
+            if (playerHp.progress == 0) {
                 finish()
-                sum = 0
             } else {
                 onResume()
             }
@@ -90,11 +84,10 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-            sum++
-            Log.d(TAG, sum.toString())
-            if (sum == 6 || playerHp.progress == 0) {
+
+
+            if (playerHp.progress == 0 || enemyHp.progress == 0) {
                 finish()
-                sum = 0
             } else {
                 onResume()
             }
