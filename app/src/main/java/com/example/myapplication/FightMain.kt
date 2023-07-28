@@ -109,14 +109,7 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "The answer wrong!")
                 playerHp.progress -= 1
             }
-            sum++
-            Log.d(TAG, sum.toString())
-            if (sum == 6 || playerHp.progress == 0) {
-                finish()
-                sum = 0
-            } else {
-                onResume()
-            }
+
         }
 
     }
