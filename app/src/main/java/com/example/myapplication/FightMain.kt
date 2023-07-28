@@ -92,7 +92,7 @@ class FightMain : AppCompatActivity() {
         }
 
     }
-    fun checkFinish(){
+    private fun checkFinish(){
         if (playerHp.progress == 0 || enemyHp.progress == 0) {
             finish()
         } else {
