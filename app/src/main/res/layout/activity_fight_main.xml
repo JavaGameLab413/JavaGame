@@ -28,11 +28,13 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/enemy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionBackground"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/rectangle1"
         tools:ignore="ContentDescription,HardcodedText" />
+
 
     <ImageView
         android:id="@+id/enemy"
@@ -40,12 +42,12 @@
         android:layout_height="436dp"
         app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.318"
+        app:layout_constraintVertical_bias="0.349"
         app:srcCompat="@drawable/role"
         tools:ignore="ContentDescription" />
-
 
     <TextView
         android:id="@+id/question"
@@ -63,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/questionBackground"
         app:layout_constraintVertical_bias="0.5"
-        tools:ignore="VisualLintOverlap,TextSizeCheck" />
+        tools:ignore="HardcodedText,TextSizeCheck,VisualLintOverlap" />
 
     <ImageView
         android:id="@+id/questionBackground"
@@ -99,7 +101,8 @@
             android:backgroundTint="#FFD39B"
             android:text="A. public"
             android:textColor="#000000"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsB"
@@ -108,7 +111,8 @@
             android:backgroundTint="#FFD39B"
             android:text="B. class"
             android:textColor="#000000"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsC"
@@ -117,7 +121,8 @@
             android:backgroundTint="#FFD39B"
             android:text="C. static"
             android:textColor="#000000"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsD"
@@ -126,9 +131,31 @@
             android:backgroundTint="#FFD39B"
             android:text="D. void"
             android:textColor="#000000"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/enemyHp"
+        style="@style/hp_progress_bar"
+        android:layout_width="303dp"
+        android:layout_height="27dp"
+        android:max="6"
+        android:progress="6"
+        android:rotation="180"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionBackground" />
+
+    <ProgressBar
+        android:id="@+id/playerHp"
+        style="@style/hp_progress_bar"
+        android:layout_width="303dp"
+        android:layout_height="27dp"
+        android:max="3"
+        android:progress="3"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
