@@ -34,6 +34,7 @@ jobs:
         with:
           tag_name: v1.0.0  # 替换为您的版本标签
           release_name: Release v1.0.0  # 替换为您的发布名称
+          allowUpdates: true
           body: |
             Release description goes here.  # 替换为您的发布描述
       - name: Upload APK
