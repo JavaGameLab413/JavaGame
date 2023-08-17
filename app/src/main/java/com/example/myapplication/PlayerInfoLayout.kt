@@ -1,7 +1,11 @@
 package com.example.myapplication
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets.Type.*
+
 
 class PlayerInfoLayout : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
