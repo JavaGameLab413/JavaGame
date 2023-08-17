@@ -35,7 +35,6 @@
         app:srcCompat="@drawable/rectangle1"
         tools:ignore="ContentDescription,HardcodedText" />
 
-
     <ImageView
         android:id="@+id/enemy"
         android:layout_width="305dp"
