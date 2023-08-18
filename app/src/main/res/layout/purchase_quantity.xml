@@ -20,31 +20,35 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/minusnumber"
-                android:layout_width="10dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="30dp"
-                android:layout_weight="1"
-                android:text="-" />
-
-            <TextView
-                android:id="@+id/numberTextview"
-                android:layout_width="82dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp" />
+                android:layout_marginEnd="30dp"
+                android:minWidth="68dp"
+                android:minHeight="58dp"
+                android:text="-"
+                app:srcCompat="@drawable/button_round" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/addnumber"
-                android:layout_width="14dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_weight="1"
-                android:text="+" />
+                android:layout_marginEnd="30dp"
+                android:minWidth="68dp"
+                android:minHeight="58dp"
+                android:text="+"
+                app:srcCompat="@drawable/button_round"
+                tools:ignore="TouchTargetSizeCheck" />
+
+
         </LinearLayout>
 
         <LinearLayout
