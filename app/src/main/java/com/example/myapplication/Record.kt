@@ -1,12 +1,14 @@
 package com.example.myapplication
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets.Type.*
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Button
 import android.widget.ImageButton
 
 
@@ -19,6 +21,18 @@ class Record : AppCompatActivity() {
         val back: ImageButton = findViewById(R.id.back)
         back.setOnClickListener{
             finish()
+        }
+
+        val plot1: Button = findViewById(R.id.plot1)
+        val teach1: Button = findViewById(R.id.teach1)
+
+        plot1.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            startActivity(intent)
+        }
+        teach1.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            startActivity(intent)
         }
 
 // Switch between the two layouts with an animation
