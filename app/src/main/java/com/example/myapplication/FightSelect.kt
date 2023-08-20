@@ -16,24 +16,25 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class FightSelect : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
+    private var dataSet = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val intent = intent
-        val questionTitle = intent.getStringExtra("questionTitle")
+        dataSet = intent.getStringExtra("questionTitle").toString()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_select)
-        val btq1 = findViewById<Button>(R.id.buttonQ1)
         val back: ImageButton = findViewById(R.id.back)
+        val btq1 = findViewById<Button>(R.id.buttonQ1)
         val btq2 = findViewById<Button>(R.id.buttonQ2)
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
 
+
         back.setOnClickListener() {
             finish()
         }
-
         btq1.setOnClickListener(this)
         btq2.setOnClickListener(this)
         btq3.setOnClickListener(this)
@@ -44,7 +45,9 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.buttonQ1 -> {
+                val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {
@@ -62,7 +65,11 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
+    private fun openQuestionActivity(questionTitle: String) {
+        val intent = Intent(this, FightMain::class.java)
+        intent.putExtra("questionTitle", questionTitle)
+        startActivity(intent)
+    }
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)
