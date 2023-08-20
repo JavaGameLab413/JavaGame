@@ -27,10 +27,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         val btSection4 = findViewById<Button>(R.id.buttonSection4)
         val btSection5 = findViewById<Button>(R.id.buttonSection5)
 
-        btSection1.setOnClickListener {
-            val intent = Intent(this, FightSelect::class.java)
-            startActivity(intent)
-        }
+        btSection1.setOnClickListener(this)
         btSection2.setOnClickListener(this)
         btSection3.setOnClickListener(this)
         btSection4.setOnClickListener(this)
@@ -45,6 +42,10 @@ class Fight : AppCompatActivity() , View.OnClickListener{
 
     override fun onClick(view: View?) {
         when (view?.id) {
+            R.id.buttonSection1 -> {
+                val intent = Intent(this, FightSelect::class.java)
+                startActivity(intent)
+            }
             R.id.buttonSection2 -> {
                 Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
             }
