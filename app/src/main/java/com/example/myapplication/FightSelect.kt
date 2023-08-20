@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,12 +11,16 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FightSelect : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val intent = intent
+        val questionTitle = intent.getStringExtra("questionTitle")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_select)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
