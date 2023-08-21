@@ -34,8 +34,6 @@ class FightMain : AppCompatActivity() {
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
-        val correctOutput = "答案正確!"
-        val errorOutput = "答案錯誤!"
         dataSet = intent.getStringExtra("questionTitle").toString()
         Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
         enemyHp = findViewById(R.id.enemyHp)//敵對血條
@@ -44,65 +42,19 @@ class FightMain : AppCompatActivity() {
         playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
-            if (answer == "SelectA") {
-                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The correct answer!")
-
-                correct()
-            } else {
-                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The answer wrong!")
-                playerHp.progress -= 1
-            }
-            checkFinish()
+            checkChoiceIsAns("SelectA")
         }
         btOptionsB.setOnClickListener {
-            if (answer == "SelectB") {
-                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The correct answer!")
-                correct()
-            } else {
-                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The answer wrong!")
-                playerHp.progress -= 1
-            }
-            checkFinish()
+            checkChoiceIsAns("SelectB")
         }
         btOptionsC.setOnClickListener {
-            if (answer == "SelectC") {
-                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The correct answer!")
-                correct()
-            } else {
-                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The answer wrong!")
-                playerHp.progress -= 1
-            }
-            checkFinish()
+            checkChoiceIsAns("SelectC")
         }
         btOptionsD.setOnClickListener {
-            if (answer == "SelectD") {
-                Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The correct answer!")
-                correct()
-            } else {
-                Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "The answer wrong!")
-                playerHp.progress -= 1
-            }
-            checkFinish()
-
-        }
-
-    }
-    private fun checkFinish(){
-        if (playerHp.progress == 0 || enemyHp.progress == 0) {
-            finish()
-        } else {
-            onResume()
+            checkChoiceIsAns("SelectD")
         }
     }
-
+    //每次更新會做的事情，固定放在onCreate下方，其他方法往下放
     override fun onResume() {
         super.onResume()
         val btOptionsA = findViewById<Button>(R.id.OptionsA)
@@ -148,6 +100,30 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "Error getting random document: ", exception)
             }
     }
+
+    private fun checkChoiceIsAns(btn : String){
+        val correctOutput = "答案正確!"
+        val errorOutput = "答案錯誤!"
+        if (answer == btn) {
+            Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "The correct answer!")
+            correct()
+        } else {
+            Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "The answer wrong!")
+            playerHp.progress -= 1
+        }
+        checkFinish()
+    }
+    private fun checkFinish(){
+        if (playerHp.progress == 0 || enemyHp.progress == 0) {
+            finish()
+        } else {
+            onResume()
+        }
+    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
