@@ -46,6 +46,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         commodity5.setOnClickListener(this)
         commodity6.setOnClickListener(this)
 
+        //TextView
 
         //返回按鈕
         val back: ImageButton = findViewById(R.id.back)
@@ -55,6 +56,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     }
         //記數
         var number  = 0
+        var numbertwo = 0
 
     //施行按鈕方法
 
@@ -254,17 +256,20 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                         var atk: Int = Integer.parseInt(documents.getLong("atk").toString())
 
-                        val ref = db.collection("commodity").document("1")
+                        val ref = db.collection("commodity").document("2")
                         ref.get().addOnSuccessListener { document ->
 
                             val commodityMoney : Int =
                                 Integer.parseInt(document.getLong("commodityMoney").toString())
 
+                            val attackpower : Int =
+                                Integer.parseInt(document.getLong("attackpower").toString())
+
                             val purchasemoner = commodityMoney * counter
                             if (money >= purchasemoner) {
                                 money -= purchasemoner
                                 writeData.update("money", money)
-                                atk += 10*counter
+                                atk += attackpower*counter
                                 writeData.update("atk",atk)
                                 Toast.makeText(
                                     this,
@@ -273,8 +278,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                 ).show()
                                 changeMoney()
 
-                                number = number + counter
-                                if(number ==5 ) {
+                                numbertwo = numbertwo + counter
+                                if(numbertwo ==5 ) {
                                     commodity2.visibility = View.INVISIBLE
                                 }
                             } else {
