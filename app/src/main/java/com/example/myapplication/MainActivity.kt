@@ -13,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
+import com.example.myapp.CustomProgressBar
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,12 +35,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         //將畫面設定為按鈕
         val entry: ImageButton = findViewById(R.id.put_data)
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
+        
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -56,6 +58,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, Start::class.java)
                 // 啟動新的 Activity
                 startActivity(intent)
+
+                setContentView(R.layout.activity_loading)
+                val customProgressBar = findViewById<CustomProgressBar>(R.id.customProgressBar)
+                customProgressBar.startAnimation()
             }
 
         }
