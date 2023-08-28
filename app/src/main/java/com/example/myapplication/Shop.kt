@@ -50,13 +50,13 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //返回按鈕
         val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
         }
     }
         //記數
-        var number  = 0
-        var numbertwo = 0
+        private var numberOne  = 0
+        private var numberTwo = 0
 
     //施行按鈕方法
 
@@ -155,18 +155,18 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                  val commodityMoney : Int =
                                      Integer.parseInt(document.getLong("commodityMoney").toString())
 
-                                val purchasemoner = commodityMoney * counter
-                                if (money >= purchasemoner) {
-                                    money -= purchasemoner
+                                val purchaseMoney = commodityMoney * counter
+                                if (money >= purchaseMoney) {
+                                    money -= purchaseMoney
                                     writeData.update("money", money)
                                     Toast.makeText(
                                         this,
-                                        "購買成功!!總共花費" + purchasemoner + "G",
+                                        "購買成功!!總共花費" + purchaseMoney + "G",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     changeMoney()
-                                    number = number + counter
-                                    if(number ==5 ) {
+                                    numberOne += counter
+                                    if(numberOne ==5 ) {
                                         commodity1.visibility = View.INVISIBLE
                                     }
                                 } else {
@@ -262,24 +262,24 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             val commodityMoney : Int =
                                 Integer.parseInt(document.getLong("commodityMoney").toString())
 
-                            val attackpower : Int =
-                                Integer.parseInt(document.getLong("attackpower").toString())
+                            val attackPower : Int =
+                                Integer.parseInt(document.getLong("attacker").toString())
 
-                            val purchasemoner = commodityMoney * counter
-                            if (money >= purchasemoner) {
-                                money -= purchasemoner
+                            val purchaseMoney = commodityMoney * counter
+                            if (money >= purchaseMoney) {
+                                money -= purchaseMoney
                                 writeData.update("money", money)
-                                atk += attackpower*counter
+                                atk += attackPower*counter
                                 writeData.update("atk",atk)
                                 Toast.makeText(
                                     this,
-                                    "購買成功!!總共花費" + purchasemoner + "G",
+                                    "購買成功!!總共花費" + purchaseMoney + "G",
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 changeMoney()
 
-                                numbertwo = numbertwo + counter
-                                if(numbertwo ==5 ) {
+                                numberTwo += counter
+                                if(numberTwo ==5 ) {
                                     commodity2.visibility = View.INVISIBLE
                                 }
                             } else {
@@ -531,7 +531,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             commodity5.visibility = View.VISIBLE
             commodity6.visibility = View.VISIBLE
 
-            number = 0
+            numberOne = 0
+            numberTwo = 0
         }
 
 
