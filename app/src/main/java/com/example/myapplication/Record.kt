@@ -42,13 +42,13 @@ class Record : AppCompatActivity() {
         // Animate layout1 to the right and layout2 to the left
         fun animateToLeft() {
             ObjectAnimator.ofFloat(layout1, "translationX", -800f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
 
             ObjectAnimator.ofFloat(layout2, "translationX", 0f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
@@ -57,13 +57,13 @@ class Record : AppCompatActivity() {
         // Animate layout1 to the left and layout2 to the right
         fun animateToRight() {
             ObjectAnimator.ofFloat(layout1, "translationX", 0f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
 
             ObjectAnimator.ofFloat(layout2, "translationX", 800f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
