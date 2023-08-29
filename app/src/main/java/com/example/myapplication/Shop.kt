@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.model.Document
 
 
 class Shop : AppCompatActivity(), View.OnClickListener {
@@ -110,7 +108,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
                 }
-                            myPurchaseView.findViewById<ImageButton>(R.id.addnumber).setOnClickListener {
+                            myPurchaseView.findViewById<ImageButton>(R.id.addNumber).setOnClickListener {
 
                                 if (counter < 5) {
                                     counter++
@@ -126,7 +124,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
                                 }
                             }
-                            myPurchaseView.findViewById<ImageButton>(R.id.minusnumber).setOnClickListener {
+                            myPurchaseView.findViewById<ImageButton>(R.id.minusNumber).setOnClickListener {
                                 if (counter > 0) {
                                     counter--
                                     counter.toString()
@@ -216,7 +214,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     //透明背景
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }
-                myPurchaseView.findViewById<ImageButton>(R.id.addnumber).setOnClickListener {
+                myPurchaseView.findViewById<ImageButton>(R.id.addNumber).setOnClickListener {
                     if (counter < 5) {
                         counter++
                         counter.toString()
@@ -231,7 +229,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                         Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
                     }
                 }
-                myPurchaseView.findViewById<ImageButton>(R.id.minusnumber).setOnClickListener {
+                myPurchaseView.findViewById<ImageButton>(R.id.minusNumber).setOnClickListener {
                     if (counter > 0) {
                         counter--
                         counter.toString()
