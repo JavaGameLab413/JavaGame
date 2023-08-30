@@ -60,9 +60,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.history -> {
-                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, History::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, Record::class.java)
+                startActivity(intent)
             }
             R.id.shop -> {
                 val intent = Intent(this, Shop::class.java)
