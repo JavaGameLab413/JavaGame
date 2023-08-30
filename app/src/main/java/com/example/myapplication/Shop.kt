@@ -55,6 +55,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         //記數
         private var numberOne  = 0
         private var numberTwo = 0
+    //
 
     //施行按鈕方法
 
