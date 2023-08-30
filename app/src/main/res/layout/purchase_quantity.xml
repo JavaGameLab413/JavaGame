@@ -35,7 +35,8 @@
                 android:contentDescription="@string/minusNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
-                app:srcCompat="@drawable/reduce" />
+                app:srcCompat="@drawable/reduce"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/counterNumber"
