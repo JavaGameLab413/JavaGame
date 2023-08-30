@@ -28,171 +28,128 @@
         tools:layout_editor_absoluteY="0dp" />
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="wrap_content"
-        android:layout_height="466dp"
-        android:background="@drawable/newshopbackground"
+    <LinearLayout
+        android:id="@+id/screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
         <LinearLayout
-            android:id="@+id/screen"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,UselessParent">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,UselessParent">
 
 
-                <ImageButton
-                    android:id="@+id/commodity1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+            <ImageButton
+                android:id="@+id/commodity1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/healingpotion"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
-                <ImageButton
-                    android:id="@+id/commodity2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,UselessParent">
-
-                <ImageButton
-                    android:id="@+id/commodity3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-
-                <ImageButton
-                    android:id="@+id/commodity4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,UselessParent">
-
-                <ImageButton
-                    android:id="@+id/commodity5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-
-                <ImageButton
-                    android:id="@+id/commodity6"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,UselessParent">
-
-                <ImageButton
-                    android:id="@+id/commodity7"
-                    android:layout_width="100dp"
-                    android:layout_height="96dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-
-                <ImageButton
-                    android:id="@+id/commodity8"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/healingpotion"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/commodity2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/power_up"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,UselessParent">
+
+            <ImageButton
+                android:id="@+id/commodity3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/healingpotion"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+
+            <ImageButton
+                android:id="@+id/commodity4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/healingpotion"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,UselessParent">
+
+            <ImageButton
+                android:id="@+id/commodity5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/healingpotion"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+
+            <ImageButton
+                android:id="@+id/commodity6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/healingpotion"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/refresh"
@@ -200,25 +157,23 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/darker_gray"
         android:text="@string/refresh"
-        android:textColor="@color/white"
+        android:textColor="#4E342E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.185"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18"
         app:srcCompat="@android:drawable/ic_menu_revert"
         tools:ignore="MissingConstraints" />
 
