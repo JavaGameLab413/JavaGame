@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,18 +19,45 @@
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
 
-        <TextView
-            android:id="@+id/info"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="39dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
-            android:text="是否花費50G進行購買此商品?"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/minusNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:contentDescription="@string/minusNumber"
+                android:minWidth="68dp"
+                android:minHeight="58dp"
+                app:srcCompat="@drawable/reduce"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/counterNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="" />
+
+            <ImageButton
+                android:id="@+id/addNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/addNumber"
+                android:minWidth="68dp"
+                android:minHeight="58dp"
+                app:srcCompat="@drawable/add"
+                tools:ignore="TouchTargetSizeCheck" />
 
 
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
