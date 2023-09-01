@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowInsets.Type.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
+
 import android.widget.ImageButton
 
 
@@ -22,7 +23,7 @@ class Record : AppCompatActivity() {
         back.setOnClickListener{
             finish()
         }
-
+        
         val plot1: Button = findViewById(R.id.plot1)
         val teach1: Button = findViewById(R.id.teach1)
 
