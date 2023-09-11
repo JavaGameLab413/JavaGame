@@ -41,7 +41,7 @@
     <Button
         android:id="@+id/insert"
         android:layout_width="wrap_content"
-        android:layout_height="51dp"
+        android:layout_height="50dp"
         android:text="輸入資料庫"
         android:textColor="@color/white"
         app:backgroundTint="#80000000"
@@ -56,7 +56,7 @@
     <Button
         android:id="@+id/gpt"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="50dp"
         android:text="chatGPT"
         android:textColor="@color/white"
         app:backgroundTint="#80000000"
@@ -113,5 +113,20 @@
             tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/friend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/friend"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23"
+        app:srcCompat="@drawable/friend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,6 @@ class Insert : AppCompatActivity() {
                     addEditText("lv")
                     addEditText("money")
                     addEditText("history")
-
                     sure.setOnClickListener {
                         val con = checkField()
 
