@@ -5,7 +5,6 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
@@ -33,6 +32,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
+        val friend: ImageButton = findViewById(R.id.friend)
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
 
@@ -42,6 +42,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         history.setOnClickListener(this)
         shop.setOnClickListener(this)
         backPack.setOnClickListener(this)
+        friend.setOnClickListener(this)
         btDatabase.setOnClickListener {
             val intent = Intent(this, Insert::class.java)
             startActivity(intent)
@@ -74,6 +75,10 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this, BackPack::class.java)
 //                startActivity(intent)
+            }
+            R.id.friend ->{
+                val intent = Intent(this, Friend::class.java)
+                startActivity(intent)
             }
 
         }

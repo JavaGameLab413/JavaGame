@@ -69,6 +69,10 @@
             android:name=".Dialog"
             android:exported="false"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Friend"
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
