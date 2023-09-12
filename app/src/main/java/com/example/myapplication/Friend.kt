@@ -13,7 +13,7 @@ class Friend: AppCompatActivity() {
 
 
         // 创建多个 CustomImageViewTextView 对象并设置属性
-        for (i in 1..5) {
+        for (i in 1..10) {
             val customView = FriendInfo(this, null)
             customView.setImageResource(R.drawable.head2)
             customView.setText("Item","Lv $i")
