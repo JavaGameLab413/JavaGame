@@ -38,5 +38,14 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
              />
+        <TextView
+            android:id="@+id/f_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            />
+
     </LinearLayout>
 </merge>

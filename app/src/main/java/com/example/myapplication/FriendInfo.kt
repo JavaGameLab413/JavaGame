@@ -11,6 +11,7 @@ class FriendInfo(context: Context, attrs: AttributeSet?) : LinearLayout(context,
     private val head: ImageView
     private val name: TextView
     private val lv: TextView
+    private val state: TextView
 
     init {
         // 从 XML 布局文件中加载自定义视图的布局
@@ -21,6 +22,7 @@ class FriendInfo(context: Context, attrs: AttributeSet?) : LinearLayout(context,
         head = findViewById(R.id.f_head)
         name = findViewById(R.id.f_name)
         lv = findViewById(R.id.f_lv)
+        state = findViewById(R.id.f_state)
 
     }
 
@@ -29,8 +31,13 @@ class FriendInfo(context: Context, attrs: AttributeSet?) : LinearLayout(context,
         head.setImageResource(resId)
     }
 
-    fun setText(f_name: String,f_lv:String) {
+    fun setText(f_name: String,f_lv:String,f_state:Boolean) {
         name.text = f_name
         lv.text= f_lv
+        if(f_state){
+            state.text="在線"
+        }else{
+            state.text="離線"
+        }
     }
 }
