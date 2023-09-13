@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import LoadingAnimation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
@@ -13,7 +14,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
-import com.example.myapp.CustomProgressBar
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
+    lateinit var loadingAnimation: LoadingAnimation
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,9 @@ class MainActivity : AppCompatActivity() {
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        
+
+        loadingAnimation = LoadingAnimation(this)
+
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -59,12 +62,15 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
 
-                setContentView(R.layout.activity_loading)
-                val customProgressBar = findViewById<CustomProgressBar>(R.id.customProgressBar)
-                customProgressBar.startAnimation()
+                loadingAnimation.start()
+//                setContentView(R.layout.activity_loading)
+//                val customProgressBar = findViewById<CustomProgressBar>(R.id.customProgressBar)
+//                customProgressBar.startAnimation()
+
             }
 
         }
+
 
         signOut.setOnClickListener {
             sharedPreferences.edit().putString("ID", "-1").apply()
