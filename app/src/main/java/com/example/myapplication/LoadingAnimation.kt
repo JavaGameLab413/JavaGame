@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.myapplication.R
-//import com.sportpassword.bm.R
+
 
 class LoadingAnimation constructor(private val context: Activity, private val animationName: String = "loading.json") {
 

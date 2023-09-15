@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import LoadingAnimation
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
@@ -15,6 +16,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.*
+import android.os.Handler
+import android.os.Looper
+
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
@@ -23,16 +28,24 @@ class Start : AppCompatActivity(), View.OnClickListener {
     private lateinit var btDatabase: Button
     private lateinit var btGPT: Button
 
+    // 声明一个 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    lateinit var loadingAnimation: LoadingAnimation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
         //實作按鈕
         val fight: ImageButton = findViewById(R.id.fight)
         val history: ImageButton = findViewById(R.id.history)
         val shop: ImageButton = findViewById(R.id.shop)
         val backPack: ImageButton = findViewById(R.id.backPack)
+
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
 
@@ -56,16 +69,17 @@ class Start : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.fight -> {
-                val intent = Intent(this, Fight::class.java)
-                startActivity(intent)
+                // 模拟加载开始
+                loadingAnimation.start()
+                simulateLoadingComplete(Fight::class.java)
             }
             R.id.history -> {
-                val intent = Intent(this, Record::class.java)
-                startActivity(intent)
+                loadingAnimation.start()
+                simulateLoadingComplete(Record::class.java)
             }
             R.id.shop -> {
-                val intent = Intent(this, Shop::class.java)
-                startActivity(intent)
+                loadingAnimation.start()
+                simulateLoadingComplete(Shop::class.java)
                 // 關閉頁面
                 // finish()
                 Log.d("test", "This is Debug.")
@@ -78,6 +92,20 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
         }
     }
+    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
+        // 延迟5秒后执行
+        handler.postDelayed({
+            // 模拟加载完成后停止
+            loadingAnimation.stop()
+
+            // 启动目标活动
+            val intent = Intent(this, targetActivityClass)
+            startActivity(intent)
+
+        }, 3000) // 延迟5秒
+    }
+
+
 
 
     //刷新頁面

@@ -14,6 +14,8 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
+import android.os.Handler
+import android.os.Looper
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +33,11 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
+    // 声明一个 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
     lateinit var loadingAnimation: LoadingAnimation
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
+        //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
         //朝畫面點擊後切換畫面
@@ -58,19 +65,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 // 執行xml檔
-                val intent = Intent(this, Start::class.java)
-                // 啟動新的 Activity
-                startActivity(intent)
-
                 loadingAnimation.start()
-//                setContentView(R.layout.activity_loading)
-//                val customProgressBar = findViewById<CustomProgressBar>(R.id.customProgressBar)
-//                customProgressBar.startAnimation()
-
+                simulateLoadingComplete(Start::class.java)
             }
-
         }
-
 
         signOut.setOnClickListener {
             sharedPreferences.edit().putString("ID", "-1").apply()
@@ -81,6 +79,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
+        // 延迟5秒后执行
+        handler.postDelayed({
+            // 模拟加载完成后停止
+            loadingAnimation.stop()
+
+            // 启动目标活动
+            val intent = Intent(this, targetActivityClass)
+            startActivity(intent)
+
+        }, 3000) // 延迟5秒
+    }
 
     override fun onResume() {
         super.onResume()
