@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,19 +11,9 @@ class Friend: AppCompatActivity() , View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend)
 
-        val linearLayout = findViewById<LinearLayout>(R.id.friends)
         val addFriend = findViewById<Button>(R.id.addFriend)
 
         addFriend.setOnClickListener(this)
-
-        // 创建多个 CustomImageViewTextView 对象并设置属性
-        for (i in 1..10) {
-            val customView = FriendInfo(this, null)
-            customView.setImageResource(R.drawable.head2)
-            customView.setText("Item","Lv $i",true)
-            // 添加 CustomImageViewTextView 到 LinearLayout 中
-            linearLayout.addView(customView)
-        }
 
 
     }
@@ -32,11 +21,27 @@ class Friend: AppCompatActivity() , View.OnClickListener{
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.addFriend -> {
-                val intent = Intent(this, Fight::class.java)
-                startActivity(intent)
+
             }
 
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        add(R.drawable.head2,"AA",20,true)
+    }
+
+    //添加好友欄位
+    private fun add(head:Int,name:String,lv:Int,state:Boolean){
+        val linearLayout = findViewById<LinearLayout>(R.id.friends)
+        // 创建多个 CustomImageViewTextView 对象并设置属性
+        for (i in 1..10) {
+            val customView = FriendInfo(this, null)
+            customView.setImageResource(head)
+            customView.setText(name,"Lv $lv",state)
+            // 添加 CustomImageViewTextView 到 LinearLayout 中
+            linearLayout.addView(customView)
         }
     }
 }
