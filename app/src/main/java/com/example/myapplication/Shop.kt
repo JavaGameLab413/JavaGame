@@ -145,19 +145,19 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                         myPurchaseView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
                             popupWindow.dismiss()
                             information.get().addOnSuccessListener { documents ->
-                                var money: Int =
+                                var userMoney: Int =
                                     Integer.parseInt(documents.getLong("money").toString())
 
-                                val ref = db.collection("commodity").document("1")
+                                val ref = db.collection("Item").document("M1")
                                 ref.get().addOnSuccessListener { document ->
 
-                                 val commodityMoney : Int =
-                                     Integer.parseInt(document.getLong("commodityMoney").toString())
+                                 val itemMoney : Int =
+                                     Integer.parseInt(document.getLong("Money").toString())
 
-                                val purchaseMoney = commodityMoney * counter
-                                if (money >= purchaseMoney) {
-                                    money -= purchaseMoney
-                                    writeData.update("money", money)
+                                val purchaseMoney = itemMoney * counter
+                                if (userMoney >= purchaseMoney) {
+                                    userMoney -= purchaseMoney
+                                    writeData.update("money", userMoney)
                                     Toast.makeText(
                                         this,
                                         "購買成功!!總共花費" + purchaseMoney + "G",
@@ -250,24 +250,24 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 myPurchaseView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
                     popupWindow.dismiss()
                     information.get().addOnSuccessListener { documents ->
-                        var money: Int =
+                        var userMoney: Int =
                             Integer.parseInt(documents.getLong("money").toString())
 
                         var atk: Int = Integer.parseInt(documents.getLong("atk").toString())
 
-                        val ref = db.collection("commodity").document("2")
+                        val ref = db.collection("Item").document("M2")
                         ref.get().addOnSuccessListener { document ->
 
-                            val commodityMoney : Int =
-                                Integer.parseInt(document.getLong("commodityMoney").toString())
+                            val itemMoney : Int =
+                                Integer.parseInt(document.getLong("Money").toString())
 
                             val attackPower : Int =
-                                Integer.parseInt(document.getLong("attacker").toString())
+                                Integer.parseInt(document.getLong("ATK").toString())
 
-                            val purchaseMoney = commodityMoney * counter
-                            if (money >= purchaseMoney) {
-                                money -= purchaseMoney
-                                writeData.update("money", money)
+                            val purchaseMoney = itemMoney * counter
+                            if (userMoney >= purchaseMoney) {
+                                userMoney -= purchaseMoney
+                                writeData.update("money", userMoney)
                                 atk += attackPower*counter
                                 writeData.update("atk",atk)
                                 Toast.makeText(
