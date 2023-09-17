@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, targetActivityClass)
             startActivity(intent)
 
-        }, 3000) // 延迟5秒
+        }, 1000) // 延迟5秒
     }
 
     override fun onResume() {

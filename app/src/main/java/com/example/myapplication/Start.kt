@@ -102,7 +102,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(this, targetActivityClass)
             startActivity(intent)
 
-        }, 3000) // 延迟5秒
+        }, 1000) // 延迟5秒
     }
 
 
