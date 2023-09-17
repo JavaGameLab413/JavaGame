@@ -29,34 +29,45 @@
 
             <ImageButton
                 android:id="@+id/minusNumber"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
                 android:contentDescription="@string/minusNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
                 app:srcCompat="@drawable/reduce"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_marginEnd="10dp"
+
+                />
 
             <TextView
                 android:id="@+id/counterTextView"
-                android:layout_width="33dp"
-                android:layout_height="wrap_content"
+                android:layout_width="87dp"
+                android:layout_height="37dp"
                 android:layout_gravity="center"
-                android:text="1"
+                android:layout_marginEnd="10dp"
+                android:background="#CFCFCF"
+                android:gravity="center_horizontal"
+                android:shadowColor="#C2C2C2"
+                android:shadowDx="10.0"
+                android:shadowDy="1.0"
+                android:shadowRadius="3.0"
+                android:text="@string/counternumber"
                 android:textColor="@color/black"
-                android:textSize="35dp"
-                android:layout_marginEnd="20dp"/>
+                android:textSize="35sp"
+
+                tools:ignore="TextSizeCheck" />
 
             <ImageButton
                 android:id="@+id/addNumber"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/addNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
                 app:srcCompat="@drawable/add"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                />
 
 
         </LinearLayout>

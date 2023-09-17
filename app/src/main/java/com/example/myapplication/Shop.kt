@@ -20,9 +20,15 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private var itemcase: String = ""
 
-    private var numberOne  = 0
-    private var numberTwo = 0
 
+    private val remainingPurchaseCounts = mutableMapOf(
+        "M1" to 5, // 设置每个商品的初始可购买数量
+        "M2" to 5,
+        "M3" to 5,
+        "M4" to 5,
+        "M5" to 5,
+        "M6" to 5
+    )
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,15 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val commodity6 = findViewById<ImageView>(R.id.commodity6)
 
         val refresh = findViewById<Button>(R.id.refresh)
+
+        refresh.setOnClickListener {
+            commodity1.visibility = View.VISIBLE
+            commodity2.visibility = View.VISIBLE
+            commodity3.visibility = View.VISIBLE
+            commodity4.visibility = View.VISIBLE
+            commodity5.visibility = View.VISIBLE
+            commodity6.visibility = View.VISIBLE
+        }
 
         //設置按鈕監聽
         commodity1.setOnClickListener(this)
@@ -158,10 +173,49 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             Toast.LENGTH_SHORT
                         ).show()
                         changeMoney()
-                        numberOne += counter
+                        val remainingCount = remainingPurchaseCounts[itemcase] ?: 0
+                        if (remainingCount >= counter) {
+                            remainingPurchaseCounts[itemcase] = remainingCount - counter
+
+
+                            if (remainingPurchaseCounts[itemcase] == 0) {
+                                val commodity1 = findViewById<ImageView>(R.id.commodity1)
+                                val commodity2 = findViewById<ImageView>(R.id.commodity2)
+                                val commodity3 = findViewById<ImageView>(R.id.commodity3)
+                                val commodity4 = findViewById<ImageView>(R.id.commodity4)
+                                val commodity5 = findViewById<ImageView>(R.id.commodity5)
+                                val commodity6 = findViewById<ImageView>(R.id.commodity6)
+                                when (itemcase) {
+                                    "M1" -> commodity1.visibility = View.INVISIBLE
+                                    "M2" -> commodity2.visibility = View.INVISIBLE
+                                    "M3" -> commodity3.visibility = View.INVISIBLE
+                                    "M4" -> commodity4.visibility = View.INVISIBLE
+                                    "M5" -> commodity5.visibility = View.INVISIBLE
+                                    "M6" -> commodity6.visibility = View.INVISIBLE
+                                }
+                            }
+                        } else {
+                            Toast.makeText(this, "購買數量已超過庫存!", Toast.LENGTH_SHORT).show()
+                            val commodity1 = findViewById<ImageView>(R.id.commodity1)
+                            val commodity2 = findViewById<ImageView>(R.id.commodity2)
+                            val commodity3 = findViewById<ImageView>(R.id.commodity3)
+                            val commodity4 = findViewById<ImageView>(R.id.commodity4)
+                            val commodity5 = findViewById<ImageView>(R.id.commodity5)
+                            val commodity6 = findViewById<ImageView>(R.id.commodity6)
+                            when (itemcase) {
+                                "M1" -> commodity1.visibility = View.INVISIBLE
+                                "M2" -> commodity2.visibility = View.INVISIBLE
+                                "M3" -> commodity3.visibility = View.INVISIBLE
+                                "M4" -> commodity4.visibility = View.INVISIBLE
+                                "M5" -> commodity5.visibility = View.INVISIBLE
+                                "M6" -> commodity6.visibility = View.INVISIBLE
+                            }
+                        }
+
 
                     } else {
                         Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
+
                     }
                 }
             }
@@ -174,6 +228,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //出現位置
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+
+
     }
 
     private fun changeMoney() {
