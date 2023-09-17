@@ -31,7 +31,7 @@
                 android:id="@+id/minusNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="25dp"
                 android:contentDescription="@string/minusNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
@@ -39,17 +39,19 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/counterNumber"
-                android:layout_width="0dp"
+                android:id="@+id/counterTextView"
+                android:layout_width="33dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="" />
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="35dp"
+                android:layout_marginEnd="20dp"/>
 
             <ImageButton
                 android:id="@+id/addNumber"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/addNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"

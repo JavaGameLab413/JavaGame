@@ -112,15 +112,13 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             //透明背景
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
+        val counterTextView = myPurchaseView.findViewById<TextView>(R.id.counterTextView)
 
         myPurchaseView.findViewById<ImageButton>(R.id.addNumber).setOnClickListener {
             if (counter < 5) {
                 counter++
-                Toast.makeText(
-                    this,
-                    "以選購 $counter 個商品",
-                    Toast.LENGTH_SHORT
-                ).show()
+                counterTextView.text = "$counter" // 更新數量
+
             } else {
                 counter = 5
                 Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
@@ -130,11 +128,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         myPurchaseView.findViewById<ImageButton>(R.id.minusNumber).setOnClickListener {
             if (counter > 0) {
                 counter--
-                Toast.makeText(
-                    this,
-                    "以選購 $counter 個商品",
-                    Toast.LENGTH_SHORT
-                ).show()
+                counterTextView.text = "$counter" // 更新數量
+
             } else {
                 counter = 0
                 Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
