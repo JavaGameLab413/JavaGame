@@ -1,5 +1,6 @@
 import android.app.Activity
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.myapplication.R
@@ -67,11 +69,18 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     }
 
     private fun initLoadingText() {
+        // 加載自訂義字體
+        val customTypeface = ResourcesCompat.getFont(context, R.font.yujiboku_regular)
         // 載入中文字
         loadingTextTV.text = "努力加載中..."
         loadingTextTV.setTextColor(ContextCompat.getColor(context, R.color.white))
         loadingTextTV.gravity = Gravity.CENTER
-        loadingTextTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
+        loadingTextTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
+
+        // 設置自訂義字體
+        customTypeface?.let {
+            loadingTextTV.typeface = it
+        }
     }
 
     fun start() {
