@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    // 声明一个 CoroutineScope
+    // 宣告一個 CoroutineScope
     private val handler = Handler(Looper.getMainLooper())
     lateinit var loadingAnimation: LoadingAnimation
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-                // 執行xml檔
+                // 執行loading動畫
                 loadingAnimation.start()
                 simulateLoadingComplete(Start::class.java)
             }
@@ -80,16 +80,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        // 延迟5秒后执行
         handler.postDelayed({
-            // 模拟加载完成后停止
+            // 加載完成後停止
             loadingAnimation.stop()
 
-            // 启动目标活动
+            // 啟動目標
             val intent = Intent(this, targetActivityClass)
             startActivity(intent)
 
-        }, 1000) // 延迟5秒
+        }, 1000)
     }
 
     override fun onResume() {

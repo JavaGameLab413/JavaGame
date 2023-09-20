@@ -28,7 +28,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
     private lateinit var btDatabase: Button
     private lateinit var btGPT: Button
 
-    // 声明一个 CoroutineScope
+    // 宣告一個 CoroutineScope
     private val handler = Handler(Looper.getMainLooper())
     lateinit var loadingAnimation: LoadingAnimation
 
@@ -69,7 +69,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.fight -> {
-                // 模拟加载开始
+                // 執行loading動畫
                 loadingAnimation.start()
                 simulateLoadingComplete(Fight::class.java)
             }
@@ -93,16 +93,15 @@ class Start : AppCompatActivity(), View.OnClickListener {
         }
     }
     private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        // 延迟5秒后执行
         handler.postDelayed({
-            // 模拟加载完成后停止
+            // 加載完成後停止
             loadingAnimation.stop()
 
-            // 启动目标活动
+            // 啟動目標
             val intent = Intent(this, targetActivityClass)
             startActivity(intent)
 
-        }, 1000) // 延迟5秒
+        }, 1000)
     }
 
 

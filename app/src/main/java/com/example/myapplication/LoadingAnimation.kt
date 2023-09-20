@@ -25,17 +25,17 @@ class LoadingAnimation constructor(private val context: Activity, private val an
         LinearLayout.LayoutParams.MATCH_PARENT
     )
 
-    // 載入中動畫container
+    // loading動畫container
     private val loadingContainer: RelativeLayout = RelativeLayout(context)
 
-    // 載入中動畫與參數
+    // loading動畫與參數
     private val lottieAnimationView: LottieAnimationView = LottieAnimationView(context)
     private val lLayoutParams: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
         RelativeLayout.LayoutParams.WRAP_CONTENT,
         RelativeLayout.LayoutParams.WRAP_CONTENT
     )
 
-    // 載入中文字
+    // loading文字
     private val loadingTextTV: TextView = TextView(context)
 
     init {
@@ -55,13 +55,13 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     }
 
     private fun initLoadingImage() {
-        // 包住載入中的container，主要是用來做定位
+        // 包住loading的container，主要是用來做定位
         val layoutParams = lLayoutParams
         layoutParams.setMargins(0, 150, 0, 0)
         loadingContainer.layoutParams = layoutParams
         rLayout.addView(loadingContainer)
 
-        // 載入中動畫主體
+        // loading動畫主體
         lottieAnimationView.setAnimation(animationName)
         lottieAnimationView.layoutParams = lLayoutParams
     }
