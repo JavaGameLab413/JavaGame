@@ -75,7 +75,7 @@ class LoadingAnimation constructor(private val context: Activity, private val an
         loadingTextTV.text = "努力加載中..."
         loadingTextTV.setTextColor(ContextCompat.getColor(context, R.color.white))
         loadingTextTV.gravity = Gravity.CENTER
-        loadingTextTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
+        loadingTextTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21F)
 
         // 設置自訂義字體
         customTypeface?.let {
