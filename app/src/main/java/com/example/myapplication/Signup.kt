@@ -84,7 +84,8 @@ class Signup : AppCompatActivity() {
                                             "lv" to 1,
                                             "history" to 0,
                                             "money" to 0,
-                                            "serialNumber" to serialNumber
+                                            "serialNumber" to serialNumber,
+                                            "atk" to 0
                                         )
                                         //將資料寫入資料庫
                                         Log.d("test", "success!")
