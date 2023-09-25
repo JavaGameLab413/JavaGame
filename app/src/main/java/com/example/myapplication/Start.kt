@@ -1,12 +1,10 @@
 package com.example.myapplication
 
-import LoadingAnimation
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
@@ -16,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.*
 import android.os.Handler
 import android.os.Looper
 
@@ -30,7 +27,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
     // 宣告一個 CoroutineScope
     private val handler = Handler(Looper.getMainLooper())
-    lateinit var loadingAnimation: LoadingAnimation
+    private lateinit var loadingAnimation: LoadingAnimation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

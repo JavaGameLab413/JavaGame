@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import LoadingAnimation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     // 宣告一個 CoroutineScope
     private val handler = Handler(Looper.getMainLooper())
-    lateinit var loadingAnimation: LoadingAnimation
+    private lateinit var loadingAnimation: LoadingAnimation
 
 
     @SuppressLint("MissingInflatedId")

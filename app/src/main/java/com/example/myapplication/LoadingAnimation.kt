@@ -1,31 +1,27 @@
+package com.example.myapplication
+
 import android.app.Activity
 import android.graphics.Color
-import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import com.example.myapplication.R
 
 
 class LoadingAnimation constructor(private val context: Activity, private val animationName: String = "loading.json") {
 
     // 現有視圖中最底層的視圖
-    private val rootView: ViewGroup = context.window.decorView.findViewById<ViewGroup>(android.R.id.content)
+    private val rootView = context.window.decorView.findViewById<ViewGroup>(android.R.id.content)
 
     // 畫面的layout與設定layout的參數
     private val rLayout: LinearLayout = LinearLayout(context)
-    private val rLayoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.MATCH_PARENT
-    )
+
 
     // loading動畫container
     private val loadingContainer: RelativeLayout = RelativeLayout(context)
@@ -59,7 +55,8 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     private fun initLoadingImage() {
         // 包住loading的container，主要是用來做定位
         val layoutParams = lLayoutParams
-        layoutParams.setMargins(0, 150, 0, 0)
+        layoutParams.setMargins(0, 130, 0, 0) // 調整動畫距離
+        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE) // 水平置中
         loadingContainer.layoutParams = layoutParams
         rLayout.addView(loadingContainer)
 
