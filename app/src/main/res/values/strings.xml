@@ -31,6 +31,10 @@
     <string name="inputdatabase">輸入資料庫</string>
     <string name="refresh">刷新</string>
     <string name="back">back</string>
+    <string name="addnumber">增加</string>
+    <string name="minusnumber">減少</string>
+    <string name="minusNumber">minusNumber</string>
+    <string name="addNumber">addNumber</string>
     <string name="change">change</string>
     <string name="teach">教學</string>
     <string name="plot">劇情</string>

@@ -54,6 +54,7 @@ class FightMain : AppCompatActivity() {
             checkChoiceIsAns("SelectD")
         }
     }
+
     //每次更新會做的事情，固定放在onCreate下方，其他方法往下放
     override fun onResume() {
         super.onResume()

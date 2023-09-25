@@ -65,5 +65,7 @@ dependencies {
     //loading動畫
     implementation 'com.airbnb.android:lottie:4.1.0'
 
+    //逐字動畫
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
 }

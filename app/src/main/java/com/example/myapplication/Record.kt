@@ -1,12 +1,15 @@
 package com.example.myapplication
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets.Type.*
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Button
+
 import android.widget.ImageButton
 
 
@@ -20,6 +23,18 @@ class Record : AppCompatActivity() {
         back.setOnClickListener{
             finish()
         }
+        
+        val plot1: Button = findViewById(R.id.plot1)
+        val teach1: Button = findViewById(R.id.teach1)
+
+        plot1.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            startActivity(intent)
+        }
+        teach1.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            startActivity(intent)
+        }
 
 // Switch between the two layouts with an animation
         val layout1 = findViewById<View>(R.id.layout1)
@@ -28,13 +43,13 @@ class Record : AppCompatActivity() {
         // Animate layout1 to the right and layout2 to the left
         fun animateToLeft() {
             ObjectAnimator.ofFloat(layout1, "translationX", -800f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
 
             ObjectAnimator.ofFloat(layout2, "translationX", 0f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
@@ -43,13 +58,13 @@ class Record : AppCompatActivity() {
         // Animate layout1 to the left and layout2 to the right
         fun animateToRight() {
             ObjectAnimator.ofFloat(layout1, "translationX", 0f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }
 
             ObjectAnimator.ofFloat(layout2, "translationX", 800f).apply {
-                duration = 4000
+                duration = 2500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
             }

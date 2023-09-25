@@ -65,6 +65,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Insert"/>
+        <activity
+            android:name=".Dialog"
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
