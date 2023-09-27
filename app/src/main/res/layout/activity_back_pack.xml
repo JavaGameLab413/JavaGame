@@ -16,15 +16,18 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
+        android:layout_width="92dp"
+        android:layout_height="65dp"
+        android:backgroundTint="#00F6F6F6"
         android:contentDescription="@string/back"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185"
-        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:layout_constraintVertical_bias="0.2"
+        app:srcCompat="@drawable/turn"
         tools:ignore="MissingConstraints,UnknownIdInLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
