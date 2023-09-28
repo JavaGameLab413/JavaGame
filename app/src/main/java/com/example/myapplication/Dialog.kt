@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -37,7 +36,7 @@ class Dialog : AppCompatActivity(){
         read()//讀資料庫
 
 
-        Log.e("ASD",context.poll())
+
 
         //下一段劇情閃爍
         val next = findViewById<ImageView>(R.id.next)
@@ -45,7 +44,6 @@ class Dialog : AppCompatActivity(){
 
         //內文動畫
         textView = findViewById(R.id.context)
-//        animateTextWithHandler()
 
         //點擊進行下一段
         val chat :ImageView = findViewById(R.id.chat)
@@ -59,7 +57,7 @@ class Dialog : AppCompatActivity(){
                 }else{
                     next.visibility = View.INVISIBLE
                     stopAnimation()
-                 //   animateTextWithHandler()
+                    animateTextWithHandler()
                 }
             }
             else{
@@ -67,7 +65,7 @@ class Dialog : AppCompatActivity(){
                 textView.text = textToDisplay
                 isRunning=false
                 next.visibility = View.VISIBLE
-        //        next.startAnimation(blinkAnimation)
+                next.startAnimation(blinkAnimation)
 
             }
         }
@@ -84,16 +82,17 @@ class Dialog : AppCompatActivity(){
             for (i in doc.documents){
                 addText(i.getString("name").toString(),i.getString("context").toString())   //添加劇情
             }
+            //Log.e("ASD",context.poll())
+            animateTextWithHandler()
         }
+
     }
 
     //添加劇情
     private fun addText(speaker :String,text :String){
         name.add(speaker)
         context.add(text)
-//        queue.add("我是一段超級長的測試文字，我主要用來測試逐字動畫還有TextView的寬度，但是我還是有一點點問題，所以暫時無法實用。")
-//        queue.add("當你看到這段話時，代表大家都很棒。")
-//        queue.add("還看，說的就是你。")
+
     }
 
     //文字跑條動畫
