@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/fight"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/fightview" />
+        android:contentDescription="@string/fightView" />
 
     <include
         android:id="@+id/include3"

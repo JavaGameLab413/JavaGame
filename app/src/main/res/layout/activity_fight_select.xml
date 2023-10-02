@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fight"
         tools:ignore="MissingConstraints"
-        android:contentDescription="@string/fightview" />
+        android:contentDescription="@string/fightView" />
 
     <include
         android:id="@+id/include2"
