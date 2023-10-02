@@ -42,4 +42,6 @@
     <string name="plot2">第二章</string>
     <string name="teach1">第一章</string>
     <string name="teach2">第二章</string>
+    <string name="fightView">fightView</string>
+    <string name="packageView">packageView</string>
 </resources>
