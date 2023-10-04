@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val propertiesDatabaseCollectionName = "properties"
+    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
 
 
     @SuppressLint("MissingInflatedId")
@@ -66,9 +67,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val information = db.collection(propertiesDatabaseCollectionName)
+        val information = db.collection(PlayerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName)
+        val writeData = db.collection(PlayerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
 
         val commodity1 = findViewById<ImageView>(R.id.commodity1)
@@ -146,8 +147,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             popupWindow.dismiss()
                             information.get().addOnSuccessListener { documents ->
                                 var money: Int =
-                                    Integer.parseInt(documents.getLong("money").toString())
+                                    Integer.parseInt(documents.getLong("Gold").toString())
 
+                                //commodity是甚麼
                                 val ref = db.collection("commodity").document("1")
                                 ref.get().addOnSuccessListener { document ->
 
@@ -157,7 +159,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                 val purchaseMoney = commodityMoney * counter
                                 if (money >= purchaseMoney) {
                                     money -= purchaseMoney
-                                    writeData.update("money", money)
+                                    writeData.update("Gold", money)
                                     Toast.makeText(
                                         this,
                                         "購買成功!!總共花費" + purchaseMoney + "G",
@@ -329,10 +331,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
                         if (money >= 50) {
                             money -= 50
-                            writeData.update("money", money)
+                            writeData.update("Gold", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity3.visibility = View.INVISIBLE
@@ -439,10 +441,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
                         if (money >= 50) {
                             money -= 50
-                            writeData.update("money", money)
+                            writeData.update("Gold", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity5.visibility = View.INVISIBLE
@@ -494,10 +496,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     popupWindow.dismiss()
 
                     information.get().addOnSuccessListener { documents ->
-                        var money: Int = Integer.parseInt(documents.getLong("money").toString())
+                        var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
                         if (money >= 50) {
                             money -= 50
-                            writeData.update("money", money)
+                            writeData.update("Gold", money)
                             Toast.makeText(this, "購買成功!!", Toast.LENGTH_SHORT).show()
                             changeMoney()
                             commodity6.visibility = View.INVISIBLE
@@ -542,14 +544,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+
+        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
             .addOnSuccessListener { documents ->
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
             }
 
     }
@@ -572,16 +572,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
             }
     }
 

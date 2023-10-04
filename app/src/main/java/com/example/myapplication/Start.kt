@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
-    private val propertiesDatabaseCollectionName = "properties"
+    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var btDatabase: Button
     private lateinit var btGPT: Button
@@ -94,12 +94,14 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
-            .get()
+        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+
+        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
-                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                playerName.text = documents.getString("PlayerId").toString()
+                Log.d("name",documents.getString("PlayerId").toString())
+                playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
+                playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
                 if (playerName.text == "a"){
                     Log.d("game","是測試者")
 
