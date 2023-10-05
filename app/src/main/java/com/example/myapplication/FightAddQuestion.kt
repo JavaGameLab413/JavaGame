@@ -5,6 +5,7 @@ import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnFailureListener
@@ -23,7 +24,7 @@ class FightAddQuestion : AppCompatActivity() {
         var selectB: EditText = findViewById(R.id.selectBInput);
         var selectC: EditText = findViewById(R.id.selectCInput);
         var selectD: EditText = findViewById(R.id.selectDInput);
-        var answer: EditText = findViewById(R.id.answerInput);
+        var answer: Spinner = findViewById(R.id.answerInput);
         var send:Button = findViewById(R.id.send);
 
         send.setOnClickListener {
@@ -36,7 +37,7 @@ class FightAddQuestion : AppCompatActivity() {
             data["SelectB"] = selectB.text.toString()
             data["SelectC"] = selectC.text.toString()
             data["SelectD"] = selectD.text.toString()
-            data["Answer"] = answer.text.toString()
+            //data["Answer"] = answer.text.toString()
 
             dbCollection.add(data)
                 .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference -> // 新增成功
@@ -46,7 +47,7 @@ class FightAddQuestion : AppCompatActivity() {
                     selectB.setText("")
                     selectC.setText("")
                     selectD.setText("")
-                    answer.setText("")
+                    //answer.setText("")
                     Toast.makeText(this, "新增題目成功!", Toast.LENGTH_SHORT).show()
                 })
                 .addOnFailureListener(OnFailureListener { e -> // 新增失敗

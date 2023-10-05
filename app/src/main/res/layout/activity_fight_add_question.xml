@@ -168,15 +168,14 @@
                 android:layout_weight="1"
                 android:text="答案" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/answerInput"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:text=""
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                android:entries="@array/answer_options"
+                tools:ignore="TouchTargetSizeCheck" />
+
         </LinearLayout>
 
     </LinearLayout>
