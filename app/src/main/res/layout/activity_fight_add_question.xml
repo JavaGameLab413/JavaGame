@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fight_add_question">
+    tools:context=".FightAddQuestion">
 
     <LinearLayout
         android:id="@+id/inputQuestionLayout"
@@ -77,7 +77,7 @@
                 tools:ignore="DuplicateIds" />
 
             <EditText
-                android:id="@+id/SelectAInput"
+                android:id="@+id/selectAInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,7 +100,7 @@
                 android:text="選項B" />
 
             <EditText
-                android:id="@+id/SelectBInput"
+                android:id="@+id/selectBInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@
                 android:text="選項C" />
 
             <EditText
-                android:id="@+id/SelectCInput"
+                android:id="@+id/selectCInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

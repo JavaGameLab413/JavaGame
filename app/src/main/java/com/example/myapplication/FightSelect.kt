@@ -46,12 +46,6 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.addQuestionButton -> {
-                val btq1 = findViewById<Button>(R.id.buttonQ1)
-                val intent = Intent(this, fight_add_question::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
-                startActivity(intent)
-            }
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
