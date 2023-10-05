@@ -82,9 +82,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("test", "This is Debug.")
             }
             R.id.backPack -> {
-                Toast.makeText(this, "此功能尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, BackPack::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, BackPack::class.java)
+                startActivity(intent)
             }
 
         }
