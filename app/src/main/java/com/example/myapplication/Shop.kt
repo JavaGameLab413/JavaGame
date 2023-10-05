@@ -149,12 +149,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                 var money: Int =
                                     Integer.parseInt(documents.getLong("Gold").toString())
 
-                                //commodity是甚麼
-                                val ref = db.collection("commodity").document("1")
+
+                                val ref = db.collection("Item").document("M1")
                                 ref.get().addOnSuccessListener { document ->
 
                                  val commodityMoney : Int =
-                                     Integer.parseInt(document.getLong("commodityMoney").toString())
+                                     Integer.parseInt(document.getLong("Money").toString())
 
                                 val purchaseMoney = commodityMoney * counter
                                 if (money >= purchaseMoney) {
