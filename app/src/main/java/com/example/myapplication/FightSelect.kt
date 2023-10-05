@@ -30,6 +30,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
+        val btAddQuestion: ImageButton = findViewById<ImageButton>(R.id.addQuestionButton)
 
 
         back.setOnClickListener() {
@@ -40,10 +41,17 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         btq3.setOnClickListener(this)
         btq4.setOnClickListener(this)
         btq5.setOnClickListener(this)
+        btAddQuestion.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
+            R.id.addQuestionButton -> {
+                val btq1 = findViewById<Button>(R.id.buttonQ1)
+                val intent = Intent(this, fight_add_question::class.java)
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                startActivity(intent)
+            }
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
