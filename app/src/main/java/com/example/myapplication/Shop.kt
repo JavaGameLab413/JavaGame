@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -19,27 +20,29 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
     private val propertiesDatabaseCollectionName = "properties"
     private var itemcase: String = ""
-
-
+    private lateinit var descriptionTextView: TextView
+    // 每個商品的初始可購買數量
     private val remainingPurchaseCounts = mutableMapOf(
-        "M1" to 5, // 设置每个商品的初始可购买数量
+        "M1" to 5,
         "M2" to 5,
         "M3" to 5,
         "M4" to 5,
         "M5" to 5,
         "M6" to 5
     )
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
 
-        //返回按鈕
+        // 返回按鈕
         val back: ImageButton = findViewById(R.id.back)
         back.setOnClickListener {
             finish()
         }
 
+        // 初始化商品圖片
         val commodity1 = findViewById<ImageView>(R.id.commodity1)
         val commodity2 = findViewById<ImageView>(R.id.commodity2)
         val commodity3 = findViewById<ImageView>(R.id.commodity3)
@@ -47,9 +50,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val commodity5 = findViewById<ImageView>(R.id.commodity5)
         val commodity6 = findViewById<ImageView>(R.id.commodity6)
 
+        // 刷新按鈕
         val refresh = findViewById<Button>(R.id.refresh)
-
         refresh.setOnClickListener {
+            // 顯示所有商品
             commodity1.visibility = View.VISIBLE
             commodity2.visibility = View.VISIBLE
             commodity3.visibility = View.VISIBLE
@@ -58,7 +62,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             commodity6.visibility = View.VISIBLE
         }
 
-        //設置按鈕監聽
+        // 設置按鈕監聽
         commodity1.setOnClickListener(this)
         commodity2.setOnClickListener(this)
         commodity3.setOnClickListener(this)
@@ -67,21 +71,22 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         commodity6.setOnClickListener(this)
     }
 
-    //施行按鈕方法
     @SuppressLint("MissingInflatedId", "CutPasteId")
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(view: View?) {
+        // 獲取使用者資訊
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        // Access Firebase Firestore
+        // 造訪 Firebase Firestore
         val db = FirebaseFirestore.getInstance()
-        // Create a new document with a generated ID
+        // 使用產生的 ID 建立新文檔
         val information = db.collection(propertiesDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         val writeData = db.collection(propertiesDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-
+        // 購買數量
         var counter = 1
 
+        // 設置購買數量的視窗
         val myPurchaseView = layoutInflater.inflate(
             R.layout.purchase_quantity,
             findViewById(android.R.id.content),
@@ -92,6 +97,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             View.MeasureSpec.UNSPECIFIED
         )
 
+        descriptionTextView = myPurchaseView.findViewById(R.id.descriptionTextView)
+        // 根據點選的商品設定itemcase
         when (view?.id) {
             R.id.commodity1 -> {
                 itemcase = "M1"
@@ -111,29 +118,35 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             R.id.commodity6 -> {
                 itemcase = "M6"
             }
-            // 添加其他商品的處理...
         }
 
+
+        // 設定彈出視窗的屬性
         val popupWindow = PopupWindow(this).apply {
             contentView = myPurchaseView
             width = ViewGroup.LayoutParams.MATCH_PARENT
             height = ViewGroup.LayoutParams.WRAP_CONTENT
-            //沒添加會一直創建新的
             isFocusable = true
-            //視窗外是否可觸碰
             isTouchable = true
-            //全屏背景
             isClippingEnabled = true
-            //透明背景
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
-        val counterTextView = myPurchaseView.findViewById<TextView>(R.id.counterTextView)
 
+        }
+        val ref = db.collection("Item").document(itemcase)
+        ref.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                val itemDescription: String? = document.getString("Description")
+                descriptionTextView.text = itemDescription
+            } else {
+                Log.d("ShopActivity", "文檔不存在")
+            }
+        }
+        // 設定購買數量的按鈕監聽
+        val counterTextView = myPurchaseView.findViewById<TextView>(R.id.counterTextView)
         myPurchaseView.findViewById<ImageButton>(R.id.addNumber).setOnClickListener {
             if (counter < 5) {
                 counter++
-                counterTextView.text = "$counter" // 更新數量
-
+                counterTextView.text = "$counter"
             } else {
                 counter = 5
                 Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
@@ -143,14 +156,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         myPurchaseView.findViewById<ImageButton>(R.id.minusNumber).setOnClickListener {
             if (counter > 0) {
                 counter--
-                counterTextView.text = "$counter" // 更新數量
-
+                counterTextView.text = "$counter"
             } else {
                 counter = 0
                 Toast.makeText(this, "已超過購買數量", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // 確認購買按鈕
+
+        val descriptionTextView = myPurchaseView.findViewById<TextView>(R.id.descriptionTextView)
         myPurchaseView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
             popupWindow.dismiss()
             information.get().addOnSuccessListener { documents ->
@@ -162,6 +177,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                     val itemMoney: Int =
                         Integer.parseInt(document.getLong("Money").toString())
+
+
 
                     val purchaseMoney = itemMoney * counter
                     if (userMoney >= purchaseMoney) {
@@ -177,8 +194,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                         if (remainingCount >= counter) {
                             remainingPurchaseCounts[itemcase] = remainingCount - counter
 
-
                             if (remainingPurchaseCounts[itemcase] == 0) {
+                                // 如果商品購買數量為0，隱藏該商品
                                 val commodity1 = findViewById<ImageView>(R.id.commodity1)
                                 val commodity2 = findViewById<ImageView>(R.id.commodity2)
                                 val commodity3 = findViewById<ImageView>(R.id.commodity3)
@@ -194,8 +211,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     "M6" -> commodity6.visibility = View.INVISIBLE
                                 }
                             }
-                        } else {
+                    }else {
                             Toast.makeText(this, "購買數量已超過庫存!", Toast.LENGTH_SHORT).show()
+                            // 如果商品購買數量超過庫存，隱藏該商品
                             val commodity1 = findViewById<ImageView>(R.id.commodity1)
                             val commodity2 = findViewById<ImageView>(R.id.commodity2)
                             val commodity3 = findViewById<ImageView>(R.id.commodity3)
@@ -212,26 +230,24 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             }
                         }
 
-
                     } else {
                         Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
-
                     }
                 }
             }
         }
 
+        // 取消購買按鈕
         myPurchaseView.findViewById<ImageButton>(R.id.no).setOnClickListener {
             popupWindow.dismiss()
             Toast.makeText(this, "已取消購買", Toast.LENGTH_SHORT).show()
         }
 
-        //出現位置
+        // 顯示彈出視窗
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
-
-
     }
 
+    // 更新使用者金幣數量
     private fun changeMoney() {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
@@ -247,21 +263,17 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    //每次進入頁面刷新
+    // 進入頁面時刷新
     override fun onResume() {
         super.onResume()
         changeMoney()
-        //實作文本(名稱)
+        // 顯示使用者名稱和等級
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
-        //取得名稱
         val db = FirebaseFirestore.getInstance()
-
-        //商品
-
-        //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
+        // 讀取使用者資訊
         db.collection(propertiesDatabaseCollectionName).whereEqualTo(
             "serialNumber",
             Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
@@ -274,10 +286,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             }
     }
 
+    // 隱藏系統狀態欄和導航欄
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         val window = this.window
-
         val decorView = window.decorView
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             window.insetsController?.also {
@@ -286,7 +298,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             }
         }
         else {
-            // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
+            // 如果設備不支援 WindowInsetsController，使用舊版方法（版本低於Android 11）
             decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION

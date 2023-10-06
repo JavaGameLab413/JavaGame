@@ -7,8 +7,8 @@
     >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="407dp"
+        android:layout_height="281dp"
         android:layout_gravity="center_vertical"
         android:background="@drawable/window"
         android:orientation="vertical"
@@ -18,6 +18,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            android:text=""
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:gravity="bottom|center_horizontal"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,12 +41,12 @@
                 android:id="@+id/minusNumber"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:contentDescription="@string/minusNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
                 app:srcCompat="@drawable/reduce"
                 tools:ignore="TouchTargetSizeCheck"
-                android:layout_marginEnd="10dp"
 
                 />
 
@@ -66,8 +76,7 @@
                 android:minWidth="68dp"
                 android:minHeight="58dp"
                 app:srcCompat="@drawable/add"
-                tools:ignore="TouchTargetSizeCheck"
-                />
+                tools:ignore="TouchTargetSizeCheck" />
 
 
         </LinearLayout>
