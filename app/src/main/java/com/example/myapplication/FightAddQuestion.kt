@@ -17,14 +17,14 @@ class FightAddQuestion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_add_question)
-        val database: EditText = findViewById(R.id.dataBaseInput);
-        val question: EditText = findViewById(R.id.questionInput);
-        val selectA: EditText = findViewById(R.id.selectAInput);
-        val selectB: EditText = findViewById(R.id.selectBInput);
-        val selectC: EditText = findViewById(R.id.selectCInput);
-        val selectD: EditText = findViewById(R.id.selectDInput);
-        val answer: Spinner = findViewById(R.id.answerInput);
-        val send: Button = findViewById(R.id.send);
+        val database: EditText = findViewById(R.id.dataBaseInput)
+        val question: EditText = findViewById(R.id.questionInput)
+        val selectA: EditText = findViewById(R.id.selectAInput)
+        val selectB: EditText = findViewById(R.id.selectBInput)
+        val selectC: EditText = findViewById(R.id.selectCInput)
+        val selectD: EditText = findViewById(R.id.selectDInput)
+        val answer: Spinner = findViewById(R.id.answerInput)
+        val send: Button = findViewById(R.id.send)
 
         send.setOnClickListener {
             val data: MutableMap<String, Any> = HashMap()

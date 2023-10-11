@@ -25,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="資料庫" />
+                android:text="資料庫"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/dataBaseInput"
@@ -35,7 +36,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text=""
-                tools:ignore="DuplicateIds,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                tools:ignore="DuplicateIds,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="問題 :"
-                tools:ignore="DuplicateIds" />
+                tools:ignore="DuplicateIds,HardcodedText" />
 
             <EditText
                 android:id="@+id/questionInput"
@@ -59,7 +61,8 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
@@ -74,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="選項A"
-                tools:ignore="DuplicateIds" />
+                tools:ignore="DuplicateIds,HardcodedText" />
 
             <EditText
                 android:id="@+id/selectAInput"
@@ -84,7 +87,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text=""
-                tools:ignore="DuplicateIds,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                tools:ignore="DuplicateIds,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="選項B" />
+                android:text="選項B"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/selectBInput"
@@ -107,7 +112,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text=""
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,7 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="選項C" />
+                android:text="選項C"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/selectCInput"
@@ -130,7 +137,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text=""
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +151,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="選項D" />
+                android:text="選項D"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/selectDInput"
@@ -153,7 +162,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text=""
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -166,7 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="答案" />
+                android:text="答案"
+                tools:ignore="HardcodedText,VisualLintBounds" />
 
             <Spinner
                 android:id="@+id/answerInput"
@@ -190,5 +201,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/inputQuestionLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputQuestionLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/inputQuestionLayout"
+        tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
