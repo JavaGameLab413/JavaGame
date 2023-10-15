@@ -14,4 +14,27 @@
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription" />
 
+        <LinearLayout
+            android:id="@+id/infoView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="HP +80" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已裝備"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
 </merge>
