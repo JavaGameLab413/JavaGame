@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:text="@string/equipment"
             android:background="#99D9D9D9"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/button2"
@@ -58,7 +59,8 @@
             android:layout_height="wrap_content"
             android:text="@string/designation"
             android:background="#99D9D9D9"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
