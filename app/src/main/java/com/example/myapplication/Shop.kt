@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
@@ -189,33 +190,41 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             changeMoney()
 
 
-                            val itemName: String? = document.getString("Name")
+                                // 從文件中獲取 "itemcase" 欄位的值
                             val backpackItemName: String? = document.getString("backpackItemName")
-                            var itemQuantity: Int =
-                                Integer.parseInt(documents.getLong("quantity").toString())
 
-                            if (itemName != null) {
-                                val backpackRef = db.collection("BackpackTest").document("1")
-                                backpackRef.get().addOnSuccessListener { backpackDocument ->
-                                    if (backpackDocument.exists()) {
-                                        // 如果文档存在，检查 itemName 和 backpackItemName 是否相同
-                                        if (backpackItemName.equals(itemName)  ) {
-                                            itemQuantity += counter
-                                            writeData.update("quantity", itemQuantity)
+                                // 獲取資料庫中 "BackpackTest" 集合的文檔，ID 為 "1"
+                            val backpackRef = db.collection("BackpackTest").document("1")
 
+                                // 獲取異步操作的成功監聽器
+                            backpackRef.get().addOnSuccessListener { backpackDocument ->
+                                // 檢查 "itemcase" 是否等於當前的 "itemcase"
+                                if (backpackItemName == null) {
+                                    // 如果相等，獲取現有的數量，並加上 counter
+                                    val existingCounter = backpackDocument.getLong(itemcase)?.toInt() ?: 0
+                                    val updatedCounter = existingCounter + counter
 
-                                        } else {
+                                    // 建立要更新到資料庫的資料
+                                    val updateData = hashMapOf(
+                                        itemcase to updatedCounter
+                                    )
+                                    // 將更新的資料設定到資料庫中，並使用 SetOptions.merge() 來合併資料
+                                    backpackRef.set(updateData, SetOptions.merge())
+                                } else {
+                                    // 如果 "itemcase" 不相等，則新增一個新的 "itemcase" 到資料庫中
+                                    val newData = hashMapOf(
+                                        itemcase to 5
+                                    )
 
-                                            val purchaseData = hashMapOf(
-                                                "backpackItemName" to itemcase,
-                                                "quantity" to counter
-                                            )
-                                            backpackRef.set(purchaseData)
-
-                                        }
-                                    }
+                                    // 將新的資料設定到資料庫中，並使用 SetOptions.merge() 來合併資料
+                                    backpackRef.set(newData, SetOptions.merge())
                                 }
                             }
+
+
+
+
+
 
 
                             val remainingCount = remainingPurchaseCounts[itemcase] ?: 0
