@@ -3,13 +3,14 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity() {
     private var te =1
-    private val map: Map<String, Int> = mapOf("M1" to R.drawable.head, "Bonnie" to 20, "Cynthia" to 30)
+    private val map: Map<String, Int> = mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.power_up)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +32,32 @@ class BackPack : AppCompatActivity() {
         docRef.get()
             .addOnSuccessListener { doc ->
                 doc.data?.let { data ->
-                    for (entry in data.entries) {
-                        val fieldName = entry.key
-                        val itemRef = db.collection(itemDatabaseCollectionName).document(fieldName)
+                    val sortedData = data.keys.sorted()
+
+                    var count =1
+                    for (entry in sortedData) {
+                        val itemRef = db.collection(itemDatabaseCollectionName).document(entry)
                         itemRef.get()
                             .addOnSuccessListener { document ->
 
-                                val picName=document.getString("Picture")
+                                val a = map[entry]
 
-                                val a = map[picName]
+
                                 if (a != null) {
-                                    addItem(R.id.ItemList,a)
+                                    when(count){
+                                        1-> {
+                                            addItem(R.id.ItemList, a)
+                                            count += 1
+                                        }
+                                        2-> {
+                                            addItem(R.id.ItemList1, a)
+                                            count += 1
+                                        }
+                                        3-> {
+                                            addItem(R.id.ItemList2, a)
+                                            count =1
+                                        }
+                                    }
                                 }
                             }
 
@@ -77,6 +93,8 @@ class BackPack : AppCompatActivity() {
         customView.setOnClickListener { view ->
             val a = view.tag
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show()
+            val infoView = InfoView(this, null)
+
 
         }
 
