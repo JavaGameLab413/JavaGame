@@ -165,7 +165,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         // 確認購買按鈕
 
-        val descriptionTextView = myPurchaseView.findViewById<TextView>(R.id.descriptionTextView)
+        myPurchaseView.findViewById<TextView>(R.id.descriptionTextView)
         myPurchaseView.findViewById<ImageButton>(R.id.yes).setOnClickListener {
             popupWindow.dismiss()
             information.get().addOnSuccessListener { documents ->
@@ -191,35 +191,28 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                             val itemName: String? = document.getString("Name")
                             val backpackItemName: String? = document.getString("backpackItemName")
-                            val counterString: String = counter.toString()
+                            var itemQuantity: Int =
+                                Integer.parseInt(documents.getLong("quantity").toString())
 
                             if (itemName != null) {
                                 val backpackRef = db.collection("BackpackTest").document("1")
                                 backpackRef.get().addOnSuccessListener { backpackDocument ->
                                     if (backpackDocument.exists()) {
                                         // 如果文档存在，检查 itemName 和 backpackItemName 是否相同
-                                        if (backpackItemName == itemName) {
-                                            // 如果相同，更新购买数量为 counterString
-                                            backpackRef.update("quantity", counterString)
+                                        if (backpackItemName.equals(itemName)  ) {
+                                            itemQuantity += counter
+                                            writeData.update("quantity", itemQuantity)
 
 
                                         } else {
 
                                             val purchaseData = hashMapOf(
-                                                "backpackItemName" to itemName,
-                                                "quantity" to counterString
+                                                "backpackItemName" to itemcase,
+                                                "quantity" to counter
                                             )
-                                            backpackRef.set(purchaseData) // 使用 set() 方法写入数据
+                                            backpackRef.set(purchaseData)
 
                                         }
-                                    } else {
-                                        // 如果文档不存在，将购买信息写入数据库，购买数量为 counterString
-                                        val purchaseData = hashMapOf(
-                                            "backpackItemName" to itemName,
-                                            "quantity" to counterString
-                                        )
-                                        backpackRef.set(purchaseData) // 使用 set() 方法写入数据
-
                                     }
                                 }
                             }
