@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity() {
     private var te =1
+    private val map: Map<String, Int> = mapOf("M1" to R.drawable.head, "Bonnie" to 20, "Cynthia" to 30)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,29 +20,49 @@ class BackPack : AppCompatActivity() {
     }
 
     private fun readData(){
-        for (i in 1..8) {
-            addItem()
-        }
+        val backPageDatabaseCollectionName = "BackPage"
+        val itemDatabaseCollectionName = "Item"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(backPageDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+
+        docRef.get()
+            .addOnSuccessListener { doc ->
+                doc.data?.let { data ->
+                    for (entry in data.entries) {
+                        val fieldName = entry.key
+                        val itemRef = db.collection(itemDatabaseCollectionName).document(fieldName)
+                        itemRef.get()
+                            .addOnSuccessListener { document ->
+
+                                val picName=document.getString("Picture")
+
+                                val a = map[picName]
+                                if (a != null) {
+                                    addItem(R.id.ItemList,a)
+                                }
+                            }
+
+                    }
+                }
+            }
+
+//        for (i in 1..8) { 測試
+//            addItem(R.id.ItemList,R.drawable.healing_potion)
+//        }
     }
 
-    private fun addItem(){
-        val scrollViewLayout = findViewById<LinearLayout>(R.id.ItemList)
-        val scrollViewLayout1 = findViewById<LinearLayout>(R.id.ItemList1)
-        val scrollViewLayout2 = findViewById<LinearLayout>(R.id.ItemList2)
-
+    private fun addItem(viewId:Int,imgId:Int){
+        val scrollViewLayout = findViewById<LinearLayout>(viewId)
 
         val customView = BackpackItems(this, null)
-        te++
-        customView.setImageResource(R.drawable.healing_potion)
+        customView.setImageResource(imgId)
         customView.tag = te
-        val customView1 = BackpackItems(this, null)
-        customView1.id=te
         te++
-        customView1.tag=te
-        customView1.setImageResource(R.drawable.powerup)
-        val customView2 = BackpackItems(this, null)
-        customView2.setImageResource(R.drawable.healing_potion)
 
+        //View布局
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -48,33 +70,18 @@ class BackPack : AppCompatActivity() {
         layoutParams.gravity = Gravity.CENTER
         layoutParams.bottomMargin = 20
 
-        // 添加 CustomImageViewTextView 到 ScrollView 的直接子视图中
+        // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
         customView.layoutParams = layoutParams
-        customView1.layoutParams = layoutParams
-        customView2.layoutParams = layoutParams
 
-        // 设置点击事件监听器
+        //設置每個動作
         customView.setOnClickListener { view ->
             val a = view.tag
-            // 这里写入你想要执行的点击事件处理逻辑
-            // 例如：
-            Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show()
-
-        }
-
-        customView1.setOnClickListener { view ->
-            val a = view.tag
-            // 这里写入你想要执行的点击事件处理逻辑
-            // 例如：
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show()
 
         }
 
         scrollViewLayout.addView(customView)
-        scrollViewLayout1.addView(customView1)
-        scrollViewLayout2.addView(customView2)
     }
-
 
 
 }
