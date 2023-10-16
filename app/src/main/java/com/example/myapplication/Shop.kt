@@ -174,28 +174,81 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                 val ref = db.collection("Item").document(itemcase)
                 ref.get().addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val itemMoney: Int = document.getLong("Money")?.toInt() ?: 0
+                        val purchaseMoney = itemMoney * counter
 
-                    val itemMoney: Int =
-                        Integer.parseInt(document.getLong("Money").toString())
+                        if (userMoney >= purchaseMoney) {
+                            userMoney -= purchaseMoney
+                            writeData.update("money", userMoney)
+                            Toast.makeText(
+                                this,
+                                "購買成功!!總共花費 $purchaseMoney G",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            changeMoney()
 
 
+                            val itemName: String? = document.getString("Name")
+                            val backpackItemName: String? = document.getString("backpackItemName")
+                            val counterString: String = counter.toString()
 
-                    val purchaseMoney = itemMoney * counter
-                    if (userMoney >= purchaseMoney) {
-                        userMoney -= purchaseMoney
-                        writeData.update("money", userMoney)
-                        Toast.makeText(
-                            this,
-                            "購買成功!!總共花費 $purchaseMoney G",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        changeMoney()
-                        val remainingCount = remainingPurchaseCounts[itemcase] ?: 0
-                        if (remainingCount >= counter) {
-                            remainingPurchaseCounts[itemcase] = remainingCount - counter
+                            if (itemName != null) {
+                                val backpackRef = db.collection("BackpackTest").document("1")
+                                backpackRef.get().addOnSuccessListener { backpackDocument ->
+                                    if (backpackDocument.exists()) {
+                                        // 如果文档存在，检查 itemName 和 backpackItemName 是否相同
+                                        if (backpackItemName == itemName) {
+                                            // 如果相同，更新购买数量为 counterString
+                                            backpackRef.update("quantity", counterString)
 
-                            if (remainingPurchaseCounts[itemcase] == 0) {
-                                // 如果商品購買數量為0，隱藏該商品
+
+                                        } else {
+
+                                            val purchaseData = hashMapOf(
+                                                "backpackItemName" to itemName,
+                                                "quantity" to counterString
+                                            )
+                                            backpackRef.set(purchaseData) // 使用 set() 方法写入数据
+
+                                        }
+                                    } else {
+                                        // 如果文档不存在，将购买信息写入数据库，购买数量为 counterString
+                                        val purchaseData = hashMapOf(
+                                            "backpackItemName" to itemName,
+                                            "quantity" to counterString
+                                        )
+                                        backpackRef.set(purchaseData) // 使用 set() 方法写入数据
+
+                                    }
+                                }
+                            }
+
+
+                            val remainingCount = remainingPurchaseCounts[itemcase] ?: 0
+                            if (remainingCount >= counter) {
+                                remainingPurchaseCounts[itemcase] = remainingCount - counter
+
+                                if (remainingPurchaseCounts[itemcase] == 0) {
+                                    // 如果商品購買數量為0，隱藏該商品
+                                    val commodity1 = findViewById<ImageView>(R.id.commodity1)
+                                    val commodity2 = findViewById<ImageView>(R.id.commodity2)
+                                    val commodity3 = findViewById<ImageView>(R.id.commodity3)
+                                    val commodity4 = findViewById<ImageView>(R.id.commodity4)
+                                    val commodity5 = findViewById<ImageView>(R.id.commodity5)
+                                    val commodity6 = findViewById<ImageView>(R.id.commodity6)
+                                    when (itemcase) {
+                                        "M1" -> commodity1.visibility = View.INVISIBLE
+                                        "M2" -> commodity2.visibility = View.INVISIBLE
+                                        "M3" -> commodity3.visibility = View.INVISIBLE
+                                        "M4" -> commodity4.visibility = View.INVISIBLE
+                                        "M5" -> commodity5.visibility = View.INVISIBLE
+                                        "M6" -> commodity6.visibility = View.INVISIBLE
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(this, "購買數量已超過庫存!", Toast.LENGTH_SHORT).show()
+                                // 如果商品購買數量超過庫存，隱藏該商品
                                 val commodity1 = findViewById<ImageView>(R.id.commodity1)
                                 val commodity2 = findViewById<ImageView>(R.id.commodity2)
                                 val commodity3 = findViewById<ImageView>(R.id.commodity3)
@@ -211,25 +264,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     "M6" -> commodity6.visibility = View.INVISIBLE
                                 }
                             }
-                    }else {
-                            Toast.makeText(this, "購買數量已超過庫存!", Toast.LENGTH_SHORT).show()
-                            // 如果商品購買數量超過庫存，隱藏該商品
-                            val commodity1 = findViewById<ImageView>(R.id.commodity1)
-                            val commodity2 = findViewById<ImageView>(R.id.commodity2)
-                            val commodity3 = findViewById<ImageView>(R.id.commodity3)
-                            val commodity4 = findViewById<ImageView>(R.id.commodity4)
-                            val commodity5 = findViewById<ImageView>(R.id.commodity5)
-                            val commodity6 = findViewById<ImageView>(R.id.commodity6)
-                            when (itemcase) {
-                                "M1" -> commodity1.visibility = View.INVISIBLE
-                                "M2" -> commodity2.visibility = View.INVISIBLE
-                                "M3" -> commodity3.visibility = View.INVISIBLE
-                                "M4" -> commodity4.visibility = View.INVISIBLE
-                                "M5" -> commodity5.visibility = View.INVISIBLE
-                                "M6" -> commodity6.visibility = View.INVISIBLE
-                            }
                         }
-
                     } else {
                         Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                     }
@@ -246,6 +281,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 顯示彈出視窗
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
     }
+
+
 
     // 更新使用者金幣數量
     private fun changeMoney() {
