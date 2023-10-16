@@ -30,7 +30,7 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     private val lottieAnimationView: LottieAnimationView = LottieAnimationView(context)
     private val lLayoutParams: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
         RelativeLayout.LayoutParams.MATCH_PARENT,
-        RelativeLayout.LayoutParams.MATCH_PARENT
+        RelativeLayout.LayoutParams.WRAP_CONTENT
     )
 
     // loading文字
