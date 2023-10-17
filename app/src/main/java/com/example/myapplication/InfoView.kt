@@ -19,9 +19,9 @@ class InfoView(context: Context, attrs: AttributeSet?) : LinearLayout(context, a
         inflater.inflate(R.layout.info_view, this, true)
 
         // 获取 ImageView 的引用
-        imageView = findViewById(R.id.Items)
-        textView = findViewById(R.id.Items)
-        button = findViewById(R.id.Items)
+        imageView = findViewById(R.id.Item)
+        textView = findViewById(R.id.info)
+        button = findViewById(R.id.sure)
     }
 
     fun setView(resId: Int,info:String,equip:String) {
