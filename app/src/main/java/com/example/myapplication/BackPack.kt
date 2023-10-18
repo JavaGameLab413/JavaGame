@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -15,12 +17,82 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity() {
     private val map: Map<String, Int> = mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.power_up)
+    private val equipmentNum = arrayOfNulls<String>(5)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_back_pack)
 
         readData()
+
+        //測試
+        equipmentNum[0]="M1"
+        equipmentNum[1]="M1"
+        equipmentNum[2]="M1"
+        equipmentNum[3]="M1"
+        equipmentNum[4]="M1"
+//        val equipment = findViewById<ImageView>(R.id.equipment1)
+//        val equipment1 = findViewById<ImageView>(R.id.equipment2)
+//        val equipment2 = findViewById<ImageView>(R.id.equipment3)
+//        val equipment3 = findViewById<ImageView>(R.id.equipment4)
+//        val equipment4 = findViewById<ImageView>(R.id.equipment5)
+//
+//        equipment.visibility=View.VISIBLE
+//        equipment1.visibility=View.VISIBLE
+//        equipment2.visibility=View.VISIBLE
+//        equipment3.visibility=View.VISIBLE
+//        equipment4.visibility=View.VISIBLE
+
+        var count =1
+        for(i in equipmentNum){
+            if(i==null){
+                break
+            }
+
+            when(count){
+                1 ->{
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId,R.id.equipment1)
+                    }
+                    count++
+
+                }
+                2 ->{
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId,R.id.equipment2)
+                    }
+                    count++
+
+                }
+                3 ->{
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId,R.id.equipment3)
+                    }
+                    count++
+
+                }
+                4 ->{
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId,R.id.equipment4)
+                    }
+                    count++
+
+                }
+                5 ->{
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId,R.id.equipment5)
+                    }
+                    count++
+
+                }
+
+            }
+        }
 
     }
 
@@ -133,5 +205,12 @@ class BackPack : AppCompatActivity() {
 
     }
 
+
+    private fun showEquipment(id:Int,viewId:Int){
+        val equipment = findViewById<ImageView>(viewId)
+        equipment.setImageResource(id)
+        equipment.visibility= View.VISIBLE
+        Log.e("test","suss")
+    }
 
 }
