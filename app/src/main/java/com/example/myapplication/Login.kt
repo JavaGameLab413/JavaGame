@@ -37,13 +37,12 @@ class Login : AppCompatActivity() {
 
         //設置登入按鈕功能
         login.setOnClickListener {
-            val Account = inputAccount.text.toString()
+            val account = inputAccount.text.toString()
             //Log.d("test", inputAccount.text.toString())
-            readDocRed.document(Account).get()
+            readDocRed.document(account).get()
                 .addOnSuccessListener { documents ->
                     // 找到使用者，檢查密碼
-                    val user = documents
-                    val password = user.getString(playerAccountDatabasePasswordField)
+                    val password = documents.getString(playerAccountDatabasePasswordField)
                     if (password == inputPassword.text.toString()) {
                         // 密碼正確，登錄成功
                         Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
@@ -53,7 +52,7 @@ class Login : AppCompatActivity() {
 
 
                         //抓流水號
-                        val serialNumber = user.getLong("SerialNumber").toString()
+                        val serialNumber = documents.getLong("SerialNumber").toString()
                         Log.d(TAG, serialNumber)
                         //將ID寫入本地資料庫PlayerInfo
                         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
@@ -65,7 +64,7 @@ class Login : AppCompatActivity() {
                         Log.d(TAG, "Incorrect password!")
                     }
 
-                }.addOnFailureListener { exception ->
+                }.addOnFailureListener {
                     // 讀取資料失敗
                     Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "User not found!")

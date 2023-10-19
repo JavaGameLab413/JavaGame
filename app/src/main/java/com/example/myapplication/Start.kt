@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
-    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var btDatabase: Button
     private lateinit var btGPT: Button
@@ -94,9 +94,9 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
 
-        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.getString("PlayerId").toString()
                 Log.d("name",documents.getString("PlayerId").toString())

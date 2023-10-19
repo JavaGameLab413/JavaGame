@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Fight : AppCompatActivity() , View.OnClickListener{
-    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         btSection5.setOnClickListener(this)
 
         val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
+        back.setOnClickListener{
             finish()
         }
     }
@@ -44,7 +44,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         when (view?.id) {
             R.id.buttonSection1 -> {
                 val intent = Intent(this, FightSelect::class.java)
-                intent.putExtra("questionTitle", "Basic"); // 将参数添加到 Intent
+                intent.putExtra("questionTitle", "Basic") // 將參數添加到 Intent
                 startActivity(intent)
             }
             R.id.buttonSection2 -> {
@@ -75,9 +75,9 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
 
-        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())

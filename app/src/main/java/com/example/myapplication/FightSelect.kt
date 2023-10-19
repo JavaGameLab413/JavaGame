@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FightSelect : AppCompatActivity(), View.OnClickListener {
-    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var dataSet = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq5 = findViewById<Button>(R.id.buttonQ5)
 
 
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
         }
         btq1.setOnClickListener(this)
@@ -47,7 +47,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {
@@ -89,8 +89,8 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
-        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text =

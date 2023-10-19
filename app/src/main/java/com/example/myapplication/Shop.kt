@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val PlayerInfoDatabaseCollectionName = "PlayerInfo"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
 
 
     @SuppressLint("MissingInflatedId")
@@ -67,9 +67,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // Access Firebase Firestorm
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
-        val information = db.collection(PlayerInfoDatabaseCollectionName)
+        val information = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(PlayerInfoDatabaseCollectionName)
+        val writeData = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
 
         val commodity1 = findViewById<ImageView>(R.id.commodity1)
@@ -544,9 +544,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
 
-        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerMoney.text =
                     String.format("%s G", documents.getLong("Gold").toString())
@@ -572,8 +572,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        val SerialNumber = sharedPreferences.getString("ID", "-1").toString()
-        db.collection(PlayerInfoDatabaseCollectionName).document(SerialNumber).get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
