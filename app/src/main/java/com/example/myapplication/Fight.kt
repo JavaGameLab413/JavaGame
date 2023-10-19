@@ -26,7 +26,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         val btSection3 = findViewById<Button>(R.id.buttonSection3)
         val btSection4 = findViewById<Button>(R.id.buttonSection4)
         val btSection5 = findViewById<Button>(R.id.buttonSection5)
-        val btAddQuestion: ImageButton = findViewById<ImageButton>(R.id.btAddQuestion)
+        val btAddQuestion: ImageButton = findViewById(R.id.btAddQuestion)
 
         btSection1.setOnClickListener(this)
         btSection2.setOnClickListener(this)
@@ -39,7 +39,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
             startActivity(intent)
         }
         val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener (){
+        back.setOnClickListener {
             finish()
         }
     }
@@ -49,7 +49,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         when (view?.id) {
             R.id.buttonSection1 -> {
                 val intent = Intent(this, FightSelect::class.java)
-                intent.putExtra("questionTitle", "Basic"); // 将参数添加到 Intent
+                intent.putExtra("questionTitle", "Basic") // 将参数添加到 Intent
                 startActivity(intent)
             }
             R.id.buttonSection2 -> {

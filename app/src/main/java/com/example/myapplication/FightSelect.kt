@@ -30,10 +30,10 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
-        val btAddQuestion: ImageButton = findViewById<ImageButton>(R.id.addQuestionButton)
+        val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
 
 
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
         }
         btq1.setOnClickListener(this)
@@ -49,7 +49,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {
