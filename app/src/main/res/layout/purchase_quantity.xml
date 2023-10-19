@@ -79,7 +79,7 @@
                 android:shadowDx="10.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="3.0"
-                android:text="@string/counternumber"
+                android:text="1"
                 android:textColor="@color/black"
                 android:textSize="35sp"
 
