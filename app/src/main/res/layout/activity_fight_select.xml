@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fight"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/fightView" />
 
     <include
         android:id="@+id/include2"
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Type"
         android:textColor="@color/black"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -61,7 +62,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/q1"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/buttonQ2"
@@ -70,7 +71,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/q2"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/buttonQ3"
@@ -79,7 +80,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/q3"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/buttonQ4"
@@ -88,7 +89,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/q4"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/buttonQ5"
@@ -97,23 +98,25 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/q5"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
     </ScrollView>
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
+        android:layout_width="65dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#00F6F6F6"
         android:contentDescription="@string/back"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.184"
-        app:srcCompat="@android:drawable/ic_menu_revert"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.2"
+        app:srcCompat="@drawable/turn"
+        tools:ignore="MissingConstraints,UnknownIdInLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
