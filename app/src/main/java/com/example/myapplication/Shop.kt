@@ -17,10 +17,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
+@Suppress("NAME_SHADOWING", "DEPRECATION")
 class Shop : AppCompatActivity(), View.OnClickListener {
 
     private val propertiesDatabaseCollectionName = "properties"
-    private var itemcase: String = ""
+    private var itemCase: String = ""
     private lateinit var descriptionTextView: TextView
     // 每個商品的初始可購買數量
     private val remainingPurchaseCounts = mutableMapOf(
@@ -77,7 +78,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         // 獲取使用者資訊
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        // 造訪 Firebase Firestore
+        // 造訪 Firebase fireStore
         val db = FirebaseFirestore.getInstance()
         // 使用產生的 ID 建立新文檔
         val information = db.collection(propertiesDatabaseCollectionName)
@@ -99,25 +100,25 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         )
 
         descriptionTextView = myPurchaseView.findViewById(R.id.descriptionTextView)
-        // 根據點選的商品設定itemcase
+        // 根據點選的商品設定itemCase
         when (view?.id) {
             R.id.commodity1 -> {
-                itemcase = "M1"
+                itemCase = "M1"
             }
             R.id.commodity2 -> {
-                itemcase = "M2"
+                itemCase = "M2"
             }
             R.id.commodity3 -> {
-                itemcase = "M3"
+                itemCase = "M3"
             }
             R.id.commodity4 -> {
-                itemcase = "M4"
+                itemCase = "M4"
             }
             R.id.commodity5 -> {
-                itemcase = "M5"
+                itemCase = "M5"
             }
             R.id.commodity6 -> {
-                itemcase = "M6"
+                itemCase = "M6"
             }
         }
 
@@ -133,7 +134,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         }
-        val ref = db.collection("Item").document(itemcase)
+        val ref = db.collection("Item").document(itemCase)
         ref.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val itemDescription: String? = document.getString("Description")
@@ -173,7 +174,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 var userMoney: Int =
                     Integer.parseInt(documents.getLong("money").toString())
 
-                val ref = db.collection("Item").document(itemcase)
+                val ref = db.collection("Item").document(itemCase)
                 ref.get().addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
                         val itemMoney: Int = document.getLong("Money")?.toInt() ?: 0
@@ -190,30 +191,30 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             changeMoney()
 
 
-                                // 從文件中獲取 "itemcase" 欄位的值
+                            // 從文件中獲取 "itemCase" 欄位的值
                             val backpackItemName: String? = document.getString("backpackItemName")
 
-                                // 獲取資料庫中 "BackpackTest" 集合的文檔，ID 為 "1"
+                            // 獲取資料庫中 "BackpackTest" 集合的文檔，ID 為 "1"
                             val backpackRef = db.collection("BackpackTest").document("1")
 
-                                // 獲取異步操作的成功監聽器
+                            // 獲取異步操作的成功監聽器
                             backpackRef.get().addOnSuccessListener { backpackDocument ->
-                                // 檢查 "itemcase" 是否等於當前的 "itemcase"
+                                // 檢查 "itemCase" 是否等於當前的 "itemCase"
                                 if (backpackItemName == null) {
                                     // 如果相等，獲取現有的數量，並加上 counter
-                                    val existingCounter = backpackDocument.getLong(itemcase)?.toInt() ?: 0
+                                    val existingCounter = backpackDocument.getLong(itemCase)?.toInt() ?: 0
                                     val updatedCounter = existingCounter + counter
 
                                     // 建立要更新到資料庫的資料
                                     val updateData = hashMapOf(
-                                        itemcase to updatedCounter
+                                        itemCase to updatedCounter
                                     )
                                     // 將更新的資料設定到資料庫中，並使用 SetOptions.merge() 來合併資料
                                     backpackRef.set(updateData, SetOptions.merge())
                                 } else {
-                                    // 如果 "itemcase" 不相等，則新增一個新的 "itemcase" 到資料庫中
+                                    // 如果 "itemCase" 不相等，則新增一個新的 "itemCase" 到資料庫中
                                     val newData = hashMapOf(
-                                        itemcase to 5
+                                        itemCase to 5
                                     )
 
                                     // 將新的資料設定到資料庫中，並使用 SetOptions.merge() 來合併資料
@@ -227,11 +228,11 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
 
 
-                            val remainingCount = remainingPurchaseCounts[itemcase] ?: 0
+                            val remainingCount = remainingPurchaseCounts[itemCase] ?: 0
                             if (remainingCount >= counter) {
-                                remainingPurchaseCounts[itemcase] = remainingCount - counter
+                                remainingPurchaseCounts[itemCase] = remainingCount - counter
 
-                                if (remainingPurchaseCounts[itemcase] == 0) {
+                                if (remainingPurchaseCounts[itemCase] == 0) {
                                     // 如果商品購買數量為0，隱藏該商品
                                     val commodity1 = findViewById<ImageView>(R.id.commodity1)
                                     val commodity2 = findViewById<ImageView>(R.id.commodity2)
@@ -239,7 +240,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     val commodity4 = findViewById<ImageView>(R.id.commodity4)
                                     val commodity5 = findViewById<ImageView>(R.id.commodity5)
                                     val commodity6 = findViewById<ImageView>(R.id.commodity6)
-                                    when (itemcase) {
+                                    when (itemCase) {
                                         "M1" -> commodity1.visibility = View.INVISIBLE
                                         "M2" -> commodity2.visibility = View.INVISIBLE
                                         "M3" -> commodity3.visibility = View.INVISIBLE
@@ -257,7 +258,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                 val commodity4 = findViewById<ImageView>(R.id.commodity4)
                                 val commodity5 = findViewById<ImageView>(R.id.commodity5)
                                 val commodity6 = findViewById<ImageView>(R.id.commodity6)
-                                when (itemcase) {
+                                when (itemCase) {
                                     "M1" -> commodity1.visibility = View.INVISIBLE
                                     "M2" -> commodity2.visibility = View.INVISIBLE
                                     "M3" -> commodity3.visibility = View.INVISIBLE

@@ -44,4 +44,6 @@
     <string name="teach2">第二章</string>
     <string name="fightView">fightView</string>
     <string name="packageView">packageView</string>
+    <string name="product_description">    產品介紹:</string>
+    <string name="counterTV">1</string>
 </resources>
