@@ -32,8 +32,9 @@
                 android:layout_gravity="center"
                 android:gravity="bottom|right|center_horizontal"
                 android:text="@string/product_description"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textColor="#150E0E"
+                android:textSize="25sp"
+                tools:ignore="RtlHardcoded,TextSizeCheck,TextContrastCheck" />
 
             <TextView
                 android:id="@+id/descriptionTextView"
@@ -42,7 +43,7 @@
                 android:layout_gravity="center"
                 android:gravity="bottom|center_horizontal"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="#150E0E"
                 android:textSize="25sp" />
         </LinearLayout>
 
