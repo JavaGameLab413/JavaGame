@@ -29,4 +29,8 @@ class InfoView(context: Context, attrs: AttributeSet?) : LinearLayout(context, a
         textView.text = info
         button.text = equip
     }
+    fun setClick(click:Boolean,focus:Boolean){
+        button.isClickable = click
+        button.isFocusable = focus
+    }
 }
