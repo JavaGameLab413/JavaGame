@@ -4,14 +4,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity() {
@@ -92,9 +90,11 @@ class BackPack : AppCompatActivity() {
         val docRef = db.collection(backPageDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
 
+        //抓背包持有物
         docRef.get()
             .addOnSuccessListener { doc ->
                 doc.data?.let { data ->
+                    //排序欄位資料
                     val sortedData = data.keys.sorted()
 
                     var count = 1
@@ -102,21 +102,21 @@ class BackPack : AppCompatActivity() {
                         val itemRef = db.collection(itemDatabaseCollectionName).document(entry)
                         itemRef.get()
                             .addOnSuccessListener {
-                                val a = map[entry]
+                                val imageId = map[entry]
 
 
-                                if (a != null) {
+                                if (imageId != null) {
                                     when (count) {
                                         1 -> {
-                                            addItem(R.id.ItemList, a, entry)
+                                            addItem(R.id.ItemList, imageId, entry)
                                             count += 1
                                         }
                                         2 -> {
-                                            addItem(R.id.ItemList1, a, entry)
+                                            addItem(R.id.ItemList1, imageId, entry)
                                             count += 1
                                         }
                                         3 -> {
-                                            addItem(R.id.ItemList2, a, entry)
+                                            addItem(R.id.ItemList2, imageId, entry)
                                             count = 1
                                         }
                                     }
@@ -127,9 +127,6 @@ class BackPack : AppCompatActivity() {
                 }
             }
 
-//        for (i in 1..8) { 測試
-//            addItem(R.id.ItemList,R.drawable.healing_potion)
-//        }
     }
 
     private fun addItem(viewId: Int, imgId: Int, tag: String) {
@@ -152,29 +149,60 @@ class BackPack : AppCompatActivity() {
 
         //設置每個動作
         customView.setOnClickListener { view ->
-            val a = view.tag
-            Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show()
+            val tagInfo = view.tag
+            Toast.makeText(this, tagInfo.toString(), Toast.LENGTH_SHORT).show()
 
 
             val infoView = InfoView(this, null)
-            val icon = map[a]
+            val icon = map[tagInfo]
             if (icon != null) {
-                infoView.setView(icon, "HIHI", "裝備")
+                val db = FirebaseFirestore.getInstance()
+                val docRef = db.collection("Item")
+                    .document(tagInfo.toString())
+
+                docRef.get().addOnSuccessListener { doc ->
+                    val info = doc.getString("Description")
+                    if (equipmentNum.contains(tagInfo)){
+                        infoView.setView(icon, info.toString(), "已裝備")
+                        infoView.setClick(click = false, focus = false)
+                    }else{
+                        infoView.setView(icon, info.toString(), "裝備")
+                        infoView.setClick(click = true, focus = true)
+                    }
+                }
+
             }
 
             //彈窗設定
+            val marginInDp = 20 // 20dp
+            val marginInPixels = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                marginInDp.toFloat(),
+                resources.displayMetrics
+            ).toInt()
+
             val popupWindow = PopupWindow(this).apply {
                 contentView = infoView
-                width = ViewGroup.LayoutParams.MATCH_PARENT
+                width = resources.displayMetrics.widthPixels - 2 * marginInPixels
                 height = ViewGroup.LayoutParams.WRAP_CONTENT
-                //沒添加會一直創建新的
                 isFocusable = true
-                //全屏背景
                 isClippingEnabled = true
-                //透明背景
                 setBackgroundDrawable(ColorDrawable(Color.BLACK))
-
             }
+
+
+//            val popupWindow = PopupWindow(this).apply {
+//                contentView = infoView
+//                width = ViewGroup.LayoutParams.MATCH_PARENT
+//                height = ViewGroup.LayoutParams.WRAP_CONTENT
+//                //沒添加會一直創建新的
+//                isFocusable = true
+//                //全屏背景
+//                isClippingEnabled = true
+//                //透明背景
+//                setBackgroundDrawable(ColorDrawable(Color.BLACK))
+//
+//            }
             popupWindow.isOutsideTouchable = false // true 表示外部可触摸关闭，false 表示外部不可触摸关闭
 
             infoView.findViewById<Button>(R.id.sure).setOnClickListener {
@@ -194,7 +222,7 @@ class BackPack : AppCompatActivity() {
 
 
     private fun showEquipment(id: Int, viewId: Int) {
-        val equipment = findViewById<ImageView>(viewId)
+        val equipment = findViewById<ImageButton>(viewId)
         equipment.setImageResource(id)
         equipment.visibility = View.VISIBLE
     }
