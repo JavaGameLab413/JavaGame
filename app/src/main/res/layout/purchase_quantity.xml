@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:gravity="bottom|right|center_horizontal"
                 android:text="@string/product_description"
-                android:textColor="#150E0E"
+                android:textColor="#FBFBFB"
                 android:textSize="25sp"
                 tools:ignore="RtlHardcoded,TextSizeCheck,TextContrastCheck" />
 
@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:gravity="bottom|center_horizontal"
                 android:text=""
-                android:textColor="#150E0E"
+                android:textColor="#FBFBFB"
                 android:textSize="25sp" />
         </LinearLayout>
 
