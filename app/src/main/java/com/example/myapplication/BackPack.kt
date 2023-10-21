@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -12,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BackPack : AppCompatActivity() {
+class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
     private var equipmentNum = ArrayList<String>(5)
@@ -30,14 +29,29 @@ class BackPack : AppCompatActivity() {
         equipmentNum.add("M1")
         equipmentNum.remove("M2")
 
+        val equipment1: ImageButton = findViewById(R.id.equipment1)
+        val equipment2: ImageButton = findViewById(R.id.equipment2)
+        val equipment3: ImageButton = findViewById(R.id.equipment3)
+        val equipment4: ImageButton = findViewById(R.id.equipment4)
+        val equipment5: ImageButton = findViewById(R.id.equipment5)
 
+        equipment1.setOnClickListener(this)
+        equipment2.setOnClickListener(this)
+        equipment3.setOnClickListener(this)
+        equipment4.setOnClickListener(this)
+        equipment5.setOnClickListener(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         var count = 1
         for (i in equipmentNum) {
             when (count) {
                 1 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment1)
+                        showEquipment(equipmentId, R.id.equipment1, i)
                     }
                     count++
 
@@ -45,7 +59,7 @@ class BackPack : AppCompatActivity() {
                 2 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment2)
+                        showEquipment(equipmentId, R.id.equipment2, i)
                     }
                     count++
 
@@ -53,7 +67,7 @@ class BackPack : AppCompatActivity() {
                 3 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment3)
+                        showEquipment(equipmentId, R.id.equipment3, i)
                     }
                     count++
 
@@ -61,7 +75,7 @@ class BackPack : AppCompatActivity() {
                 4 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment4)
+                        showEquipment(equipmentId, R.id.equipment4, i)
                     }
                     count++
 
@@ -69,7 +83,7 @@ class BackPack : AppCompatActivity() {
                 5 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment5)
+                        showEquipment(equipmentId, R.id.equipment5, i)
                     }
                     count++
 
@@ -77,6 +91,34 @@ class BackPack : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.equipment1 -> {
+                val equipment = findViewById<ImageButton>(R.id.equipment1)
+                equipmentNum.remove(equipment.tag.toString())
+            }
+            R.id.equipment2 -> {
+                val equipment = findViewById<ImageButton>(R.id.equipment2)
+                equipmentNum.remove(equipment.tag)
+            }
+            R.id.equipment3 -> {
+                val equipment = findViewById<ImageButton>(R.id.equipment3)
+                equipmentNum.remove(equipment.tag)
+            }
+            R.id.equipment4 -> {
+                val equipment = findViewById<ImageButton>(R.id.equipment4)
+                equipmentNum.remove(equipment.tag)
+            }
+            R.id.equipment5 -> {
+                val equipment = findViewById<ImageButton>(R.id.equipment5)
+                equipmentNum.remove(equipment.tag)
+            }
+
+        }
+        closeEquipment()
+        onResume()
 
     }
 
@@ -162,10 +204,10 @@ class BackPack : AppCompatActivity() {
 
                 docRef.get().addOnSuccessListener { doc ->
                     val info = doc.getString("Description")
-                    if (equipmentNum.contains(tagInfo)){
+                    if (equipmentNum.contains(tagInfo)) {
                         infoView.setView(icon, info.toString(), "已裝備")
                         infoView.setClick(click = false, focus = false)
-                    }else{
+                    } else {
                         infoView.setView(icon, info.toString(), "裝備")
                         infoView.setClick(click = true, focus = true)
                     }
@@ -174,6 +216,7 @@ class BackPack : AppCompatActivity() {
             }
 
             //彈窗設定
+            //dp轉換(設寬度用)
             val marginInDp = 20 // 20dp
             val marginInPixels = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -185,28 +228,20 @@ class BackPack : AppCompatActivity() {
                 contentView = infoView
                 width = resources.displayMetrics.widthPixels - 2 * marginInPixels
                 height = ViewGroup.LayoutParams.WRAP_CONTENT
+                //沒添加會一直創建新的
                 isFocusable = true
+                //全屏背景
                 isClippingEnabled = true
                 setBackgroundDrawable(ColorDrawable(Color.BLACK))
             }
 
 
-//            val popupWindow = PopupWindow(this).apply {
-//                contentView = infoView
-//                width = ViewGroup.LayoutParams.MATCH_PARENT
-//                height = ViewGroup.LayoutParams.WRAP_CONTENT
-//                //沒添加會一直創建新的
-//                isFocusable = true
-//                //全屏背景
-//                isClippingEnabled = true
-//                //透明背景
-//                setBackgroundDrawable(ColorDrawable(Color.BLACK))
-//
-//            }
             popupWindow.isOutsideTouchable = false // true 表示外部可触摸关闭，false 表示外部不可触摸关闭
 
             infoView.findViewById<Button>(R.id.sure).setOnClickListener {
-
+                equipmentNum.add(tagInfo as String)
+                onResume()
+                popupWindow.dismiss()
             }
 
 
@@ -221,10 +256,25 @@ class BackPack : AppCompatActivity() {
     }
 
 
-    private fun showEquipment(id: Int, viewId: Int) {
+    private fun showEquipment(id: Int, viewId: Int, tag: String) {
         val equipment = findViewById<ImageButton>(viewId)
+        equipment.tag = tag
         equipment.setImageResource(id)
         equipment.visibility = View.VISIBLE
     }
+
+    private fun closeEquipment() {
+        val equipment1: ImageButton = findViewById(R.id.equipment1)
+        val equipment2: ImageButton = findViewById(R.id.equipment2)
+        val equipment3: ImageButton = findViewById(R.id.equipment3)
+        val equipment4: ImageButton = findViewById(R.id.equipment4)
+        val equipment5: ImageButton = findViewById(R.id.equipment5)
+        equipment1.visibility = View.INVISIBLE
+        equipment2.visibility = View.INVISIBLE
+        equipment3.visibility = View.INVISIBLE
+        equipment4.visibility = View.INVISIBLE
+        equipment5.visibility = View.INVISIBLE
+    }
+
 
 }
