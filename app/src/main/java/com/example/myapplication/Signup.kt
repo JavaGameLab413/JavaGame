@@ -43,90 +43,97 @@ class Signup : AppCompatActivity() {
             } else if (password.text.toString() == "") {
                 Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
             } else {
-                if (account.text.toString().length in 1..7) {
-
-
-                //由大到小排序並取得流水號的最大值
-                db.collection("users").orderBy("serialNumber", Query.Direction.DESCENDING)
-                    .limit(1).get()
-                    .addOnSuccessListener { documents ->
-                        serialNumber = Integer.parseInt(
-                            documents.first().getLong("serialNumber").toString()
-                        ) + 1
-                        Log.d("流水號最大值 :", serialNumber.toString())
-                    }
-                //看帳號是否存在，如果不存在就可以建立帳號
-                newDocRef.whereEqualTo("account", account.text.toString()).get()
-                    .addOnSuccessListener { documents ->
-                        if (documents.size() == 0) {
-                            serialNumber++
-                            Log.d("新增的流水號", serialNumber.toString())
-
-                            //查是否重複名稱
-                            db.collection("properties").whereEqualTo("name", name.text.toString())
-                                .get()
-                                .addOnSuccessListener { doc ->
-                                    if (doc.size() == 0) {
-                                        // 將資料存放在data
-                                        val data = hashMapOf(
-                                            "account" to account.text.toString(),
-                                            "password" to password.text.toString(),
-                                            "serialNumber" to serialNumber
-                                        )
-
-                                        val writeUser =
-                                            db.collection("users").document(serialNumber.toString())
-                                        val writeData = db.collection("properties")
-                                            .document(serialNumber.toString())
-
-                                        //將 data 寫入資料庫
-                                        writeUser.set(data)
-
-                                        val data2 = hashMapOf(
-                                            "name" to name.text.toString(),
-                                            "lv" to 1,
-                                            "history" to 0,
-                                            "money" to 0,
-                                            "serialNumber" to serialNumber,
-                                            "atk" to 0
-                                        )
-                                        //將資料寫入資料庫
-                                        Log.d("test", "success!")
-                                        writeData.set(data2)
-
-                                        //顯示註冊成功的彈窗
-                                        Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
-                                        Log.d(TAG, "Signup success!")
-
-                                        //切換畫面至開始
-
-                                        finish()
-                                        val close = Intent(this, MainActivity::class.java)
-                                        startActivity(close)
-                                        finish()
-                                        val intent = Intent(this, MainActivity::class.java)
-                                        startActivity(intent)
-
-                                        //將ID寫入本地資料庫User
-                                        val sharedPreferences =
-                                            getSharedPreferences("User", MODE_PRIVATE)
-                                        sharedPreferences.edit()
-                                            .putString("ID", serialNumber.toString()).apply()
-                                    } else {
-                                        Toast.makeText(this, "此名稱已存在!", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-
-                        } else {
-                            //顯示註冊失敗的彈窗
-                            Toast.makeText(this, "帳號已存在!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-            }else {
+                if (account.text.toString().length in 10 downTo 0) {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
                 }
-        }
+                else if(password.text.toString().length in 10 downTo 0) {
+                    Toast.makeText(this, "密碼超出長度!!!", Toast.LENGTH_SHORT).show()
+                }
+                else if(name.text.toString().length in 10 downTo 0) {
+                    Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
+                }else {
+                    //由大到小排序並取得流水號的最大值
+                    db.collection("users").orderBy("serialNumber", Query.Direction.DESCENDING)
+                        .limit(1).get()
+                        .addOnSuccessListener { documents ->
+                            serialNumber = Integer.parseInt(
+                                documents.first().getLong("serialNumber").toString()
+                            ) + 1
+                            Log.d("流水號最大值 :", serialNumber.toString())
+                        }
+                    //看帳號是否存在，如果不存在就可以建立帳號
+                    newDocRef.whereEqualTo("account", account.text.toString()).get()
+                        .addOnSuccessListener { documents ->
+                            if (documents.size() == 0) {
+                                serialNumber++
+                                Log.d("新增的流水號", serialNumber.toString())
+
+                                //查是否重複名稱
+                                db.collection("properties")
+                                    .whereEqualTo("name", name.text.toString())
+                                    .get()
+                                    .addOnSuccessListener { doc ->
+                                        if (doc.size() == 0) {
+                                            // 將資料存放在data
+                                            val data = hashMapOf(
+                                                "account" to account.text.toString(),
+                                                "password" to password.text.toString(),
+                                                "serialNumber" to serialNumber
+                                            )
+
+                                            val writeUser =
+                                                db.collection("users")
+                                                    .document(serialNumber.toString())
+                                            val writeData = db.collection("properties")
+                                                .document(serialNumber.toString())
+
+                                            //將 data 寫入資料庫
+                                            writeUser.set(data)
+
+                                            val data2 = hashMapOf(
+                                                "name" to name.text.toString(),
+                                                "lv" to 1,
+                                                "history" to 0,
+                                                "money" to 0,
+                                                "serialNumber" to serialNumber,
+                                                "atk" to 0
+                                            )
+                                            //將資料寫入資料庫
+                                            Log.d("test", "success!")
+                                            writeData.set(data2)
+
+                                            //顯示註冊成功的彈窗
+                                            Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
+                                            Log.d(TAG, "Signup success!")
+
+                                            //切換畫面至開始
+
+                                            finish()
+                                            val close = Intent(this, MainActivity::class.java)
+                                            startActivity(close)
+                                            finish()
+                                            val intent = Intent(this, MainActivity::class.java)
+                                            startActivity(intent)
+
+                                            //將ID寫入本地資料庫User
+                                            val sharedPreferences =
+                                                getSharedPreferences("User", MODE_PRIVATE)
+                                            sharedPreferences.edit()
+                                                .putString("ID", serialNumber.toString()).apply()
+                                        } else {
+                                            Toast.makeText(this, "此名稱已存在!", Toast.LENGTH_SHORT)
+                                                .show()
+                                        }
+                                    }
+
+                            } else {
+                                //顯示註冊失敗的彈窗
+                                Toast.makeText(this, "帳號已存在!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                }
+            }//
         }
     }
 
