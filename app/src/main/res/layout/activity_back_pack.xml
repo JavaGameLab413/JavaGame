@@ -242,8 +242,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="bottom|center"
             android:text="TextView"
+            android:textColor="#263238"
             android:textSize="14sp" />
         <ImageView
             android:layout_width="match_parent"

@@ -22,6 +22,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_back_pack)
 
         readData()
+        addTitle(R.id.title,"初心者")
 
         //測試
         equipmentNum.add("M2")
@@ -276,5 +277,32 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         equipment5.visibility = View.INVISIBLE
     }
 
+    private fun addTitle(viewId: Int, title: String) {
+        val scrollViewLayout = findViewById<LinearLayout>(viewId)
+
+        val customView = TitleView(this, null)
+        customView.setting(title)
+
+        //View布局
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.gravity = Gravity.CENTER
+        layoutParams.bottomMargin = 20
+
+        // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
+        customView.layoutParams = layoutParams
+
+        //設置每個動作
+        customView.setOnClickListener { view ->
+
+
+        }
+
+        scrollViewLayout.addView(customView)
+
+
+    }
 
 }
