@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/store"
+        app:srcCompat="@drawable/shopbackground"
         tools:ignore="ContentDescription" />
 
     <include
@@ -38,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_constraintVertical_bias="0.55"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -56,7 +57,7 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/healingpotion"
@@ -92,7 +93,7 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/healingpotion"
@@ -128,7 +129,7 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/healingpotion"
@@ -165,19 +166,17 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#00F6F6F6"
+        android:layout_width="10mm"
+        android:layout_height="48dp"
         android:contentDescription="@string/back"
-        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:srcCompat="@drawable/shop_turn"
-        tools:ignore="MissingConstraints,UnknownIdInLayout" />
+        app:layout_constraintVertical_bias="0.196"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="InOrMmUsage,MissingConstraints" />
 
     //
 
