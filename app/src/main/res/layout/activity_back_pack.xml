@@ -89,8 +89,9 @@
 
             <ImageView
                 android:id="@+id/equipment1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
@@ -98,8 +99,9 @@
 
             <ImageView
                 android:id="@+id/equipment2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
@@ -107,8 +109,9 @@
 
             <ImageView
                 android:id="@+id/equipment3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
@@ -116,8 +119,9 @@
 
             <ImageView
                 android:id="@+id/equipment4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
@@ -125,8 +129,9 @@
 
             <ImageView
                 android:id="@+id/equipment5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"

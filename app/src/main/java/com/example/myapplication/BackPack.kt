@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,10 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity() {
-    private val map: Map<String, Int> = mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.power_up)
-    private val equipmentNum = arrayOfNulls<String>(5)
+    private val map: Map<String, Int> =
+        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
+    private var equipmentNum = ArrayList<String>(5)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,66 +27,51 @@ class BackPack : AppCompatActivity() {
         readData()
 
         //測試
-        equipmentNum[0]="M1"
-        equipmentNum[1]="M1"
-        equipmentNum[2]="M1"
-        equipmentNum[3]="M1"
-        equipmentNum[4]="M1"
-//        val equipment = findViewById<ImageView>(R.id.equipment1)
-//        val equipment1 = findViewById<ImageView>(R.id.equipment2)
-//        val equipment2 = findViewById<ImageView>(R.id.equipment3)
-//        val equipment3 = findViewById<ImageView>(R.id.equipment4)
-//        val equipment4 = findViewById<ImageView>(R.id.equipment5)
-//
-//        equipment.visibility=View.VISIBLE
-//        equipment1.visibility=View.VISIBLE
-//        equipment2.visibility=View.VISIBLE
-//        equipment3.visibility=View.VISIBLE
-//        equipment4.visibility=View.VISIBLE
+        equipmentNum.add("M2")
+        equipmentNum.add("M1")
+        equipmentNum.add("M1")
+        equipmentNum.remove("M2")
 
-        var count =1
-        for(i in equipmentNum){
-            if(i==null){
-                break
-            }
 
-            when(count){
-                1 ->{
+        var count = 1
+        for (i in equipmentNum) {
+            when (count) {
+                1 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId,R.id.equipment1)
+                        showEquipment(equipmentId, R.id.equipment1)
                     }
                     count++
 
                 }
-                2 ->{
+                2 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId,R.id.equipment2)
+                        showEquipment(equipmentId, R.id.equipment2)
                     }
                     count++
 
                 }
-                3 ->{
+                3 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId,R.id.equipment3)
+                        showEquipment(equipmentId, R.id.equipment3)
                     }
                     count++
 
                 }
-                4 ->{
+                4 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId,R.id.equipment4)
+                        showEquipment(equipmentId, R.id.equipment4)
                     }
                     count++
 
                 }
-                5 ->{
+                5 -> {
                     val equipmentId = map[i]
                     if (equipmentId != null) {
-                        showEquipment(equipmentId,R.id.equipment5)
+                        showEquipment(equipmentId, R.id.equipment5)
                     }
                     count++
 
@@ -96,21 +82,22 @@ class BackPack : AppCompatActivity() {
 
     }
 
-    private fun readData(){
+    private fun readData() {
         val backPageDatabaseCollectionName = "BackPage"
         val itemDatabaseCollectionName = "Item"
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
         val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection(backPageDatabaseCollectionName).document(sharedPreferences.getString("ID", "-1").toString())
+        val docRef = db.collection(backPageDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
 
         docRef.get()
             .addOnSuccessListener { doc ->
                 doc.data?.let { data ->
                     val sortedData = data.keys.sorted()
 
-                    var count =1
+                    var count = 1
                     for (entry in sortedData) {
                         val itemRef = db.collection(itemDatabaseCollectionName).document(entry)
                         itemRef.get()
@@ -119,18 +106,18 @@ class BackPack : AppCompatActivity() {
 
 
                                 if (a != null) {
-                                    when(count){
-                                        1-> {
-                                            addItem(R.id.ItemList, a,entry)
+                                    when (count) {
+                                        1 -> {
+                                            addItem(R.id.ItemList, a, entry)
                                             count += 1
                                         }
-                                        2-> {
-                                            addItem(R.id.ItemList1, a,entry)
+                                        2 -> {
+                                            addItem(R.id.ItemList1, a, entry)
                                             count += 1
                                         }
-                                        3-> {
-                                            addItem(R.id.ItemList2, a,entry)
-                                            count =1
+                                        3 -> {
+                                            addItem(R.id.ItemList2, a, entry)
+                                            count = 1
                                         }
                                     }
                                 }
@@ -145,7 +132,7 @@ class BackPack : AppCompatActivity() {
 //        }
     }
 
-    private fun addItem(viewId:Int,imgId:Int,tag:String){
+    private fun addItem(viewId: Int, imgId: Int, tag: String) {
         val scrollViewLayout = findViewById<LinearLayout>(viewId)
 
         val customView = BackpackItems(this, null)
@@ -172,7 +159,7 @@ class BackPack : AppCompatActivity() {
             val infoView = InfoView(this, null)
             val icon = map[a]
             if (icon != null) {
-                infoView.setView(icon,"HIHI","裝備")
+                infoView.setView(icon, "HIHI", "裝備")
             }
 
             //彈窗設定
@@ -190,7 +177,7 @@ class BackPack : AppCompatActivity() {
             }
             popupWindow.isOutsideTouchable = false // true 表示外部可触摸关闭，false 表示外部不可触摸关闭
 
-            infoView.findViewById<Button>(R.id.sure).setOnClickListener{
+            infoView.findViewById<Button>(R.id.sure).setOnClickListener {
 
             }
 
@@ -206,11 +193,10 @@ class BackPack : AppCompatActivity() {
     }
 
 
-    private fun showEquipment(id:Int,viewId:Int){
+    private fun showEquipment(id: Int, viewId: Int) {
         val equipment = findViewById<ImageView>(viewId)
         equipment.setImageResource(id)
-        equipment.visibility= View.VISIBLE
-        Log.e("test","suss")
+        equipment.visibility = View.VISIBLE
     }
 
 }
