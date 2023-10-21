@@ -43,13 +43,13 @@ class Signup : AppCompatActivity() {
             } else if (password.text.toString() == "") {
                 Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
             } else {
-                if (account.text.toString().length in 10 downTo 0) {
+                if (account.text.toString().length  > 9) {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
                 }
-                else if(password.text.toString().length in 10 downTo 0) {
+                else if(password.text.toString().length > 9) {
                     Toast.makeText(this, "密碼超出長度!!!", Toast.LENGTH_SHORT).show()
                 }
-                else if(name.text.toString().length in 10 downTo 0) {
+                else if(name.text.toString().length > 8) {
                     Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
                 }else {
                     //由大到小排序並取得流水號的最大值
