@@ -51,7 +51,13 @@ class Signup : AppCompatActivity() {
                 }
                 else if(name.text.toString().length > 8) {
                     Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
-                }else {
+                }else if (containsSpecialCharacters(password.text.toString())) {
+                    Toast.makeText(this, "請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
+                }
+                else if (containsSpecialCharacters(account.text.toString())) {
+                    Toast.makeText(this, "請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
+                }
+                else {
                     //由大到小排序並取得流水號的最大值
                     db.collection("users").orderBy("serialNumber", Query.Direction.DESCENDING)
                         .limit(1).get()
@@ -158,6 +164,10 @@ class Signup : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+    }
+    fun containsSpecialCharacters(input: String): Boolean {
+        val regex = Regex("[^a-zA-Z0-9]") // 正则表达式匹配非字母和非数字的字符
+        return regex.containsMatchIn(input)
     }
 
 }
