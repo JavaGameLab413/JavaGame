@@ -43,6 +43,9 @@ class Signup : AppCompatActivity() {
             } else if (password.text.toString() == "") {
                 Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
             } else {
+                if (account.text.toString().length in 1..7) {
+
+
                 //由大到小排序並取得流水號的最大值
                 db.collection("users").orderBy("serialNumber", Query.Direction.DESCENDING)
                     .limit(1).get()
@@ -96,6 +99,7 @@ class Signup : AppCompatActivity() {
                                         Log.d(TAG, "Signup success!")
 
                                         //切換畫面至開始
+
                                         finish()
                                         val close = Intent(this, MainActivity::class.java)
                                         startActivity(close)
@@ -119,9 +123,10 @@ class Signup : AppCompatActivity() {
                         }
                     }
 
-            }
-
-
+            }else {
+                    Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
+                }
+        }
         }
     }
 
