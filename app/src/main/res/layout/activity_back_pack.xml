@@ -87,52 +87,62 @@
             android:background="@drawable/equipment"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/equipment1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
                 tools:ignore="ContentDescription" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/equipment2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
                 tools:ignore="ContentDescription" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/equipment3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
                 tools:ignore="ContentDescription" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/equipment4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
                 tools:ignore="ContentDescription" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/equipment5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="6dp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/healing_potion"
                 tools:ignore="ContentDescription" />

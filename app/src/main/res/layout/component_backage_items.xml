@@ -10,7 +10,6 @@
             android:id="@+id/Items"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="#99D9D9D9"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription" />
 
