@@ -45,6 +45,11 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         equipmentButton.setOnClickListener(this)
         titleButton.setOnClickListener(this)
 
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener {
+            finish()
+        }
+
     }
 
     override fun onResume() {
