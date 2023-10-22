@@ -29,7 +29,7 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     // loading動畫與參數
     private val lottieAnimationView: LottieAnimationView = LottieAnimationView(context)
     private val lLayoutParams: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-        RelativeLayout.LayoutParams.WRAP_CONTENT,
+        RelativeLayout.LayoutParams.MATCH_PARENT,
         RelativeLayout.LayoutParams.WRAP_CONTENT
     )
 
