@@ -2,31 +2,30 @@ package com.example.myapplication
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
     private var equipmentNum = ArrayList<String>(5)
-
+    private var wear:String ="初心者"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_back_pack)
 
         readData()
-        addTitle(R.id.title,"初心者")
+
 
         //測試
         equipmentNum.add("M2")
-        equipmentNum.add("M1")
         equipmentNum.add("M1")
         equipmentNum.remove("M2")
 
@@ -35,17 +34,24 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         val equipment3: ImageButton = findViewById(R.id.equipment3)
         val equipment4: ImageButton = findViewById(R.id.equipment4)
         val equipment5: ImageButton = findViewById(R.id.equipment5)
+        val equipmentButton: Button = findViewById(R.id.equipmentButton)
+        val titleButton: Button = findViewById(R.id.titleButton)
 
         equipment1.setOnClickListener(this)
         equipment2.setOnClickListener(this)
         equipment3.setOnClickListener(this)
         equipment4.setOnClickListener(this)
         equipment5.setOnClickListener(this)
+        equipmentButton.setOnClickListener(this)
+        titleButton.setOnClickListener(this)
 
     }
 
     override fun onResume() {
         super.onResume()
+
+
+        //裝備顯示
         var count = 1
         for (i in equipmentNum) {
             when (count) {
@@ -92,6 +98,15 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
             }
         }
+
+        //重置稱號顯示
+        clearTitleView()
+
+        //稱號
+        val title = findViewById<TextView>(R.id.titleNames)
+        title.text=wear
+        addTitle("初心者")
+        addTitle("老手")
     }
 
     override fun onClick(view: View?) {
@@ -115,6 +130,12 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             R.id.equipment5 -> {
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
+            }
+            R.id.equipmentButton ->{
+                change(R.id.equipment,R.id.title)
+            }
+            R.id.titleButton ->{
+                change(R.id.title,R.id.equipment)
             }
 
         }
@@ -193,7 +214,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //設置每個動作
         customView.setOnClickListener { view ->
             val tagInfo = view.tag
-            Toast.makeText(this, tagInfo.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, tagInfo.toString(), Toast.LENGTH_SHORT).show()
 
 
             val infoView = InfoView(this, null)
@@ -277,32 +298,56 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         equipment5.visibility = View.INVISIBLE
     }
 
-    private fun addTitle(viewId: Int, title: String) {
-        val scrollViewLayout = findViewById<LinearLayout>(viewId)
+    private fun addTitle(title: String) {
+        val scrollViewLayout = findViewById<LinearLayout>(R.id.showTitle)
 
         val customView = TitleView(this, null)
         customView.setting(title)
+        customView.tag=title
 
         //View布局
         val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         layoutParams.gravity = Gravity.CENTER
         layoutParams.bottomMargin = 20
 
+        //背景顏色
+        customView.setBackgroundColor(Color.parseColor("#CCFFFFFF"))
+
         // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
         customView.layoutParams = layoutParams
 
+        //如果是穿戴中的打勾
+        if(title == wear){
+            customView.visible(View.VISIBLE)
+        }else{
+            customView.visible(View.INVISIBLE)
+        }
+
         //設置每個動作
-        customView.setOnClickListener { view ->
-
-
+        customView.setOnClickListener {view ->
+            wear=view.tag.toString()
+            onResume()
         }
 
         scrollViewLayout.addView(customView)
 
 
+    }
+
+    private fun clearTitleView(){
+        val view = findViewById<LinearLayout>(R.id.showTitle)
+        view.removeAllViews()
+    }
+
+    private fun change(open:Int,close:Int){
+        val closeView = findViewById<LinearLayout>(close)
+        val openView = findViewById<LinearLayout>(open)
+
+        closeView.visibility = View.INVISIBLE
+        openView.visibility = View.VISIBLE
     }
 
 }
