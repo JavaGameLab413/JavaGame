@@ -24,7 +24,8 @@ class TitleView(context: Context, attrs: AttributeSet?) : LinearLayout(context, 
     fun setting(con: String) {
         textView1.text = con
     }
-    fun visible(visible:Int){
-        imageView1.visibility= visible
+
+    fun visible(visible: Int) {
+        imageView1.visibility = visible
     }
 }

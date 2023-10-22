@@ -24,12 +24,13 @@ class InfoView(context: Context, attrs: AttributeSet?) : LinearLayout(context, a
         button = findViewById(R.id.sure)
     }
 
-    fun setView(resId: Int,info:String,equip:String) {
+    fun setView(resId: Int, info: String, equip: String) {
         imageView.setImageResource(resId)
         textView.text = info
         button.text = equip
     }
-    fun setClick(click:Boolean,focus:Boolean){
+
+    fun setClick(click: Boolean, focus: Boolean) {
         button.isClickable = click
         button.isFocusable = focus
     }

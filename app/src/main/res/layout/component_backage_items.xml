@@ -2,15 +2,15 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:parentTag="android.widget.LinearLayout"
+    android:gravity="center"
     android:orientation="horizontal"
-    android:gravity="center">
+    tools:parentTag="android.widget.LinearLayout">
 
-        <ImageView
-            android:id="@+id/Items"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/healing_potion"
-            tools:ignore="ContentDescription" />
+    <ImageView
+        android:id="@+id/Items"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/healing_potion"
+        tools:ignore="ContentDescription" />
 
 </merge>

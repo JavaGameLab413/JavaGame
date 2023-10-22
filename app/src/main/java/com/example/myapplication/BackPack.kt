@@ -15,7 +15,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
     private var equipmentNum = ArrayList<String>(5)
-    private var wear:String ="初心者"
+    private var wear: String = "初心者"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +104,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
         //稱號
         val title = findViewById<TextView>(R.id.titleNames)
-        title.text=wear
+        title.text = wear
         addTitle("初心者")
         addTitle("老手")
     }
@@ -131,11 +131,11 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
             }
-            R.id.equipmentButton ->{
-                change(R.id.equipment,R.id.title)
+            R.id.equipmentButton -> {
+                change(R.id.equipment, R.id.title)
             }
-            R.id.titleButton ->{
-                change(R.id.title,R.id.equipment)
+            R.id.titleButton -> {
+                change(R.id.title, R.id.equipment)
             }
 
         }
@@ -303,7 +303,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
         val customView = TitleView(this, null)
         customView.setting(title)
-        customView.tag=title
+        customView.tag = title
 
         //View布局
         val layoutParams = LinearLayout.LayoutParams(
@@ -320,15 +320,15 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         customView.layoutParams = layoutParams
 
         //如果是穿戴中的打勾
-        if(title == wear){
+        if (title == wear) {
             customView.visible(View.VISIBLE)
-        }else{
+        } else {
             customView.visible(View.INVISIBLE)
         }
 
         //設置每個動作
-        customView.setOnClickListener {view ->
-            wear=view.tag.toString()
+        customView.setOnClickListener { view ->
+            wear = view.tag.toString()
             onResume()
         }
 
@@ -337,12 +337,12 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun clearTitleView(){
+    private fun clearTitleView() {
         val view = findViewById<LinearLayout>(R.id.showTitle)
         view.removeAllViews()
     }
 
-    private fun change(open:Int,close:Int){
+    private fun change(open: Int, close: Int) {
         val closeView = findViewById<LinearLayout>(close)
         val openView = findViewById<LinearLayout>(open)
 

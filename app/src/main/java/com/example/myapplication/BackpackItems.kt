@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 
-class BackpackItems(context: Context, attrs: AttributeSet?) :LinearLayout (context, attrs){
+class BackpackItems(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     private val imageView1: ImageView
 

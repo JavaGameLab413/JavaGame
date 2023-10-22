@@ -11,12 +11,10 @@ import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Handler
 import android.os.Looper
-
 
 
 class Start : AppCompatActivity(), View.OnClickListener {
@@ -56,12 +54,13 @@ class Start : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(this, Insert::class.java)
             startActivity(intent)
         }
-        btGPT.setOnClickListener{
+        btGPT.setOnClickListener {
             val intent = Intent(this, ChatGPT::class.java)
             startActivity(intent)
         }
 
     }
+
     //施行按鈕方法
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -88,6 +87,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
         }
     }
+
     private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
         handler.postDelayed({
             // 加載完成後停止
@@ -101,8 +101,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
     }
 
 
-
-
     //刷新頁面
     override fun onResume() {
         super.onResume()
@@ -112,22 +110,27 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val playerLevel = findViewById<TextView>(R.id.level)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
+        Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
+        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
+            "serialNumber",
+            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
+        )
             .get()
             .addOnSuccessListener { documents ->
                 playerName.text = documents.first().getString("name").toString()
-                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
-                if (playerName.text == "a"){
-                    Log.d("game","是測試者")
+                playerMoney.text =
+                    String.format("%s G", documents.first().getLong("money").toString())
+                playerLevel.text =
+                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                if (playerName.text == "a") {
+                    Log.d("game", "是測試者")
 
-                }else{
-                    if (btDatabase.visibility == View.VISIBLE or btGPT.visibility){
+                } else {
+                    if (btDatabase.visibility == View.VISIBLE or btGPT.visibility) {
                         btDatabase.visibility = View.INVISIBLE
                         btGPT.visibility = View.INVISIBLE
                     }
@@ -140,10 +143,8 @@ class Start : AppCompatActivity(), View.OnClickListener {
         mediaPlayer.isLooping = true
         mediaPlayer.start()
 
-        if (playerName.toString() == "a"){
-            Log.d("test","test")
-        }else{
-
+        if (playerName.toString() == "a") {
+            Log.d("test", "test")
         }
     }
 
@@ -157,14 +158,13 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val window = this.window
 
         val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.also {
                 it.hide(statusBars())
                 it.hide(navigationBars())
             }
 
-        }
-        else {
+        } else {
             // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
             decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
