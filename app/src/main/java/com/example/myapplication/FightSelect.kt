@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
+@Suppress("DEPRECATION")
 class FightSelect : AppCompatActivity(), View.OnClickListener {
     private val propertiesDatabaseCollectionName = "properties"
     private var dataSet = ""
@@ -30,9 +31,10 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
+        val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
 
 
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
         }
         btq1.setOnClickListener(this)
@@ -40,6 +42,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         btq3.setOnClickListener(this)
         btq4.setOnClickListener(this)
         btq5.setOnClickListener(this)
+        btAddQuestion.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -47,7 +50,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {
@@ -65,11 +68,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-    private fun openQuestionActivity(questionTitle: String) {
-        val intent = Intent(this, FightMain::class.java)
-        intent.putExtra("questionTitle", questionTitle)
-        startActivity(intent)
-    }
+
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)

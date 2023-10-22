@@ -117,4 +117,15 @@
         app:srcCompat="@drawable/turn"
         tools:ignore="MissingConstraints,UnknownIdInLayout" />
 
+    <ImageButton
+        android:id="@+id/btAddQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        app:srcCompat="@android:mipmap/sym_def_app_icon"
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
