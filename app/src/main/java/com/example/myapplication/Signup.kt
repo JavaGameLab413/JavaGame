@@ -71,9 +71,12 @@ class Signup : AppCompatActivity() {
                                             "serialNumber" to serialNumber
                                         )
 
+                                        //將帳號設為文件名稱
                                         val writeUser =
                                             db.collection("PlayerAccount").document(documentName)
                                         val writeData = db.collection("PlayerInfo")
+                                            .document(serialNumber.toString())
+                                        val writeBag = db.collection("BackPage")
                                             .document(serialNumber.toString())
 
                                         //將 data 寫入資料庫
@@ -86,9 +89,21 @@ class Signup : AppCompatActivity() {
                                             "TitleNumber" to 0,
                                             "exp" to 0
                                         )
+
                                         //將資料寫入資料庫
                                         Log.d("test", "success!")
                                         writeData.set(data2)
+
+                                        val data3 = hashMapOf(
+                                            "M1" to 0,
+                                            "M2" to 0,
+                                            "M3" to 0,
+                                            "M4" to 0,
+                                            "M5" to 0,
+                                            "M6" to 0
+                                        )
+                                        Log.d("testBackpage", "success!")
+                                        writeBag.set(data3)
 
                                         //顯示註冊成功的彈窗
                                         Toast.makeText(this, "註冊成功!", Toast.LENGTH_SHORT).show()
