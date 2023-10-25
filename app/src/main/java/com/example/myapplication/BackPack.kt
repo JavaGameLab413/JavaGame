@@ -22,7 +22,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_back_pack)
 
         readData()
-
         getEquipment()
 
         val equipment1: ImageButton = findViewById(R.id.equipment1)
@@ -62,7 +61,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         showEquipment(equipmentId, R.id.equipment1, i)
                     }
                     count++
-
                 }
                 2 -> {
                     val equipmentId = map[i]
@@ -70,7 +68,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         showEquipment(equipmentId, R.id.equipment2, i)
                     }
                     count++
-
                 }
                 3 -> {
                     val equipmentId = map[i]
@@ -78,7 +75,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         showEquipment(equipmentId, R.id.equipment3, i)
                     }
                     count++
-
                 }
                 4 -> {
                     val equipmentId = map[i]
@@ -86,7 +82,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         showEquipment(equipmentId, R.id.equipment4, i)
                     }
                     count++
-
                 }
                 5 -> {
                     val equipmentId = map[i]
@@ -94,7 +89,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         showEquipment(equipmentId, R.id.equipment5, i)
                     }
                     count++
-
                 }
 
             }
@@ -117,35 +111,35 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 val equipment = findViewById<ImageButton>(R.id.equipment1)
                 equipmentNum.remove(equipment.tag)
                 //隱藏裝備欄物品
-                equipment.visibility =View.INVISIBLE
+                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment2 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment2)
                 equipmentNum.remove(equipment.tag)
                 //隱藏裝備欄物品
-                equipment.visibility =View.INVISIBLE
+                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment3 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment3)
                 equipmentNum.remove(equipment.tag)
                 //隱藏裝備欄物品
-                equipment.visibility =View.INVISIBLE
+                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment4 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment4)
                 equipmentNum.remove(equipment.tag)
                 //隱藏裝備欄物品
-                equipment.visibility =View.INVISIBLE
+                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment5 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
                 //隱藏裝備欄物品
-                equipment.visibility =View.INVISIBLE
+                equipment.visibility = View.INVISIBLE
             }
             R.id.equipmentButton -> {
                 //切換畫面
@@ -187,22 +181,22 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                             .addOnSuccessListener {
                                 val imageId = map[entry]
                                 //當有這物品且數量不為0，新增欄位
-                                if (imageId != null && Integer.parseInt(doc.getLong(entry)
-                                        .toString())!=0) {
-                                        when (count) {
-                                            1 -> {
-                                                addItem(R.id.ItemList, imageId, entry)
-                                                count += 1
-                                            }
-                                            2 -> {
-                                                addItem(R.id.ItemList1, imageId, entry)
-                                                count += 1
-                                            }
-                                            3 -> {
-                                                addItem(R.id.ItemList2, imageId, entry)
-                                                count = 1
-                                            }
+                                if (imageId != null &&
+                                    Integer.parseInt(doc.getLong(entry).toString()) != 0) {
+                                    when (count) {
+                                        1 -> {
+                                            addItem(R.id.ItemList, imageId, entry)
+                                            count += 1
                                         }
+                                        2 -> {
+                                            addItem(R.id.ItemList1, imageId, entry)
+                                            count += 1
+                                        }
+                                        3 -> {
+                                            addItem(R.id.ItemList2, imageId, entry)
+                                            count = 1
+                                        }
+                                    }
 
                                 }
 
@@ -362,7 +356,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     }
 
     //從資料庫取得裝備中的物品
-    private fun getEquipment(){
+    private fun getEquipment() {
         equipmentNum.add("M2")
         equipmentNum.add("M1")
     }
