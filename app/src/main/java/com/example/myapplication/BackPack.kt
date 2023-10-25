@@ -117,38 +117,56 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.equipment1 -> {
+                //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment1)
-                equipmentNum.remove(equipment.tag.toString())
+                equipmentNum.remove(equipment.tag)
+                //隱藏裝備欄物品
+                equipment.visibility =View.INVISIBLE
             }
             R.id.equipment2 -> {
+                //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment2)
                 equipmentNum.remove(equipment.tag)
+                //隱藏裝備欄物品
+                equipment.visibility =View.INVISIBLE
             }
             R.id.equipment3 -> {
+                //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment3)
                 equipmentNum.remove(equipment.tag)
+                //隱藏裝備欄物品
+                equipment.visibility =View.INVISIBLE
             }
             R.id.equipment4 -> {
+                //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment4)
                 equipmentNum.remove(equipment.tag)
+                //隱藏裝備欄物品
+                equipment.visibility =View.INVISIBLE
             }
             R.id.equipment5 -> {
+                //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
+                //隱藏裝備欄物品
+                equipment.visibility =View.INVISIBLE
             }
             R.id.equipmentButton -> {
+                //切換畫面
                 change(R.id.equipment, R.id.title)
             }
             R.id.titleButton -> {
+                //切換畫面
                 change(R.id.title, R.id.equipment)
             }
 
         }
-        closeEquipment()
+        //更新畫面
         onResume()
 
     }
 
+    //讀取使用者背包所擁有的物品及物品資訊
     private fun readData() {
         val backPageDatabaseCollectionName = "BackPage"
         val itemDatabaseCollectionName = "Item"
@@ -172,24 +190,25 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         itemRef.get()
                             .addOnSuccessListener {
                                 val imageId = map[entry]
+                                if (imageId != null && Integer.parseInt(doc.getLong(entry)
+                                        .toString())!=0) {
+                                        when (count) {
+                                            1 -> {
+                                                addItem(R.id.ItemList, imageId, entry)
+                                                count += 1
+                                            }
+                                            2 -> {
+                                                addItem(R.id.ItemList1, imageId, entry)
+                                                count += 1
+                                            }
+                                            3 -> {
+                                                addItem(R.id.ItemList2, imageId, entry)
+                                                count = 1
+                                            }
+                                        }
 
-
-                                if (imageId != null) {
-                                    when (count) {
-                                        1 -> {
-                                            addItem(R.id.ItemList, imageId, entry)
-                                            count += 1
-                                        }
-                                        2 -> {
-                                            addItem(R.id.ItemList1, imageId, entry)
-                                            count += 1
-                                        }
-                                        3 -> {
-                                            addItem(R.id.ItemList2, imageId, entry)
-                                            count = 1
-                                        }
-                                    }
                                 }
+
                             }
 
                     }
@@ -198,6 +217,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //添加物品欄位
     private fun addItem(viewId: Int, imgId: Int, tag: String) {
         val scrollViewLayout = findViewById<LinearLayout>(viewId)
 
@@ -219,8 +239,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //設置每個動作
         customView.setOnClickListener { view ->
             val tagInfo = view.tag
-            //Toast.makeText(this, tagInfo.toString(), Toast.LENGTH_SHORT).show()
-
 
             val infoView = InfoView(this, null)
             val icon = map[tagInfo]
@@ -263,7 +281,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             }
 
 
-            popupWindow.isOutsideTouchable = false // true 表示外部可触摸关闭，false 表示外部不可触摸关闭
+            popupWindow.isOutsideTouchable = false // true 表示外部可碰觸關閉，false 表示外部不可碰觸關閉
 
             infoView.findViewById<Button>(R.id.sure).setOnClickListener {
                 equipmentNum.add(tagInfo as String)
@@ -282,7 +300,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     }
 
-
+    //裝備後顯示
     private fun showEquipment(id: Int, viewId: Int, tag: String) {
         val equipment = findViewById<ImageButton>(viewId)
         equipment.tag = tag
@@ -290,19 +308,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         equipment.visibility = View.VISIBLE
     }
 
-    private fun closeEquipment() {
-        val equipment1: ImageButton = findViewById(R.id.equipment1)
-        val equipment2: ImageButton = findViewById(R.id.equipment2)
-        val equipment3: ImageButton = findViewById(R.id.equipment3)
-        val equipment4: ImageButton = findViewById(R.id.equipment4)
-        val equipment5: ImageButton = findViewById(R.id.equipment5)
-        equipment1.visibility = View.INVISIBLE
-        equipment2.visibility = View.INVISIBLE
-        equipment3.visibility = View.INVISIBLE
-        equipment4.visibility = View.INVISIBLE
-        equipment5.visibility = View.INVISIBLE
-    }
-
+    //添加稱號欄位
     private fun addTitle(title: String) {
         val scrollViewLayout = findViewById<LinearLayout>(R.id.showTitle)
 
@@ -342,11 +348,13 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //清除標題欄位
     private fun clearTitleView() {
         val view = findViewById<LinearLayout>(R.id.showTitle)
         view.removeAllViews()
     }
 
+    //裝備及稱號頁面切換
     private fun change(open: Int, close: Int) {
         val closeView = findViewById<LinearLayout>(close)
         val openView = findViewById<LinearLayout>(open)
