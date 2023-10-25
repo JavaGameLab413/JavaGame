@@ -29,6 +29,7 @@ class Record : AppCompatActivity() {
 
         plot1.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Plot1")
             startActivity(intent)
         }
         teach1.setOnClickListener{
