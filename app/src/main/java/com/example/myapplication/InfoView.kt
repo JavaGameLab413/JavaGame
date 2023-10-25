@@ -14,11 +14,10 @@ class InfoView(context: Context, attrs: AttributeSet?) : LinearLayout(context, a
     private val button: Button
 
     init {
-        // 從 XML 布局文件中加载自定義視圖的布局
+        // 從XML文件中取得自定義的布局
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.info_view, this, true)
 
-        // 获取 ImageView 的引用
         imageView = findViewById(R.id.Item)
         textView = findViewById(R.id.info)
         button = findViewById(R.id.sure)

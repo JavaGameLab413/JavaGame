@@ -8,19 +8,18 @@ import android.widget.LinearLayout
 
 class BackpackItems(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    private val imageView1: ImageView
+    private val items: ImageView
 
     init {
-        // 从 XML 布局文件中加载自定义视图的布局
+        // 從XML文件中取得自定義的布局
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.component_backage_items, this, true)
 
-        // 获取 ImageView 的引用
-        imageView1 = findViewById(R.id.Items)
+        items = findViewById(R.id.Items)
     }
 
     fun setImageResource(resId: Int) {
-        imageView1.setImageResource(resId)
+        items.setImageResource(resId)
 
     }
 }

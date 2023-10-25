@@ -143,9 +143,6 @@ class Start : AppCompatActivity(), View.OnClickListener {
         mediaPlayer.isLooping = true
         mediaPlayer.start()
 
-        if (playerName.toString() == "a") {
-            Log.d("test", "test")
-        }
     }
 
     override fun onPause() {

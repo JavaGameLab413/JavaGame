@@ -8,24 +8,23 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 class TitleView(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
-    private val imageView1: ImageView
-    private val textView1: TextView
+    private val select: ImageView
+    private val titleName: TextView
 
     init {
-        // 从 XML 布局文件中加载自定义视图的布局
+        // 從XML文件中取得自定義的布局
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.title_view, this, true)
 
-        // 获取 ImageView 的引用
-        imageView1 = findViewById(R.id.select)
-        textView1 = findViewById(R.id.titleName)
+        select = findViewById(R.id.select)
+        titleName = findViewById(R.id.titleName)
     }
 
     fun setting(con: String) {
-        textView1.text = con
+        titleName.text = con
     }
 
     fun visible(visible: Int) {
-        imageView1.visibility = visible
+        select.visibility = visible
     }
 }
