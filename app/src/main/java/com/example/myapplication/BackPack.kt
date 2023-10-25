@@ -13,9 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
-        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
-    private var equipmentNum = ArrayList<String>(5)
-    private var wear: String = "初心者"//未來連接資料庫
+        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
+    private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
+    private var wear: String = "初心者" //未來連接資料庫
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +103,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //重置稱號顯示
         clearTitleView()
 
-        //稱號
+        //稱號(未來跟隨資料庫)
         val title = findViewById<TextView>(R.id.titleNames)
         title.text = wear
         addTitle("初心者")
@@ -186,6 +186,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                         itemRef.get()
                             .addOnSuccessListener {
                                 val imageId = map[entry]
+                                //當有這物品且數量不為0，新增欄位
                                 if (imageId != null && Integer.parseInt(doc.getLong(entry)
                                         .toString())!=0) {
                                         when (count) {
@@ -242,9 +243,10 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 val db = FirebaseFirestore.getInstance()
                 val docRef = db.collection("Item")
                     .document(tagInfo.toString())
-
+                //抓物品資訊
                 docRef.get().addOnSuccessListener { doc ->
                     val info = doc.getString("Description")
+                    //是否裝備中
                     if (equipmentNum.contains(tagInfo)) {
                         infoView.setView(icon, info.toString(), "已裝備")
                         infoView.setClick(click = false, focus = false)
@@ -256,7 +258,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
             }
 
-            //彈窗設定
             //dp轉換(設寬度用)
             val marginInDp = 20 // 20dp
             val marginInPixels = TypedValue.applyDimension(
@@ -265,6 +266,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 resources.displayMetrics
             ).toInt()
 
+            //彈窗設定
             val popupWindow = PopupWindow(this).apply {
                 contentView = infoView
                 width = resources.displayMetrics.widthPixels - 2 * marginInPixels
