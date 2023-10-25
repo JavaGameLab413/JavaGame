@@ -15,7 +15,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1)
     private var equipmentNum = ArrayList<String>(5)
-    private var wear: String = "初心者"
+    private var wear: String = "初心者"//未來連接資料庫
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
         readData()
 
-
-        //測試
-        equipmentNum.add("M2")
-        equipmentNum.add("M1")
-        equipmentNum.remove("M2")
+        getEquipment()
 
         val equipment1: ImageButton = findViewById(R.id.equipment1)
         val equipment2: ImageButton = findViewById(R.id.equipment2)
@@ -361,6 +357,12 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
         closeView.visibility = View.INVISIBLE
         openView.visibility = View.VISIBLE
+    }
+
+    //從資料庫取得裝備中的物品
+    private fun getEquipment(){
+        equipmentNum.add("M2")
+        equipmentNum.add("M1")
     }
 
 }
