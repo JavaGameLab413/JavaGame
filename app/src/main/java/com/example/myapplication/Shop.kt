@@ -193,9 +193,10 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                             // 從文件中獲取 "itemCase" 欄位的值
                             val backpackItemName: String? = document.getString("backpackItemName")
-
+                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                            val userId =Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
                             // 獲取資料庫中 "BackpackTest" 集合的文檔，ID 為 "1"
-                            val backpackRef = db.collection("BackpackTest").document("1")
+                            val backpackRef = db.collection("BackPage").document(userId.toString())
 
                             // 獲取異步操作的成功監聽器
                             backpackRef.get().addOnSuccessListener { backpackDocument ->
@@ -221,11 +222,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     backpackRef.set(newData, SetOptions.merge())
                                 }
                             }
-
-
-
-
-
 
 
                             val remainingCount = remainingPurchaseCounts[itemCase] ?: 0
