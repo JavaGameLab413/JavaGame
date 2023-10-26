@@ -23,6 +23,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var itemCase: String = ""
     private lateinit var descriptionTextView: TextView
+
     // 每個商品的初始可購買數量
     private val remainingPurchaseCounts = mutableMapOf(
         "M1" to 5,
@@ -201,7 +202,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                 // 檢查 "itemCase" 是否等於當前的 "itemCase"
                                 if (backpackItemName == null) {
                                     // 如果相等，獲取現有的數量，並加上 counter
-                                    val existingCounter = backpackDocument.getLong(itemCase)?.toInt() ?: 0
+                                    val existingCounter =
+                                        backpackDocument.getLong(itemCase)?.toInt() ?: 0
                                     val updatedCounter = existingCounter + counter
 
                                     // 建立要更新到資料庫的資料
@@ -279,7 +281,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     }
 
 
-
     // 更新使用者金幣數量
     private fun changeMoney() {
         val playerMoney = findViewById<TextView>(R.id.gold)
@@ -298,44 +299,43 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         changeMoney()
-        // 顯示使用者名稱和等級
+        //實作文本(名稱)
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
+        //取得名稱
         val db = FirebaseFirestore.getInstance()
+        //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-        // 讀取使用者資訊
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
+        db.collection(playerInfoDatabaseCollectionName).whereEqualTo(
             "serialNumber",
             Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
         )
             .get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.getString("PlayerId").toString()
+                playerName.text = documents.first().getString("name").toString()
                 playerLevel.text =
-                    String.format("Lv: %s", documents.getLong("Level").toString())
-            }
-    }
-
-    // 隱藏系統狀態欄和導航欄
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+                    String.format("Lv: %s", documents.first().getLong("lv").toString())
             }
         }
-        else {
-            // 如果設備不支援 WindowInsetsController，使用舊版方法（版本低於Android 11）
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        // 隱藏系統狀態欄和導航欄
+        override fun onWindowFocusChanged(hasFocus: Boolean) {
+            super.onWindowFocusChanged(hasFocus)
+            val window = this.window
+            val decorView = window.decorView
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.also {
+                    it.hide(statusBars())
+                    it.hide(navigationBars())
+                }
+            } else {
+                // 如果設備不支援 WindowInsetsController，使用舊版方法（版本低於Android 11）
+                decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+            }
         }
     }
-}
