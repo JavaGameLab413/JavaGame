@@ -20,7 +20,7 @@ import com.google.firebase.firestore.SetOptions
 @Suppress("NAME_SHADOWING", "DEPRECATION")
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var itemCase: String = ""
     private lateinit var descriptionTextView: TextView
     // 每個商品的初始可購買數量
@@ -81,9 +81,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 造訪 Firebase fireStore
         val db = FirebaseFirestore.getInstance()
         // 使用產生的 ID 建立新文檔
-        val information = db.collection(propertiesDatabaseCollectionName)
+        val information = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName)
+        val writeData = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         // 購買數量
         var counter = 1
@@ -172,7 +172,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             popupWindow.dismiss()
             information.get().addOnSuccessListener { documents ->
                 var userMoney: Int =
-                    Integer.parseInt(documents.getLong("money").toString())
+                    Integer.parseInt(documents.getLong("Gold").toString())
 
                 val ref = db.collection("Item").document(itemCase)
                 ref.get().addOnSuccessListener { document ->
@@ -182,14 +182,13 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                         if (userMoney >= purchaseMoney) {
                             userMoney -= purchaseMoney
-                            writeData.update("money", userMoney)
+                            writeData.update("Gold", userMoney)
                             Toast.makeText(
                                 this,
                                 "購買成功!!總共花費 $purchaseMoney G",
                                 Toast.LENGTH_SHORT
                             ).show()
                             changeMoney()
-
 
                             // 從文件中獲取 "itemCase" 欄位的值
                             val backpackItemName: String? = document.getString("backpackItemName")
@@ -292,14 +291,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
             }
     }
 
@@ -312,19 +309,16 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val playerLevel = findViewById<TextView>(R.id.level)
         val db = FirebaseFirestore.getInstance()
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
 
         // 讀取使用者資訊
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
             }
-    }
+        }
 
     // 隱藏系統狀態欄和導航欄
     override fun onWindowFocusChanged(hasFocus: Boolean) {

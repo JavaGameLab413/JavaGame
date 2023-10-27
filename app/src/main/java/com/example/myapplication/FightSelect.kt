@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 @Suppress("DEPRECATION")
 class FightSelect : AppCompatActivity(), View.OnClickListener {
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var dataSet = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,17 +88,14 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
             }
     }
 
