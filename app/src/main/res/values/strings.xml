@@ -44,6 +44,8 @@
     <string name="teach2">第二章</string>
     <string name="fightView">fightView</string>
     <string name="packageView">packageView</string>
+    <string name="equipment">裝備</string>
+    <string name="designation">稱號</string>
     <string-array name="answer_options">
         <item>A</item>
         <item>B</item>
