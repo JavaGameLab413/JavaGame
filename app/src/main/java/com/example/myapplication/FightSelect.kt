@@ -14,8 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
+@Suppress("DEPRECATION")
 class FightSelect : AppCompatActivity(), View.OnClickListener {
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var dataSet = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +31,9 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
+        val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
 
-
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
         }
         btq1.setOnClickListener(this)
@@ -40,6 +41,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         btq3.setOnClickListener(this)
         btq4.setOnClickListener(this)
         btq5.setOnClickListener(this)
+        btAddQuestion.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -47,7 +49,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {
@@ -89,17 +91,14 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
             }
     }
 

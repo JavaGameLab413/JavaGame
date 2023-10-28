@@ -17,7 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fight"
         android:scaleType="centerCrop"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/fightView" />
 
     <include
         android:id="@+id/include3"
@@ -36,7 +37,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextSizeCheck" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -101,16 +103,29 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
+        android:layout_width="65dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#00F6F6F6"
         android:contentDescription="@string/back"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.193"
-        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:layout_constraintVertical_bias="0.2"
+        app:srcCompat="@drawable/turn"
         tools:ignore="MissingConstraints,UnknownIdInLayout" />
+
+    <ImageButton
+        android:id="@+id/btAddQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        app:srcCompat="@android:mipmap/sym_def_app_icon"
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
