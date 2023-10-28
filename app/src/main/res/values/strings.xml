@@ -38,8 +38,20 @@
     <string name="change">change</string>
     <string name="teach">教學</string>
     <string name="plot">劇情</string>
-    <string name="plot1">第一章</string>
-    <string name="plot2">第二章</string>
-    <string name="teach1">第一章</string>
+    <string name="plot1">初到</string>
+    <string name="plot2">神祕小傢伙</string>
+    <string name="teach1">基礎</string>
     <string name="teach2">第二章</string>
+    <string name="fightView">fightView</string>
+    <string name="packageView">packageView</string>
+    <string name="equipment">裝備</string>
+    <string name="designation">稱號</string>
+    <string-array name="answer_options">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+    <string name="product_description">    產品介紹:</string>
+    <string name="counterTV">1</string>
 </resources>

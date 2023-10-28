@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,9 +8,10 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.coroutines.*
-import java.util.LinkedList
-import java.util.Queue
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Runnable
+import java.util.*
 
 
 class Dialog : AppCompatActivity(){
@@ -26,18 +26,14 @@ class Dialog : AppCompatActivity(){
     private val delayInMillis = 50L
 
     //文字輸入
-    private val queue: Queue<String> = LinkedList()
+    private val name: Queue<String> = LinkedList()
+    private val context: Queue<String> = LinkedList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog)
 
-        addText()   //添加劇情
-
-        //講話者名稱
-        val speakName = findViewById<TextView>(R.id.name)
-        speakName.text="小狸"
-
+        read()//讀資料庫
 
         //下一段劇情閃爍
         val next = findViewById<ImageView>(R.id.next)
@@ -45,7 +41,6 @@ class Dialog : AppCompatActivity(){
 
         //內文動畫
         textView = findViewById(R.id.context)
-        animateTextWithHandler()
 
         //點擊進行下一段
         val chat :ImageView = findViewById(R.id.chat)
@@ -54,7 +49,7 @@ class Dialog : AppCompatActivity(){
             //判斷這段話是否跑完
             if(!isRunning){
                 //確認劇情是否跑完
-                if(queue.isEmpty()){
+                if(context.isEmpty()){
                     finish()
                 }else{
                     next.visibility = View.INVISIBLE
@@ -74,13 +69,39 @@ class Dialog : AppCompatActivity(){
 
     }
 
+    private  fun read(){
+        val db = FirebaseFirestore.getInstance()
+        val intent = intent
+        val title=intent.getStringExtra("Title")
+
+        db.collection(title.toString()).get().addOnSuccessListener {doc ->
+
+            for (i in doc.documents){
+                addText(i.getString("name").toString(),i.getString("context").toString())   //添加劇情
+            }
+            //Log.e("ASD",context.poll())
+            animateTextWithHandler()
+        }
+
+    }
+
+    //添加劇情
+    private fun addText(speaker :String,text :String){
+        name.add(speaker)
+        context.add(text)
+
+    }
+
     //文字跑條動畫
     private fun animateTextWithHandler() {
         val handler = Handler(Looper.getMainLooper())
         val next = findViewById<ImageView>(R.id.next)
         var charIndex = 0
         isRunning = true
-        textToDisplay = queue.poll() as String
+        textToDisplay = context.poll() as String
+        //講話者名稱
+        val speakName = findViewById<TextView>(R.id.name)
+        speakName.text=name.poll()
 
         //排流程
         handler.post(object : Runnable {
@@ -106,10 +127,4 @@ class Dialog : AppCompatActivity(){
         blinkAnimation.cancel()
     }
 
-    //添加劇情
-    private fun addText(){
-        queue.add("我是一段超級長的測試文字，我主要用來測試逐字動畫還有TextView的寬度，但是我還是有一點點問題，所以暫時無法實用。")
-        queue.add("當你看到這段話時，代表大家都很棒。")
-        queue.add("還看，說的就是你。")
-    }
 }
