@@ -33,7 +33,6 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq5 = findViewById<Button>(R.id.buttonQ5)
         val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
 
-
         back.setOnClickListener {
             finish()
         }
@@ -68,7 +67,11 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
+    private fun openQuestionActivity(questionTitle: String) {
+        val intent = Intent(this, FightMain::class.java)
+        intent.putExtra("questionTitle", questionTitle)
+        startActivity(intent)
+    }
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)

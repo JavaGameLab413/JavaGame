@@ -51,7 +51,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val commodity4 = findViewById<ImageView>(R.id.commodity4)
         val commodity5 = findViewById<ImageView>(R.id.commodity5)
         val commodity6 = findViewById<ImageView>(R.id.commodity6)
-
         // 刷新按鈕
         val refresh = findViewById<Button>(R.id.refresh)
         refresh.setOnClickListener {
@@ -72,7 +71,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         commodity5.setOnClickListener(this)
         commodity6.setOnClickListener(this)
     }
+    
 
+    //施行按鈕方法
     @SuppressLint("MissingInflatedId", "CutPasteId")
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(view: View?) {
