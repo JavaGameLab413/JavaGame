@@ -15,7 +15,8 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
-    private var wear: String = "初心者" //未來連接資料庫
+
+    private var wear: String = "" //未來連接資料庫
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,8 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        wear= sharedPreferences.getString("Title","").toString() //未來連接資料庫
         //裝備顯示
         var count = 1
         for (i in equipmentNum) {
@@ -332,6 +334,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //設置每個動作
         customView.setOnClickListener { view ->
             wear = view.tag.toString()
+            changeTitle(view.tag.toString())
             onResume()
         }
 
@@ -359,6 +362,13 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private fun getEquipment() {
         equipmentNum.add("M2")
         equipmentNum.add("M1")
+    }
+
+    //改變稱號
+    private fun changeTitle(title :String){
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        sharedPreferences.edit().putString("Title", title).apply()
     }
 
 }
