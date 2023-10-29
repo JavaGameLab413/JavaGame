@@ -304,6 +304,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 顯示使用者名稱和等級
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
+        val playerTitle = findViewById<TextView>(R.id.userTitle)
         val db = FirebaseFirestore.getInstance()
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val serialNumber = sharedPreferences.getString("ID", "-1").toString()
@@ -314,6 +315,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
                     String.format("Lv: %s", documents.getLong("Level").toString())
+                playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
         }
 
