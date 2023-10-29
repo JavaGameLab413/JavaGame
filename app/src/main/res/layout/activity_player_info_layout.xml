@@ -10,7 +10,6 @@
         android:id="@+id/userInfoBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,12 +18,11 @@
         tools:ignore="ContentDescription" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="123dp"
-        android:baselineAligned="false"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:baselineAligned="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/left"
@@ -47,7 +45,7 @@
                 app:layout_constraintHorizontal_bias="0.65"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75"
+                app:layout_constraintVertical_bias="0.9"
                 tools:ignore="HardcodedText,MissingConstraints,TextContrastCheck" />
 
             <TextView
@@ -62,7 +60,7 @@
                 app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintVertical_bias="0.45" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +84,7 @@
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintVertical_bias="0.45" />
 
             <TextView
                 android:id="@+id/userTitle"
@@ -100,7 +98,7 @@
                 app:layout_constraintHorizontal_bias="0.35"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75" />
+                app:layout_constraintVertical_bias="0.9" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
