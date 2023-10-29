@@ -16,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Objects
 
 class FightMain : AppCompatActivity() {
     private var answer = ""
@@ -24,6 +23,9 @@ class FightMain : AppCompatActivity() {
     private lateinit var enemyHp: ProgressBar
     private lateinit var playerHp: ProgressBar
     private var dataSet = ""
+    private val db = FirebaseFirestore.getInstance()
+
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +38,29 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
         Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
-        enemyHp = findViewById(R.id.enemyHp)//敵對血條
-        playerHp = findViewById(R.id.playerHp)//我方血條
-        enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
-        playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+
+        val bossDocumentRef = db.collection("Boss").document("1")
+        val userDocumentRef = db.collection("Level").document("1")
+        bossDocumentRef.get()
+            .addOnSuccessListener { bossDocumentSnapshot ->
+                if (bossDocumentSnapshot.exists()) {
+                    val bossHp : Int = Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                    userDocumentRef.get()
+                        .addOnSuccessListener { userDocumentSnapshot ->
+                            if (userDocumentSnapshot.exists()) {
+                                val userHp: Int = Integer.parseInt(userDocumentSnapshot.getLong("Hp").toString())
+
+                                enemyHp = findViewById(R.id.enemyHp)//敵對血條
+                                playerHp = findViewById(R.id.playerHp)//我方血條
+                                enemyHp.max = bossHp
+                                playerHp.max = userHp
+                                enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                                playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                            }
+                        }
+                }
+            }
+
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
@@ -63,7 +84,6 @@ class FightMain : AppCompatActivity() {
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         val mainQuestion = findViewById<TextView>(R.id.question)
-        val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(dataSet)
 
         //自定義的字體
@@ -95,27 +115,54 @@ class FightMain : AppCompatActivity() {
 
                 Log.d(TAG, answer)
 
-
             }
+
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting random document: ", exception)
             }
     }
 
-    private fun checkChoiceIsAns(btn : String){
-        val correctOutput = "答案正確!"
-        val errorOutput = "答案錯誤!"
-        if (answer == btn) {
-            Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "The correct answer!")
-            correct()
-        } else {
-            Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "The answer wrong!")
-            playerHp.progress -= 1
-        }
-        checkFinish()
+    private fun checkChoiceIsAns(btn: String) {
+        val bossDocumentRef = db.collection("Boss").document("1")
+        val userDocumentRef = db.collection("Level").document("1")
+
+        bossDocumentRef.get()
+            .addOnSuccessListener { bossDocumentSnapshot ->
+                if (bossDocumentSnapshot.exists()) {
+                    // 从文档中读取数据
+                    val bossHp : Int = Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                    val bossAttack : Int = Integer.parseInt(bossDocumentSnapshot.getLong("combatPower").toString())
+
+                    userDocumentRef.get()
+                        .addOnSuccessListener { userDocumentSnapshot ->
+                            if (userDocumentSnapshot.exists()) {
+                                // 从文档中读取数据
+                                val userHp :Int = Integer.parseInt(userDocumentSnapshot.getLong("Hp").toString())
+                                val userAttack:Int = Integer.parseInt(userDocumentSnapshot.getLong("Attack").toString())
+
+                                val correctOutput = "答案正確!"
+                                val errorOutput = "答案錯誤!"
+                            if(userHp > 0 && bossHp > 0) {
+                                if (answer == btn) {
+                                    Log.d(TAG, "Boss HP: $bossHp")
+                                    Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                                    enemyHp.progress -= userAttack
+                                    correct()
+                                } else {
+                                    Log.d(TAG, "User HP: $userHp")
+                                    Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                                    playerHp.progress -= bossAttack
+                                }
+                                checkFinish()
+                            }
+
+                            }
+                        }
+                }
+            }
     }
+
+
     private fun checkFinish(){
         if (playerHp.progress == 0 || enemyHp.progress == 0) {
             finish()
@@ -150,7 +197,7 @@ class FightMain : AppCompatActivity() {
             writeData.update("money", money)
 
         }
-        enemyHp.progress -= 1
+
         startAnimation()
     }
 
