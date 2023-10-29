@@ -99,6 +99,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
                     String.format("%s G", documents.getLong("Gold").toString())
                 playerLevel.text =
                     String.format("Lv: %s", documents.getLong("Level").toString())
+                playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
     }
 

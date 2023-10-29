@@ -57,6 +57,7 @@ class Login : AppCompatActivity() {
                         //將ID寫入本地資料庫PlayerInfo
                         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
                         sharedPreferences.edit().putString("ID", serialNumber).apply()
+                        sharedPreferences.edit().putString("Title", "初心者").apply()
 
                     } else {
                         // 密碼錯誤
