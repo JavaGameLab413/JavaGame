@@ -16,7 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-
+import com.google.firebase.firestore.SetOptions
 class FightMain : AppCompatActivity() {
     private var answer = ""
     private var enemyAnimator: ObjectAnimator? = null
@@ -142,34 +142,79 @@ class FightMain : AppCompatActivity() {
 
                                 val correctOutput = "答案正確!"
                                 val errorOutput = "答案錯誤!"
-                            if(userHp > 0 && bossHp > 0) {
-                                if (answer == btn) {
-                                    Log.d(TAG, "Boss HP: $bossHp")
-                                    Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                                    enemyHp.progress -= userAttack
-                                    correct()
-                                } else {
-                                    Log.d(TAG, "User HP: $userHp")
-                                    Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                                    playerHp.progress -= bossAttack
+                                if(userHp > 0 && bossHp > 0) {
+                                    if (answer == btn) {
+                                        Log.d(TAG, "Boss HP: $bossHp")
+                                        Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
+                                        enemyHp.progress -= userAttack
+                                        correct()
+                                    } else {
+                                        Log.d(TAG, "User HP: $userHp")
+                                        Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
+                                        playerHp.progress -= bossAttack
+                                    }
+                                    checkFinish()
+
                                 }
-                                checkFinish()
-                            }
 
                             }
                         }
                 }
             }
+
     }
 
+    private fun checkLevel() {
+        val playerInfoRef = db.collection("properties").document("41")
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val propertiesDatabaseCollectionName = "properties"
+        val db = FirebaseFirestore.getInstance()
+        val information = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val writeData = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int = document.getLong("lv").toString().toInt()
+            var userExp: Int = document.getLong("exp").toString().toInt()
+
+            val bossExpRef = db.collection("Boss").document(userLevel.toString())
+            val levelRef = db.collection("Level").document(userLevel.toString())
+
+            bossExpRef.get().addOnSuccessListener { bossDocument ->
+                val bossExp = bossDocument.getLong("EXP").toString().toInt()
+                levelRef.get().addOnSuccessListener { levelDocument ->
+                    val userNeedExp: Int = levelDocument.getLong("Need").toString().toInt()
+
+                    userExp += bossExp
+                    writeData.update("exp", userExp)
+
+                    if (userExp >= userNeedExp) {
+                        val newLevel = userLevel + 1
+                        writeData.update("lv", newLevel)
+
+                        // 更新 bossExpRef 和 levelRef 的文件ID
+                        val newBossExpRef = db.collection("Boss").document(newLevel.toString())
+                        val newLevelRef = db.collection("Level").document(newLevel.toString())
+
+                        // 在這裡可以使用 newBossExpRef 和 newLevelRef 進行相應操作
+                    }
+                }
+            }
+        }
+    }
 
     private fun checkFinish(){
         if (playerHp.progress == 0 || enemyHp.progress == 0) {
+
             finish()
+            checkLevel()
         } else {
             onResume()
         }
     }
+
+
 
 
 
@@ -195,6 +240,8 @@ class FightMain : AppCompatActivity() {
             val addMoney = 10
             money += addMoney
             writeData.update("money", money)
+
+
 
         }
 
