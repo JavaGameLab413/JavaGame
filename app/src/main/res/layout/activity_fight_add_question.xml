@@ -195,29 +195,26 @@
         android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
+        android:layout_marginEnd="60dp"
         android:layout_weight="1"
         android:text="送出"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/inputQuestionLayout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputQuestionLayout"
+        app:layout_constraintVertical_bias="0.745"
         tools:ignore="HardcodedText" />
 
-    <ImageButton
+    <Button
         android:id="@+id/back"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#00F6F6F6"
-        android:contentDescription="@string/back"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_weight="1"
+        android:text="返回"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.002"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89"
-        app:srcCompat="@drawable/shop_turn"
-        tools:ignore="MissingConstraints,UnknownIdInLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/inputQuestionLayout"
+        app:layout_constraintVertical_bias="0.748"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
