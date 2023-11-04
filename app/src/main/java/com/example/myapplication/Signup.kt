@@ -87,7 +87,9 @@ class Signup : AppCompatActivity() {
                                             "Level" to 1,
                                             "Gold" to 0,
                                             "TitleNumber" to 0,
-                                            "exp" to 0
+                                            "exp" to 0,
+                                            "TitlesOwned" to "1",
+                                            "Equipment" to ""
                                         )
 
                                         //將資料寫入資料庫
