@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -26,6 +27,7 @@ class Signup : AppCompatActivity() {
         val name = findViewById<EditText>(R.id.InputName)
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
+        val email = findViewById<EditText>(R.id.InputEmail)
         // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
@@ -34,6 +36,19 @@ class Signup : AppCompatActivity() {
         var serialNumber: Int = -1
 
         signup.setOnClickListener {
+
+            val mAuth = FirebaseAuth.getInstance()
+            mAuth.createUserWithEmailAndPassword(email.text.toString(), password.toString())
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // 註冊成功，用戶帳號已創建
+                        // Firebase 會自動發送驗證電子郵件
+                    } else {
+                        // 註冊失敗，處理錯誤
+                        val exception = task.exception
+                        // 可以根據不同的錯誤情況進行處理
+                    }
+                }
 
             //判斷空值
             if (name.text.toString() == "") {
@@ -147,5 +162,7 @@ class Signup : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
+
+
 
 }

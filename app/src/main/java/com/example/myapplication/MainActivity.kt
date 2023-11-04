@@ -5,16 +5,17 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.view.WindowInsets.Type.*
-import android.view.KeyEvent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
-import android.os.Handler
-import android.os.Looper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
     // 宣告一個 CoroutineScope
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var loadingAnimation: LoadingAnimation
-
+    private var auth: FirebaseAuth? = null
+    private var authStateListener: AuthStateListener? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +49,18 @@ class MainActivity : AppCompatActivity() {
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
+
+        auth = FirebaseAuth.getInstance()
+        authStateListener = AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user == null) {
+                Intent(this@MainActivity, Login::class.java)
+            } else {
+                // TODO after login
+            }
+        }
 
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
