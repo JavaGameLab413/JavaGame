@@ -9,14 +9,10 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
+
 class FightMain : AppCompatActivity() {
     private var answer = ""
     private var enemyAnimator: ObjectAnimator? = null
@@ -165,14 +161,14 @@ class FightMain : AppCompatActivity() {
     }
 
     private fun checkLevel() {
-        val playerInfoRef = db.collection("properties").document("41")
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val propertiesDatabaseCollectionName = "properties"
-        val db = FirebaseFirestore.getInstance()
-        val information = db.collection(propertiesDatabaseCollectionName)
-            .document(sharedPreferences.getString("ID", "-1").toString())
         val writeData = db.collection(propertiesDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("properties").document(userId)
+        val db = FirebaseFirestore.getInstance()
+
 
         playerInfoRef.get().addOnSuccessListener { document ->
             val userLevel: Int = document.getLong("lv").toString().toInt()
@@ -191,13 +187,10 @@ class FightMain : AppCompatActivity() {
 
                     if (userExp >= userNeedExp) {
                         val newLevel = userLevel + 1
+                        val newExp = userExp - userNeedExp
                         writeData.update("lv", newLevel)
+                        writeData.update("exp", newExp)
 
-                        // 更新 bossExpRef 和 levelRef 的文件ID
-                        val newBossExpRef = db.collection("Boss").document(newLevel.toString())
-                        val newLevelRef = db.collection("Level").document(newLevel.toString())
-
-                        // 在這裡可以使用 newBossExpRef 和 newLevelRef 進行相應操作
                     }
                 }
             }
