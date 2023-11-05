@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -22,8 +23,9 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_back_pack)
 
-        readData()
+        readBackPageData()
         getEquipment()
+        readTitleData()
 
         val equipment1: ImageButton = findViewById(R.id.equipment1)
         val equipment2: ImageButton = findViewById(R.id.equipment2)
@@ -51,8 +53,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        wear= sharedPreferences.getString("Title","").toString() //未來連接資料庫
         //裝備顯示
         var count = 1
         for (i in equipmentNum) {
@@ -99,11 +99,11 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //重置稱號顯示
         clearTitleView()
 
-        //稱號(未來跟隨資料庫)
-        val title = findViewById<TextView>(R.id.titleNames)
-        title.text = wear
-        addTitle("初心者")
-        addTitle("老手")
+        //稱號
+        haveTitle()
+
+
+
     }
 
     override fun onClick(view: View?) {
@@ -159,7 +159,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     }
 
     //讀取使用者背包所擁有的物品及物品資訊
-    private fun readData() {
+    private fun readBackPageData() {
         val backPageDatabaseCollectionName = "BackPage"
         val itemDatabaseCollectionName = "Item"
 
@@ -207,6 +207,30 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+
+    }
+
+    //抓裝備中的稱號
+    private fun readTitleData(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                wear= docs.getString("TitleName").toString()
+                val title = findViewById<TextView>(R.id.titleNames)
+                title.text = wear
+            }
+
+        }
 
     }
 
@@ -368,7 +392,60 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private fun changeTitle(title :String){
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        sharedPreferences.edit().putString("Title", title).apply()
+
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {
+            titleRef.whereEqualTo("TitleName",title).get().addOnSuccessListener { docs->
+               for (doa in docs){
+                   val updates = hashMapOf(
+                       "TitleNumber" to Integer.parseInt(doa.id)
+                   )
+                   docRef.update(updates as Map<String, Any>)
+               }
+            }
+        }
+        wear= title
+        val titleView = findViewById<TextView>(R.id.titleNames)
+        titleView.text = wear
+
     }
+
+    //擁有的稱號
+    private fun haveTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val text = doc.getString("TitlesOwned")
+            if (text != null) {
+                for(title in text.split(Regex(","))){
+                    Log.e("aa",title)
+                    titleRef.document(title).get().addOnSuccessListener {docs ->
+                        addTitle(docs.getString("TitleName").toString())
+                    }
+                }
+            }
+
+
+        }
+
+
+    }
+
 
 }
