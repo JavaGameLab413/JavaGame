@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -434,7 +433,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             val text = doc.getString("TitlesOwned")
             if (text != null) {
                 for(title in text.split(Regex(","))){
-                    Log.e("aa",title)
                     titleRef.document(title).get().addOnSuccessListener {docs ->
                         addTitle(docs.getString("TitleName").toString())
                     }

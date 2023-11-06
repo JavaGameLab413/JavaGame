@@ -74,7 +74,6 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
-        val playerTitle = findViewById<TextView>(R.id.userTitle)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
@@ -88,7 +87,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
                 playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
-                playerTitle.text = sharedPreferences.getString("Title","").toString()
+                readTitle()
             }
 
     }
@@ -114,5 +113,27 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+    }
+
+    //讀稱號
+    private fun readTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
+            }
+        }
+
     }
 }
