@@ -24,6 +24,7 @@ class FightMain : AppCompatActivity() {
 
 
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,31 +35,43 @@ class FightMain : AppCompatActivity() {
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
-        Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
+        Log.d(TAG, "DataSet : $dataSet")
         bossLevelSet = intent.getStringExtra("bossLevel").toString()
 
         val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
-        val userDocumentRef = db.collection("Level").document("1")
-        bossDocumentRef.get()
-            .addOnSuccessListener { bossDocumentSnapshot ->
-                if (bossDocumentSnapshot.exists()) {
-                    val bossHp : Int = Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
-                    userDocumentRef.get()
-                        .addOnSuccessListener { userDocumentSnapshot ->
-                            if (userDocumentSnapshot.exists()) {
-                                val userHp: Int = Integer.parseInt(userDocumentSnapshot.getLong("Hp").toString())
 
-                                enemyHp = findViewById(R.id.enemyHp)//敵對血條
-                                playerHp = findViewById(R.id.playerHp)//我方血條
-                                enemyHp.max = bossHp
-                                playerHp.max = userHp
-                                enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
-                                playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("properties").document(userId)
+        val db = FirebaseFirestore.getInstance()
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int =
+                Integer.parseInt(document.getLong("lv").toString())
+                Log.d("userLevel",userLevel.toString())
+            val userDocumentRef = db.collection("Level").document(userLevel.toString())
+            bossDocumentRef.get()
+                .addOnSuccessListener { bossDocumentSnapshot ->
+                    if (bossDocumentSnapshot.exists()) {
+                        val bossHp: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                        userDocumentRef.get()
+                            .addOnSuccessListener { userDocumentSnapshot ->
+                                if (userDocumentSnapshot.exists()) {
+                                    val userHp: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("HP").toString()
+                                    )
+
+                                    enemyHp = findViewById(R.id.enemyHp)//敵對血條
+                                    playerHp = findViewById(R.id.playerHp)//我方血條
+                                    enemyHp.max = bossHp
+                                    playerHp.max = userHp
+                                    enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                                    playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                                }
                             }
-                        }
+                    }
                 }
-            }
-
+        }
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
