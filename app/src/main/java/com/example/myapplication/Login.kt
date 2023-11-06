@@ -16,10 +16,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
 
-    private val userDatabaseCollectionName = "users"
-    private val propertiesDatabaseCollectionName = "properties"
-    private val userDatabaseAccountField = "account"
-    private val userDatabasePasswordField = "password"
+    private val userDatabaseCollectionName = "PlayerAccount"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
+    private val playerAccountDatabaseAccount = "Account"
+    private val playerAccountDatabasePasswordField = "PWD"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -37,41 +37,39 @@ class Login : AppCompatActivity() {
 
         //設置登入按鈕功能
         login.setOnClickListener {
+            val account = inputAccount.text.toString()
             //Log.d("test", inputAccount.text.toString())
-            readDocRed.whereEqualTo(userDatabaseAccountField, inputAccount.text.toString()).get()
+            readDocRed.document(account).get()
                 .addOnSuccessListener { documents ->
-                    if (documents.size() > 0) {
-                        // 找到使用者，檢查密碼
-                        val user = documents.first()
-                        val password = user.getString(userDatabasePasswordField)
-                        if (password == inputPassword.text.toString()) {
-                            // 密碼正確，登錄成功
-                            Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
-                            Log.d(TAG, "Login success!")
-                            //切換畫面
-                            finish()
+                    // 找到使用者，檢查密碼
+                    val password = documents.getString(playerAccountDatabasePasswordField)
+                    if (password == inputPassword.text.toString()) {
+                        // 密碼正確，登錄成功
+                        Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "Login success!")
+                        //切換畫面
+                        finish()
 
 
-                            //抓流水號
-                            val serialNumber = user.getLong("serialNumber").toString()
+                        //抓流水號
+                        val serialNumber = documents.getLong("SerialNumber").toString()
+                        Log.d(TAG, serialNumber)
+                        //將ID寫入本地資料庫PlayerInfo
+                        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                        sharedPreferences.edit().putString("ID", serialNumber).apply()
+                        sharedPreferences.edit().putString("Title", "初心者").apply()
 
-                            //將ID寫入本地資料庫User
-                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-                            sharedPreferences.edit().putString("ID", serialNumber).apply()
-
-                        } else {
-                            // 密碼錯誤
-                            Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
-                            Log.d(TAG, "Incorrect password!")
-                        }
                     } else {
-                        // 找不到使用者
+                        // 密碼錯誤
                         Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "User not found!")
+                        Log.d(TAG, "Incorrect password!")
                     }
-                }.addOnFailureListener { exception ->
+
+                }.addOnFailureListener {
                     // 讀取資料失敗
-                    Log.w(TAG, "Error getting documents.", exception)
+                    Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "User not found!")
+
                 }
         }
         //新增帳號功能按鈕監聽
@@ -85,15 +83,15 @@ class Login : AppCompatActivity() {
             val userPassword = inputPassword.text.toString()
 
             val query = FirebaseFirestore.getInstance().collection(userDatabaseCollectionName)
-                .whereEqualTo(userDatabaseAccountField, userAccount)
-                .whereEqualTo(userDatabasePasswordField, userPassword)
+                .whereEqualTo(playerAccountDatabaseAccount, userAccount)
+                .whereEqualTo(playerAccountDatabasePasswordField, userPassword)
 
             query.get().addOnSuccessListener { documents ->
                 for (document in documents) {
                     // 刪除符合條件的文檔
                     document.reference.delete().addOnSuccessListener {
                         FirebaseFirestore.getInstance()
-                            .collection(propertiesDatabaseCollectionName)
+                            .collection(playerInfoDatabaseCollectionName)
                             .document(document.id).delete()
                         Toast.makeText(this, "已刪除資料", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener { e ->

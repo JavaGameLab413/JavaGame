@@ -35,9 +35,6 @@ class Dialog : AppCompatActivity(){
 
         read()//讀資料庫
 
-
-
-
         //下一段劇情閃爍
         val next = findViewById<ImageView>(R.id.next)
         blinkAnimation = AnimationUtils.loadAnimation(this, R.anim.blink_animation)//自訂動畫
@@ -129,6 +126,5 @@ class Dialog : AppCompatActivity(){
     private fun stopAnimation() {
         blinkAnimation.cancel()
     }
-
 
 }

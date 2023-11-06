@@ -252,18 +252,18 @@ class FightMain : AppCompatActivity() {
     private fun correct() {
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        val propertiesDatabaseCollectionName = "properties"
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
 
         val db = FirebaseFirestore.getInstance()
-        val information = db.collection(propertiesDatabaseCollectionName)
+        val information = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName)
+        val writeData = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         information.get().addOnSuccessListener { documents ->
-            var money: Int = Integer.parseInt(documents.getLong("money").toString())
+            var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
             val addMoney = 10
             money += addMoney
-            writeData.update("money", money)
+            writeData.update("Gold", money)
 
 
 

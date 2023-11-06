@@ -20,7 +20,7 @@ import com.google.firebase.firestore.SetOptions
 @Suppress("NAME_SHADOWING", "DEPRECATION")
 class Shop : AppCompatActivity(), View.OnClickListener {
 
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var itemCase: String = ""
     private lateinit var descriptionTextView: TextView
     // 每個商品的初始可購買數量
@@ -51,7 +51,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val commodity4 = findViewById<ImageView>(R.id.commodity4)
         val commodity5 = findViewById<ImageView>(R.id.commodity5)
         val commodity6 = findViewById<ImageView>(R.id.commodity6)
-
         // 刷新按鈕
         val refresh = findViewById<Button>(R.id.refresh)
         refresh.setOnClickListener {
@@ -72,7 +71,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         commodity5.setOnClickListener(this)
         commodity6.setOnClickListener(this)
     }
+    
 
+    //施行按鈕方法
     @SuppressLint("MissingInflatedId", "CutPasteId")
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(view: View?) {
@@ -81,9 +82,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 造訪 Firebase fireStore
         val db = FirebaseFirestore.getInstance()
         // 使用產生的 ID 建立新文檔
-        val information = db.collection(propertiesDatabaseCollectionName)
+        val information = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName)
+        val writeData = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         // 購買數量
         var counter = 1
@@ -172,7 +173,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             popupWindow.dismiss()
             information.get().addOnSuccessListener { documents ->
                 var userMoney: Int =
-                    Integer.parseInt(documents.getLong("money").toString())
+                    Integer.parseInt(documents.getLong("Gold").toString())
 
                 val ref = db.collection("Item").document(itemCase)
                 ref.get().addOnSuccessListener { document ->
@@ -182,7 +183,7 @@ class Shop : AppCompatActivity(), View.OnClickListener {
 
                         if (userMoney >= purchaseMoney) {
                             userMoney -= purchaseMoney
-                            writeData.update("money", userMoney)
+                            writeData.update("Gold", userMoney)
                             Toast.makeText(
                                 this,
                                 "購買成功!!總共花費 $purchaseMoney G",
@@ -190,12 +191,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                             ).show()
                             changeMoney()
 
-
                             // 從文件中獲取 "itemCase" 欄位的值
                             val backpackItemName: String? = document.getString("backpackItemName")
-
+                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                            val userId =sharedPreferences.getString("ID", "-1").toString()
                             // 獲取資料庫中 "BackpackTest" 集合的文檔，ID 為 "1"
-                            val backpackRef = db.collection("BackpackTest").document("1")
+                            val backpackRef = db.collection("BackPage").document(userId)
 
                             // 獲取異步操作的成功監聽器
                             backpackRef.get().addOnSuccessListener { backpackDocument ->
@@ -221,11 +222,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     backpackRef.set(newData, SetOptions.merge())
                                 }
                             }
-
-
-
-
-
 
 
                             val remainingCount = remainingPurchaseCounts[itemCase] ?: 0
@@ -292,14 +288,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         val playerMoney = findViewById<TextView>(R.id.gold)
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val db = FirebaseFirestore.getInstance()
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
             }
     }
 
@@ -310,21 +304,20 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 顯示使用者名稱和等級
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
+        val playerTitle = findViewById<TextView>(R.id.userTitle)
         val db = FirebaseFirestore.getInstance()
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
 
         // 讀取使用者資訊
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
+                playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
-    }
+        }
 
     // 隱藏系統狀態欄和導航欄
     override fun onWindowFocusChanged(hasFocus: Boolean) {

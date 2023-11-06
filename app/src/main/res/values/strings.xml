@@ -44,6 +44,8 @@
     <string name="teach2">第二章</string>
     <string name="fightView">fightView</string>
     <string name="packageView">packageView</string>
+    <string name="equipment">裝備</string>
+    <string name="designation">稱號</string>
     <string-array name="answer_options">
         <item>A</item>
         <item>B</item>
@@ -52,4 +54,7 @@
     </string-array>
     <string name="product_description">    產品介紹:</string>
     <string name="counterTV">1</string>
+    <string name="title">初心者</string>
+    <string name="lv">Lv:1</string>
+    <string name="addQuestion">新\n增\n題\n目</string>
 </resources>
