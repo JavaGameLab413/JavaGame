@@ -19,6 +19,7 @@ class FightMain : AppCompatActivity() {
     private lateinit var enemyHp: ProgressBar
     private lateinit var playerHp: ProgressBar
     private var dataSet = ""
+    private var bossLevelSet = ""
     private val db = FirebaseFirestore.getInstance()
 
 
@@ -34,8 +35,9 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
         Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
+        bossLevelSet = intent.getStringExtra("bossLevel").toString()
 
-        val bossDocumentRef = db.collection("Boss").document("1")
+        val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
         val userDocumentRef = db.collection("Level").document("1")
         bossDocumentRef.get()
             .addOnSuccessListener { bossDocumentSnapshot ->
