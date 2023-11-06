@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 @Suppress("DEPRECATION")
 class FightSelect : AppCompatActivity(), View.OnClickListener {
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var dataSet = ""
     private var bossLevel = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,6 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
         val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
-
 
         back.setOnClickListener {
             finish()
@@ -70,7 +69,11 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
+    private fun openQuestionActivity(questionTitle: String) {
+        val intent = Intent(this, FightMain::class.java)
+        intent.putExtra("questionTitle", questionTitle)
+        startActivity(intent)
+    }
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)
@@ -90,17 +93,15 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
+                playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
     }
 
