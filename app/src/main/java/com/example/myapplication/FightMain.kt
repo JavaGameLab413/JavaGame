@@ -43,11 +43,10 @@ class FightMain : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val userId =sharedPreferences.getString("ID", "-1").toString()
         val playerInfoRef = db.collection("properties").document(userId)
-        val db = FirebaseFirestore.getInstance()
         playerInfoRef.get().addOnSuccessListener { document ->
             val userLevel: Int =
                 Integer.parseInt(document.getLong("lv").toString())
-                Log.d("userLevel",userLevel.toString())
+
             val userDocumentRef = db.collection("Level").document(userLevel.toString())
             bossDocumentRef.get()
                 .addOnSuccessListener { bossDocumentSnapshot ->
@@ -134,45 +133,61 @@ class FightMain : AppCompatActivity() {
     }
 
     private fun checkChoiceIsAns(btn: String) {
-        val bossDocumentRef = db.collection("Boss").document("1")
-        val userDocumentRef = db.collection("Level").document("1")
 
-        bossDocumentRef.get()
-            .addOnSuccessListener { bossDocumentSnapshot ->
-                if (bossDocumentSnapshot.exists()) {
-                    // 从文档中读取数据
-                    val bossHp : Int = Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
-                    val bossAttack : Int = Integer.parseInt(bossDocumentSnapshot.getLong("combatPower").toString())
+        val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
 
-                    userDocumentRef.get()
-                        .addOnSuccessListener { userDocumentSnapshot ->
-                            if (userDocumentSnapshot.exists()) {
-                                // 从文档中读取数据
-                                val userHp :Int = Integer.parseInt(userDocumentSnapshot.getLong("Hp").toString())
-                                val userAttack:Int = Integer.parseInt(userDocumentSnapshot.getLong("Attack").toString())
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("properties").document(userId)
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int =
+                Integer.parseInt(document.getLong("lv").toString())
 
-                                val correctOutput = "答案正確!"
-                                val errorOutput = "答案錯誤!"
-                                if(userHp > 0 && bossHp > 0) {
-                                    if (answer == btn) {
-                                        Log.d(TAG, "Boss HP: $bossHp")
-                                        Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-                                        enemyHp.progress -= userAttack
-                                        correct()
-                                    } else {
-                                        Log.d(TAG, "User HP: $userHp")
-                                        Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-                                        playerHp.progress -= bossAttack
+            val userDocumentRef = db.collection("Level").document(userLevel.toString())
+            bossDocumentRef.get()
+                .addOnSuccessListener { bossDocumentSnapshot ->
+                    if (bossDocumentSnapshot.exists()) {
+                        // 从文档中读取数据
+                        val bossHp: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                        val bossAttack: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("combatPower").toString())
+
+                        userDocumentRef.get()
+                            .addOnSuccessListener { userDocumentSnapshot ->
+                                if (userDocumentSnapshot.exists()) {
+                                    // 从文档中读取数据
+                                    val userHp: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("HP").toString()
+                                    )
+                                    val userAttack: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("Attack").toString()
+                                    )
+
+                                    val correctOutput = "答案正確!"
+                                    val errorOutput = "答案錯誤!"
+                                    if (userHp > 0 && bossHp > 0) {
+                                        if (answer == btn) {
+                                            Log.d(TAG, "Boss HP: $bossHp")
+                                            Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT)
+                                                .show()
+                                            enemyHp.progress -= userAttack
+                                            correct()
+                                        } else {
+                                            Log.d(TAG, "User HP: $userHp")
+                                            Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT)
+                                                .show()
+                                            playerHp.progress -= bossAttack
+                                        }
+                                        checkFinish()
+
                                     }
-                                    checkFinish()
 
                                 }
-
                             }
-                        }
+                    }
                 }
-            }
-
+        }
     }
 
     private fun checkLevel() {
@@ -198,14 +213,15 @@ class FightMain : AppCompatActivity() {
                     val userNeedExp: Int = levelDocument.getLong("Need").toString().toInt()
 
                     userExp += bossExp
-                    writeData.update("exp", userExp)
+
 
                     if (userExp >= userNeedExp) {
                         val newLevel = userLevel + 1
                         val newExp = userExp - userNeedExp
                         writeData.update("lv", newLevel)
                         writeData.update("exp", newExp)
-
+                    }else{
+                        writeData.update("exp", userExp)
                     }
                 }
             }
