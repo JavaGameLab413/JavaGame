@@ -12,8 +12,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.actionCodeSettings
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 
 class Signup : AppCompatActivity() {
 
@@ -39,16 +42,7 @@ class Signup : AppCompatActivity() {
 
             val mAuth = FirebaseAuth.getInstance()
             mAuth.createUserWithEmailAndPassword(email.text.toString(), password.toString())
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // 註冊成功，用戶帳號已創建
-                        // Firebase 會自動發送驗證電子郵件
-                    } else {
-                        // 註冊失敗，處理錯誤
-                        val exception = task.exception
-                        // 可以根據不同的錯誤情況進行處理
-                    }
-                }
+
 
             //判斷空值
             if (name.text.toString() == "") {

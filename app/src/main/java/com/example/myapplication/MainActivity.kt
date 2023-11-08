@@ -52,16 +52,6 @@ class MainActivity : AppCompatActivity() {
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
-        auth = FirebaseAuth.getInstance()
-        authStateListener = AuthStateListener { firebaseAuth ->
-            val user = firebaseAuth.currentUser
-            if (user == null) {
-                Intent(this@MainActivity, Login::class.java)
-            } else {
-                // TODO after login
-            }
-        }
-
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -74,6 +64,9 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
+
+                var email = EmailFunction()
+                email.send()
                 // 執行loading動畫
                 loadingAnimation.start()
                 simulateLoadingComplete(Start::class.java)
