@@ -34,7 +34,7 @@ class FightMain : AppCompatActivity() {
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
-        Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
+        Log.d("Dataset", "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
         enemyHp = findViewById(R.id.enemyHp)//敵對血條
         playerHp = findViewById(R.id.playerHp)//我方血條
         enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6

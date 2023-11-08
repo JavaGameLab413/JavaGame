@@ -60,19 +60,19 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.buttonQ3 -> {
-                val btq3 = findViewById<Button>(R.id.buttonQ2)
+                val btq3 = findViewById<Button>(R.id.buttonQ3)
                 val intent = Intent(this, FightMain::class.java)
                 intent.putExtra("questionTitle", dataSet+btq3.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ4 -> {
-                val btq4 = findViewById<Button>(R.id.buttonQ2)
+                val btq4 = findViewById<Button>(R.id.buttonQ4)
                 val intent = Intent(this, FightMain::class.java)
                 intent.putExtra("questionTitle", dataSet+btq4.text.toString())
                 startActivity(intent)
             }
             R.id.buttonQ5 -> {
-                val btq5 = findViewById<Button>(R.id.buttonQ2)
+                val btq5 = findViewById<Button>(R.id.buttonQ5)
                 val intent = Intent(this, FightMain::class.java)
                 intent.putExtra("questionTitle", dataSet+btq5.text.toString())
                 startActivity(intent)
