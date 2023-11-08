@@ -64,6 +64,10 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ5 -> {
                 Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
             }
+            R.id.btAddQuestion -> {
+                val intent = Intent(this, FightAddQuestion::class.java)
+                startActivity(intent)
+            }
 
         }
     }
