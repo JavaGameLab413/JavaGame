@@ -42,10 +42,10 @@ class FightMain : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val userId =sharedPreferences.getString("ID", "-1").toString()
-        val playerInfoRef = db.collection("properties").document(userId)
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
         playerInfoRef.get().addOnSuccessListener { document ->
             val userLevel: Int =
-                Integer.parseInt(document.getLong("lv").toString())
+                Integer.parseInt(document.getLong("Level").toString())
 
             val userDocumentRef = db.collection("Level").document(userLevel.toString())
             bossDocumentRef.get()
@@ -138,10 +138,10 @@ class FightMain : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val userId =sharedPreferences.getString("ID", "-1").toString()
-        val playerInfoRef = db.collection("properties").document(userId)
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
         playerInfoRef.get().addOnSuccessListener { document ->
             val userLevel: Int =
-                Integer.parseInt(document.getLong("lv").toString())
+                Integer.parseInt(document.getLong("Level").toString())
 
             val userDocumentRef = db.collection("Level").document(userLevel.toString())
             bossDocumentRef.get()
@@ -192,16 +192,16 @@ class FightMain : AppCompatActivity() {
 
     private fun checkLevel() {
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        val propertiesDatabaseCollectionName = "properties"
+        val propertiesDatabaseCollectionName = "PlayerInfo"
         val writeData = db.collection(propertiesDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         val userId =sharedPreferences.getString("ID", "-1").toString()
-        val playerInfoRef = db.collection("properties").document(userId)
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
         val db = FirebaseFirestore.getInstance()
 
 
         playerInfoRef.get().addOnSuccessListener { document ->
-            val userLevel: Int = document.getLong("lv").toString().toInt()
+            val userLevel: Int = document.getLong("Level").toString().toInt()
             var userExp: Int = document.getLong("exp").toString().toInt()
 
             val bossExpRef = db.collection("Boss").document(userLevel.toString())
@@ -218,7 +218,7 @@ class FightMain : AppCompatActivity() {
                     if (userExp >= userNeedExp) {
                         val newLevel = userLevel + 1
                         val newExp = userExp - userNeedExp
-                        writeData.update("lv", newLevel)
+                        writeData.update("Level", newLevel)
                         writeData.update("exp", newExp)
                     }else{
                         writeData.update("exp", userExp)
