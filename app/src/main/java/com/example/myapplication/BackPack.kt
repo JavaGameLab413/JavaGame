@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -54,54 +55,7 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        //重置裝備顯示
-        clearEquipment()
-
-        //裝備顯示
-        var count = 1
-        for (i in equipmentNum) {
-
-            when (count) {
-                1 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment1, i)
-                    }
-                    count++
-                }
-                2 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment2, i)
-                    }
-                    count++
-                }
-                3 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment3, i)
-                    }
-                    count++
-                }
-                4 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment4, i)
-                    }
-                    count++
-                }
-                5 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment5, i)
-                    }
-                    count++
-                }
-
-            }
-        }
-
-
+        showWearEquipment()
         //重置稱號顯示
         clearTitleView()
 
@@ -323,6 +277,54 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
         equipment.visibility = View.VISIBLE
     }
 
+    private fun showWearEquipment(){
+        //重置裝備顯示
+        clearEquipment()
+
+        //裝備顯示
+        var count = 1
+        for (i in equipmentNum) {
+            when (count) {
+                1 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment1, i)
+                    }
+                    count++
+                }
+                2 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment2, i)
+                    }
+                    count++
+                }
+                3 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment3, i)
+                    }
+                    count++
+                }
+                4 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment4, i)
+                    }
+                    count++
+                }
+                5 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment5, i)
+                    }
+                    count++
+                }
+
+            }
+        }
+    }
+
     //添加稱號欄位
     private fun addTitle(title: String) {
         val scrollViewLayout = findViewById<LinearLayout>(R.id.showTitle)
@@ -389,8 +391,26 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
 
     //從資料庫取得裝備中的物品
     private fun getEquipment() {
-        equipmentNum.add("M2")
-        equipmentNum.add("M1")
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+
+        docRef.get().addOnSuccessListener {doc ->
+            val text = doc.getString("Equipment")
+            if (text != null) {
+                for(title in text.split(Regex(","))){
+                    equipmentNum.add(title)
+                }
+                showWearEquipment()
+            }
+
+        }
+
     }
 
     //改變稱號
