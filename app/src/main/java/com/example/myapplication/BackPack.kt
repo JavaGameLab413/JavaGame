@@ -11,10 +11,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BackPack : AppCompatActivity(), View.OnClickListener {
+class   BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
+    private var haveTitle: Array<String> = arrayOf()
 
     private var wear: String = "" //未來連接資料庫
 
@@ -25,6 +26,8 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         readBackPageData()
         getEquipment()
         readTitleData()
+        //稱號
+        haveTitle()
 
         val equipment1: ImageButton = findViewById(R.id.equipment1)
         val equipment2: ImageButton = findViewById(R.id.equipment2)
@@ -51,10 +54,13 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        //重置裝備顯示
+        clearEquipment()
 
         //裝備顯示
         var count = 1
         for (i in equipmentNum) {
+
             when (count) {
                 1 -> {
                     val equipmentId = map[i]
@@ -95,13 +101,9 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             }
         }
 
+
         //重置稱號顯示
         clearTitleView()
-
-        //稱號
-        haveTitle()
-
-
 
     }
 
@@ -111,36 +113,26 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment1)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment2 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment2)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment3 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment3)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment4 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment4)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment5 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipmentButton -> {
                 //切換畫面
@@ -151,10 +143,16 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 change(R.id.title, R.id.equipment)
             }
 
+
         }
         //更新畫面
         onResume()
 
+    }
+
+    //城市結束執行
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     //讀取使用者背包所擁有的物品及物品資訊
@@ -372,6 +370,14 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         view.removeAllViews()
     }
 
+    private fun clearEquipment(){
+        val wear = findViewById<LinearLayout>(R.id.wear)
+        for (i in 0 until wear.childCount){
+            val child: View = wear.getChildAt(i)
+            child.visibility=View.INVISIBLE
+        }
+    }
+
     //裝備及稱號頁面切換
     private fun change(open: Int, close: Int) {
         val closeView = findViewById<LinearLayout>(close)
@@ -434,7 +440,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             if (text != null) {
                 for(title in text.split(Regex(","))){
                     titleRef.document(title).get().addOnSuccessListener {docs ->
-                        addTitle(docs.getString("TitleName").toString())
+                        haveTitle.plus(docs.getString("TitleName").toString())
                     }
                 }
             }
