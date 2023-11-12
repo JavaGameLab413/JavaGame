@@ -106,6 +106,37 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
     //城市結束執行
     override fun onDestroy() {
         super.onDestroy()
+
+        Log.e("a","stop")
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        //寫入資料庫
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        var equipment=""
+        //稱號寫入格式
+        for(i in equipmentNum){
+            equipment +="$i,"
+        }
+        Log.e("test",equipment)
+
+        docRef.get().addOnSuccessListener {
+            titleRef.whereEqualTo("TitleName",wear).get().addOnSuccessListener { docs->
+                for (doa in docs){
+                    val updates = hashMapOf(
+                        "Equipment" to equipment,
+                        "TitleNumber" to Integer.parseInt(doa.id)
+                    )
+                    docRef.update(updates as Map<String, Any>)
+                }
+            }
+        }
     }
 
     //讀取使用者背包所擁有的物品及物品資訊
@@ -402,7 +433,10 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
             val text = doc.getString("Equipment")
             if (text != null) {
                 for(title in text.split(Regex(","))){
-                    equipmentNum.add(title)
+                    if(title!=""){
+                        equipmentNum.add(title)
+                    }
+
                 }
                 showWearEquipment()
             }
@@ -413,27 +447,6 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
 
     //改變稱號
     private fun changeTitle(title :String){
-        //讀取本地資料庫User
-        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
-        val playerInfoDatabaseCollectionName = "PlayerInfo"
-        val titleDatabaseCollectionName = "Title"
-
-        val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection(playerInfoDatabaseCollectionName)
-            .document(sharedPreferences.getString("ID", "-1").toString())
-        val titleRef = db.collection(titleDatabaseCollectionName)
-
-        docRef.get().addOnSuccessListener {
-            titleRef.whereEqualTo("TitleName",title).get().addOnSuccessListener { docs->
-               for (doa in docs){
-                   val updates = hashMapOf(
-                       "TitleNumber" to Integer.parseInt(doa.id)
-                   )
-                   docRef.update(updates as Map<String, Any>)
-               }
-            }
-        }
         wear= title
         val titleView = findViewById<TextView>(R.id.titleNames)
         titleView.text = wear
@@ -459,7 +472,6 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
                 for(title in text.split(Regex(","))){
                     titleRef.document(title).get().addOnSuccessListener {docs ->
                         haveTitle.add(docs.getString("TitleName").toString())
-                        Log.e("aa",haveTitle[0])
                     }
                 }
             }
