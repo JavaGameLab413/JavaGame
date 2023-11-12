@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FightSelect : AppCompatActivity(), View.OnClickListener {
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var dataSet = ""
-
+    private var bossLevel = ""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val intent = intent
@@ -50,6 +50,8 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
                 intent.putExtra("questionTitle", dataSet+btq1.text.toString())
+                bossLevel = "1"
+                intent.putExtra("bossLevel", bossLevel)
                 startActivity(intent)
             }
             R.id.buttonQ2 -> {

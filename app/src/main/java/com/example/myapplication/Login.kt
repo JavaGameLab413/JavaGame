@@ -52,7 +52,7 @@ class Login : AppCompatActivity() {
 
 
                         //抓流水號
-                        val serialNumber = documents.getLong("SerialNumber").toString()
+                        val serialNumber = documents.getLong("serialNumber").toString()
                         Log.d(TAG, serialNumber)
                         //將ID寫入本地資料庫PlayerInfo
                         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
