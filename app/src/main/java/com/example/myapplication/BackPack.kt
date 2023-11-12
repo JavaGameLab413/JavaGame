@@ -16,7 +16,7 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
-    private var haveTitle: Array<String> = arrayOf()
+    private var haveTitle: ArrayList<String> = ArrayList()
 
     private var wear: String = "" //未來連接資料庫
 
@@ -56,8 +56,7 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         showWearEquipment()
-        //重置稱號顯示
-        clearTitleView()
+        addTitle()
 
     }
 
@@ -326,50 +325,49 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
     }
 
     //添加稱號欄位
-    private fun addTitle(title: String) {
+    private fun addTitle() {
         val scrollViewLayout = findViewById<LinearLayout>(R.id.showTitle)
 
-        val customView = TitleView(this, null)
-        customView.setting(title)
-        customView.tag = title
+        //清除稱號欄位
+        scrollViewLayout.removeAllViews()
 
-        //View布局
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.gravity = Gravity.CENTER
-        layoutParams.bottomMargin = 20
 
-        //背景顏色
-        customView.setBackgroundColor(Color.parseColor("#CCFFFFFF"))
+        for(title in haveTitle.reversed()) {
+            val customView = TitleView(this, null)
+            customView.setting(title)
+            customView.tag = title
 
-        // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
-        customView.layoutParams = layoutParams
+            //View布局
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.gravity = Gravity.CENTER
+            layoutParams.bottomMargin = 20
 
-        //如果是穿戴中的打勾
-        if (title == wear) {
-            customView.visible(View.VISIBLE)
-        } else {
-            customView.visible(View.INVISIBLE)
+            //背景顏色
+            customView.setBackgroundColor(Color.parseColor("#CCFFFFFF"))
+
+            // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
+            customView.layoutParams = layoutParams
+
+            //如果是穿戴中的打勾
+            if (title == wear) {
+                customView.visible(View.VISIBLE)
+            } else {
+                customView.visible(View.INVISIBLE)
+            }
+
+            //設置每個動作
+            customView.setOnClickListener { view ->
+                wear = view.tag.toString()
+                changeTitle(view.tag.toString())
+                onResume()
+            }
+
+            scrollViewLayout.addView(customView)
         }
 
-        //設置每個動作
-        customView.setOnClickListener { view ->
-            wear = view.tag.toString()
-            changeTitle(view.tag.toString())
-            onResume()
-        }
-
-        scrollViewLayout.addView(customView)
-
-
-    }
-
-    //清除標題欄位
-    private fun clearTitleView() {
-        val view = findViewById<LinearLayout>(R.id.showTitle)
-        view.removeAllViews()
     }
 
     private fun clearEquipment(){
@@ -460,7 +458,8 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
             if (text != null) {
                 for(title in text.split(Regex(","))){
                     titleRef.document(title).get().addOnSuccessListener {docs ->
-                        haveTitle.plus(docs.getString("TitleName").toString())
+                        haveTitle.add(docs.getString("TitleName").toString())
+                        Log.e("aa",haveTitle[0])
                     }
                 }
             }
