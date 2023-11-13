@@ -1,10 +1,11 @@
 package com.example.myapplication
-
+import android.app.AlertDialog
+import android.widget.Toast
+import android.widget.Button
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
@@ -12,6 +13,7 @@ import android.view.WindowInsets.Type.statusBars
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import android.os.Bundle as Bundle1
 
 class FightMain : AppCompatActivity() {
     private var answer = ""
@@ -22,11 +24,8 @@ class FightMain : AppCompatActivity() {
     private var bossLevelSet = ""
     private val db = FirebaseFirestore.getInstance()
 
-
-
-
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle1?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
         //畫面中四種選項的按鈕
@@ -75,7 +74,6 @@ class FightMain : AppCompatActivity() {
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
-            Toast.makeText(this, "123", Toast.LENGTH_SHORT)
         }
         btOptionsB.setOnClickListener {
             checkChoiceIsAns("SelectB")
@@ -118,7 +116,7 @@ class FightMain : AppCompatActivity() {
                 val dOption = randomDocument.getString("SelectD")
                 answer = randomDocument.getString("Answer").toString()
                 Log.d(TAG, "Question : $question")
-                // TODO: 使用讀取到的變數
+
                 mainQuestion.text = question.toString()
                 btOptionsA.text = aOption.toString()
                 btOptionsB.text = bOption.toString()
@@ -307,6 +305,33 @@ class FightMain : AppCompatActivity() {
 
             }
         enemyAnimator?.start()
+    }
+
+    private var shouldShowExitDialog = true
+    override fun onBackPressed() {
+        showExitConfirmationDialog()
+    }
+    fun back(savedInstanceState: Bundle1?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_shop)
+    }
+
+    private fun showExitConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("返回戰鬥選單")
+        builder.setMessage("確定要返回戰鬥選單嗎？")
+
+        builder.setPositiveButton("是") { _,_ ->
+            shouldShowExitDialog = false
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        builder.setNegativeButton("否") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }
 
