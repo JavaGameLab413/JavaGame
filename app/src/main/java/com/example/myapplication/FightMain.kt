@@ -36,6 +36,7 @@ class FightMain : AppCompatActivity() {
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
         Log.d(TAG, "DataSet : $dataSet")
+        //Log.d("Dataset", "DataSet : $dataSet")
         bossLevelSet = intent.getStringExtra("bossLevel").toString()
 
         val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
@@ -74,6 +75,7 @@ class FightMain : AppCompatActivity() {
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
+            Toast.makeText(this, "123", Toast.LENGTH_SHORT)
         }
         btOptionsB.setOnClickListener {
             checkChoiceIsAns("SelectB")
