@@ -206,7 +206,7 @@ class FightMain : AppCompatActivity() {
             val userLevel: Int = document.getLong("Level").toString().toInt()
             var userExp: Int = document.getLong("exp").toString().toInt()
 
-            val bossExpRef = db.collection("Boss").document(userLevel.toString())
+            val bossExpRef = db.collection("Boss").document(bossLevelSet)
             val levelRef = db.collection("Level").document(userLevel.toString())
 
             bossExpRef.get().addOnSuccessListener { bossDocument ->
