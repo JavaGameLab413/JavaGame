@@ -13,8 +13,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
-import android.os.Handler
-import android.os.Looper
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 宣告一個 CoroutineScope
-    private val handler = Handler(Looper.getMainLooper())
     private lateinit var loadingAnimation: LoadingAnimation
 
 
@@ -51,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
+
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -63,9 +61,9 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-                // 執行loading動畫
-                loadingAnimation.start()
-                simulateLoadingComplete(Start::class.java)
+                // 啟動目標
+                val intent = Intent(this, Start::class.java)
+                startActivity(intent)
             }
         }
 
@@ -78,24 +76,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        handler.postDelayed({
-            // 加載完成後停止
-            loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
-    }
-
     override fun onResume() {
         super.onResume()
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.main)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+        loadingAnimation.stop()
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
