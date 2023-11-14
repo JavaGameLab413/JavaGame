@@ -40,7 +40,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
 
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
-        loadingAnimation.start()
+
 
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
@@ -100,6 +100,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
     //刷新頁面
     override fun onResume() {
         super.onResume()
+        loadingAnimation.start()
         //實作文本(名稱)
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
