@@ -30,9 +30,6 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    // 宣告一個 CoroutineScope
-    private lateinit var loadingAnimation: LoadingAnimation
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +41,6 @@ class MainActivity : AppCompatActivity() {
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
-        //loading動畫
-        loadingAnimation = LoadingAnimation(this)
 
 
         //朝畫面點擊後切換畫面
@@ -82,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.main)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
-        loadingAnimation.stop()
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
