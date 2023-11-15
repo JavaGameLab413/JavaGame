@@ -22,6 +22,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -32,6 +33,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -42,6 +44,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -52,6 +55,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -62,6 +66,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             app:srcCompat="@drawable/healing_potion"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
     </LinearLayout>

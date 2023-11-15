@@ -22,13 +22,18 @@ class FightMain : AppCompatActivity() {
     private var bossLevelSet = ""
     private val db = FirebaseFirestore.getInstance()
 
-
+    private val map: Map<String, Int> =
+        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
+    private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
 
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
+
+        getEquipment()
+
         //畫面中四種選項的按鈕
         val btOptionsA = findViewById<Button>(R.id.OptionsA)
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
@@ -306,6 +311,88 @@ class FightMain : AppCompatActivity() {
             }
         enemyAnimator?.start()
     }
+
+    //從資料庫取得裝備中的物品
+    private fun getEquipment() {
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+
+        docRef.get().addOnSuccessListener {doc ->
+            val text = doc.getString("Equipment")
+            if (text != null) {
+                for(title in text.split(Regex(","))){
+                    if(title!=""){
+                        equipmentNum.add(title)
+                    }
+
+                }
+                showWearEquipment()
+            }
+
+        }
+
+    }
+
+    private fun showWearEquipment(){
+
+        //裝備顯示
+        var count = 1
+        for (i in equipmentNum) {
+            when (count) {
+                1 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment1, i)
+                    }
+                    count++
+                }
+                2 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment2, i)
+                    }
+                    count++
+                }
+                3 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment3, i)
+                    }
+                    count++
+                }
+                4 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment4, i)
+                    }
+                    count++
+                }
+                5 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment5, i)
+                    }
+                    count++
+                }
+
+            }
+        }
+    }
+
+    //裝備後顯示
+    private fun showEquipment(id: Int, viewId: Int, tag: String) {
+        val equipment = findViewById<ImageButton>(viewId)
+        equipment.tag = tag
+        equipment.setImageResource(id)
+        equipment.visibility = View.VISIBLE
+    }
+
 }
 
 
