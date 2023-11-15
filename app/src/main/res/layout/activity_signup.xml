@@ -155,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="308dp"
-        android:text="信箱 :"
+        android:text="@string/email"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/signupFrame"
@@ -177,7 +177,8 @@
         app:layout_constraintStart_toEndOf="@+id/TextPassword"
         app:layout_constraintTop_toTopOf="@+id/signupFrame"
         app:layout_constraintVertical_bias="0.826"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck"
+        android:inputType="TODO" />
 
     <Button
         android:id="@+id/ButtonSignup"
