@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.graphics.Color
 import android.util.TypedValue
@@ -29,7 +31,7 @@ class LoadingAnimation constructor(private val context: Activity, private val an
     // loading動畫與參數
     private val lottieAnimationView: LottieAnimationView = LottieAnimationView(context)
     private val lLayoutParams: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-        RelativeLayout.LayoutParams.WRAP_CONTENT,
+        RelativeLayout.LayoutParams.MATCH_PARENT,
         RelativeLayout.LayoutParams.WRAP_CONTENT
     )
 
@@ -49,7 +51,7 @@ class LoadingAnimation constructor(private val context: Activity, private val an
 
         // 設定背景為黑色，alpha值0.8
         rLayout.setBackgroundColor(Color.BLACK)
-        rLayout.alpha = 0.8F
+        //rLayout.alpha = 0.8F
     }
 
     private fun initLoadingImage() {
@@ -63,6 +65,14 @@ class LoadingAnimation constructor(private val context: Activity, private val an
         // loading動畫主體
         lottieAnimationView.setAnimation(animationName)
         lottieAnimationView.layoutParams = lLayoutParams
+
+        // 添加動畫監聽器
+        lottieAnimationView.addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                stop()
+            }
+        })
     }
 
     private fun initLoadingText() {

@@ -9,14 +9,9 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
 import android.view.WindowInsets.Type.statusBars
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Objects
 
 class FightMain : AppCompatActivity() {
     private var answer = ""
@@ -24,6 +19,11 @@ class FightMain : AppCompatActivity() {
     private lateinit var enemyHp: ProgressBar
     private lateinit var playerHp: ProgressBar
     private var dataSet = ""
+    private var bossLevelSet = ""
+    private val db = FirebaseFirestore.getInstance()
+
+
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +35,42 @@ class FightMain : AppCompatActivity() {
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         dataSet = intent.getStringExtra("questionTitle").toString()
-        Log.d(TAG, "DataSet : $dataSet")        //測試顯示資料庫是讀取哪一個
-        enemyHp = findViewById(R.id.enemyHp)//敵對血條
-        playerHp = findViewById(R.id.playerHp)//我方血條
-        enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
-        playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+        Log.d(TAG, "DataSet : $dataSet")
+        bossLevelSet = intent.getStringExtra("bossLevel").toString()
+
+        val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int =
+                Integer.parseInt(document.getLong("Level").toString())
+
+            val userDocumentRef = db.collection("Level").document(userLevel.toString())
+            bossDocumentRef.get()
+                .addOnSuccessListener { bossDocumentSnapshot ->
+                    if (bossDocumentSnapshot.exists()) {
+                        val bossHp: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                        userDocumentRef.get()
+                            .addOnSuccessListener { userDocumentSnapshot ->
+                                if (userDocumentSnapshot.exists()) {
+                                    val userHp: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("HP").toString()
+                                    )
+
+                                    enemyHp = findViewById(R.id.enemyHp)//敵對血條
+                                    playerHp = findViewById(R.id.playerHp)//我方血條
+                                    enemyHp.max = bossHp
+                                    playerHp.max = userHp
+                                    enemyHp.progress = enemyHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                                    playerHp.progress = playerHp.max //設定值在設定畫面的設定檔中，目前設置為6
+                                }
+                            }
+                    }
+                }
+        }
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
@@ -63,7 +94,6 @@ class FightMain : AppCompatActivity() {
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
         val mainQuestion = findViewById<TextView>(R.id.question)
-        val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection(dataSet)
 
         //自定義的字體
@@ -95,34 +125,120 @@ class FightMain : AppCompatActivity() {
 
                 Log.d(TAG, answer)
 
-
             }
+
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting random document: ", exception)
             }
     }
 
-    private fun checkChoiceIsAns(btn : String){
-        val correctOutput = "答案正確!"
-        val errorOutput = "答案錯誤!"
-        if (answer == btn) {
-            Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "The correct answer!")
-            correct()
-        } else {
-            Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "The answer wrong!")
-            playerHp.progress -= 1
+    private fun checkChoiceIsAns(btn: String) {
+
+        val bossDocumentRef = db.collection("Boss").document(bossLevelSet)
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int =
+                Integer.parseInt(document.getLong("Level").toString())
+
+            val userDocumentRef = db.collection("Level").document(userLevel.toString())
+            bossDocumentRef.get()
+                .addOnSuccessListener { bossDocumentSnapshot ->
+                    if (bossDocumentSnapshot.exists()) {
+                        // 从文档中读取数据
+                        val bossHp: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("healthPoint").toString())
+                        val bossAttack: Int =
+                            Integer.parseInt(bossDocumentSnapshot.getLong("combatPower").toString())
+
+                        userDocumentRef.get()
+                            .addOnSuccessListener { userDocumentSnapshot ->
+                                if (userDocumentSnapshot.exists()) {
+                                    // 从文档中读取数据
+                                    val userHp: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("HP").toString()
+                                    )
+                                    val userAttack: Int = Integer.parseInt(
+                                        userDocumentSnapshot.getLong("Attack").toString()
+                                    )
+
+                                    val correctOutput = "答案正確!"
+                                    val errorOutput = "答案錯誤!"
+                                    if (userHp > 0 && bossHp > 0) {
+                                        if (answer == btn) {
+                                            Log.d(TAG, "Boss HP: $bossHp")
+                                            Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT)
+                                                .show()
+                                            enemyHp.progress -= userAttack
+                                            correct()
+                                        } else {
+                                            Log.d(TAG, "User HP: $userHp")
+                                            Toast.makeText(this, errorOutput, Toast.LENGTH_SHORT)
+                                                .show()
+                                            playerHp.progress -= bossAttack
+                                        }
+                                        checkFinish()
+
+                                    }
+
+                                }
+                            }
+                    }
+                }
         }
-        checkFinish()
     }
+
+    private fun checkLevel() {
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val propertiesDatabaseCollectionName = "PlayerInfo"
+        val writeData = db.collection(propertiesDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val playerInfoRef = db.collection("PlayerInfo").document(userId)
+        val db = FirebaseFirestore.getInstance()
+
+
+        playerInfoRef.get().addOnSuccessListener { document ->
+            val userLevel: Int = document.getLong("Level").toString().toInt()
+            var userExp: Int = document.getLong("exp").toString().toInt()
+
+            val bossExpRef = db.collection("Boss").document(userLevel.toString())
+            val levelRef = db.collection("Level").document(userLevel.toString())
+
+            bossExpRef.get().addOnSuccessListener { bossDocument ->
+                val bossExp = bossDocument.getLong("EXP").toString().toInt()
+                levelRef.get().addOnSuccessListener { levelDocument ->
+                    val userNeedExp: Int = levelDocument.getLong("Need").toString().toInt()
+
+                    userExp += bossExp
+
+
+                    if (userExp >= userNeedExp) {
+                        val newLevel = userLevel + 1
+                        val newExp = userExp - userNeedExp
+                        writeData.update("Level", newLevel)
+                        writeData.update("exp", newExp)
+                    }else{
+                        writeData.update("exp", userExp)
+                    }
+                }
+            }
+        }
+    }
+
     private fun checkFinish(){
         if (playerHp.progress == 0 || enemyHp.progress == 0) {
+
             finish()
+            checkLevel()
         } else {
             onResume()
         }
     }
+
+
 
 
 
@@ -136,21 +252,23 @@ class FightMain : AppCompatActivity() {
     private fun correct() {
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        val propertiesDatabaseCollectionName = "properties"
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
 
         val db = FirebaseFirestore.getInstance()
-        val information = db.collection(propertiesDatabaseCollectionName)
+        val information = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
-        val writeData = db.collection(propertiesDatabaseCollectionName)
+        val writeData = db.collection(playerInfoDatabaseCollectionName)
             .document(sharedPreferences.getString("ID", "-1").toString())
         information.get().addOnSuccessListener { documents ->
-            var money: Int = Integer.parseInt(documents.getLong("money").toString())
+            var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
             val addMoney = 10
             money += addMoney
-            writeData.update("money", money)
+            writeData.update("Gold", money)
+
+
 
         }
-        enemyHp.progress -= 1
+
         startAnimation()
     }
 

@@ -15,4 +15,9 @@
         <!--进度条的最大高度-->
         <item name="android:maxHeight">17dp</item>
     </style>
+    <style name="StoryFont" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--        設定自定義的主題文字-->
+        <item name="android:fontFamily">@font/thepeakfontbeta_v0_101</item>
+    </style>
 </resources>

@@ -27,7 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".FightSelect"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ChatGPT"
             android:exported="false" />
@@ -44,7 +45,7 @@
         <activity
             android:name=".Record"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/StoryFont" />
         <activity
             android:name=".Fight"
             android:exported="false"
@@ -71,7 +72,7 @@
         <activity
             android:name=".Dialog"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/StoryFont" />
     </application>
 
 </manifest>

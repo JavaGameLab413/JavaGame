@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets.Type.navigationBars
@@ -15,11 +17,18 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Fight : AppCompatActivity() , View.OnClickListener{
-    private val propertiesDatabaseCollectionName = "properties"
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
+
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         val btSection2 = findViewById<Button>(R.id.buttonSection2)
@@ -49,7 +58,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         when (view?.id) {
             R.id.buttonSection1 -> {
                 val intent = Intent(this, FightSelect::class.java)
-                intent.putExtra("questionTitle", "Basic") // 将参数添加到 Intent
+                intent.putExtra("questionTitle", "Basic") // 將參數添加到 Intent
                 startActivity(intent)
             }
             R.id.buttonSection2 -> {
@@ -74,20 +83,24 @@ class Fight : AppCompatActivity() , View.OnClickListener{
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
+        val playerTitle = findViewById<TextView>(R.id.userTitle)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR",sharedPreferences.getString("ID", "-1").toString())
         //取得名稱
         val db = FirebaseFirestore.getInstance()
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo("serialNumber",Integer.parseInt(sharedPreferences.getString("ID", "-1").toString()))
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
-                playerMoney.text = String.format("%s G",documents.first().getLong("money").toString())
-                playerLevel.text = String.format("Lv: %s",documents.first().getLong("lv").toString())
+                playerName.text = documents.getString("PlayerId").toString()
+                playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
+                playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
+                playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
 
+        simulateLoadingComplete()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -111,5 +124,11 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+    }
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
     }
 }

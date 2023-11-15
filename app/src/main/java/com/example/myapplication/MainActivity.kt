@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
 
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
+
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -64,12 +66,14 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-
                 var email = EmailFunction()
                 email.send()
                 // 執行loading動畫
                 loadingAnimation.start()
                 simulateLoadingComplete(Start::class.java)
+                // 啟動目標
+                val intent = Intent(this, Start::class.java)
+                startActivity(intent)
             }
         }
 
@@ -80,18 +84,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    }
-
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        handler.postDelayed({
-            // 加載完成後停止
-            loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
     }
 
     override fun onResume() {
