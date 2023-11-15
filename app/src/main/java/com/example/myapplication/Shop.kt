@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -19,6 +21,9 @@ import com.google.firebase.firestore.SetOptions
 
 @Suppress("NAME_SHADOWING", "DEPRECATION")
 class Shop : AppCompatActivity(), View.OnClickListener {
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
 
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var itemCase: String = ""
@@ -37,6 +42,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
+
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         // 返回按鈕
         val back: ImageButton = findViewById(R.id.back)
@@ -317,7 +325,8 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     String.format("Lv: %s", documents.getLong("Level").toString())
                 playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
-        }
+        simulateLoadingComplete()
+    }
 
     // 隱藏系統狀態欄和導航欄
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -339,5 +348,12 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+    }
+
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
     }
 }

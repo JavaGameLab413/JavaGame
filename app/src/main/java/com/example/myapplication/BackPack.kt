@@ -3,6 +3,8 @@ package com.example.myapplication
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -12,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BackPack : AppCompatActivity(), View.OnClickListener {
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
+
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
@@ -21,6 +27,10 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_back_pack)
+
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         readData()
         getEquipment()
@@ -104,6 +114,8 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         title.text = wear
         addTitle("初心者")
         addTitle("老手")
+
+        simulateLoadingComplete()
     }
 
     override fun onClick(view: View?) {
@@ -369,6 +381,13 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         sharedPreferences.edit().putString("Title", title).apply()
+    }
+
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
     }
 
 }
