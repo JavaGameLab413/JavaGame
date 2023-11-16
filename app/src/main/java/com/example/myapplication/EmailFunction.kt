@@ -24,14 +24,5 @@ class EmailFunction {
             }
         return "成功"
     }
-    fun delete(){
-        val user = Firebase.auth.currentUser!!
 
-        user.delete()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(tag, "User account deleted.")
-                }
-            }
-    }
 }
