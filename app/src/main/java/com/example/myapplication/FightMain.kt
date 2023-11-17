@@ -277,9 +277,9 @@ class FightMain : AppCompatActivity() {
 
     //從資料庫取得裝備中的物品
     private fun getEquipment() {
+        clearEquipment()
+
         val playerInfoDatabaseCollectionName = "PlayerInfo"
-
-
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
         val db = FirebaseFirestore.getInstance()
@@ -290,7 +290,7 @@ class FightMain : AppCompatActivity() {
             val text = doc.getString("Equipment")
             if (text != null) {
                 for(title in text.split(Regex(","))){
-                    if(title!=""){
+                    if(title!=""&&!(equipmentNum.contains(title))){
                         equipmentNum.add(title)
                     }
 
@@ -437,10 +437,33 @@ class FightMain : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val userId =sharedPreferences.getString("ID", "-1").toString()
         val documentReference=db.collection("BackPage").document(userId)
+        val userReference=db.collection("PlayerInfo").document(userId)
         documentReference.get().addOnSuccessListener {doc ->
             var num = Integer.parseInt(doc.getLong(tag).toString())
             num--
             documentReference.update(tag,num)
+            if(num==0){
+                equipmentNum.remove(tag)
+                var equipment=""
+                //稱號寫入格式
+                for(i in equipmentNum){
+                    equipment +="$i,"
+                }
+                userReference.update("Equipment",equipment)
+                getEquipment()
+            }else{
+                getEquipment()
+            }
+
+        }
+
+    }
+
+    private fun clearEquipment(){
+        val wear = findViewById<LinearLayout>(R.id.wear)
+        for (i in 0 until wear.childCount){
+            val child: View = wear.getChildAt(i)
+            child.visibility=View.INVISIBLE
         }
     }
 
