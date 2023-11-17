@@ -411,11 +411,13 @@ class FightMain : AppCompatActivity() {
                     "Hp"->{
                         playerHp.progress += Integer.parseInt(effect[1])
                         Toast.makeText(this, "已使用 $name", Toast.LENGTH_SHORT).show()
+                        deletePotion(s)
                     }
                     "Atk"->{
                         if(tampAtk==0){
                             tampAtk = Integer.parseInt(effect[1])
                             Toast.makeText(this, "已使用 $name", Toast.LENGTH_SHORT).show()
+                            deletePotion(s)
                         }
                         else{
                             Toast.makeText(this, "$name 每次攻擊只能用一個", Toast.LENGTH_SHORT).show()
@@ -424,17 +426,22 @@ class FightMain : AppCompatActivity() {
                     }
                 }
 
-
             }
-
-
-
-
 
         }
 
 
+    }
 
+    private fun deletePotion(tag:String){
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val userId =sharedPreferences.getString("ID", "-1").toString()
+        val documentReference=db.collection("BackPage").document(userId)
+        documentReference.get().addOnSuccessListener {doc ->
+            var num = Integer.parseInt(doc.getLong(tag).toString())
+            num--
+            documentReference.update(tag,num)
+        }
     }
 
 }
