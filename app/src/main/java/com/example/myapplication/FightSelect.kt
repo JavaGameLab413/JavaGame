@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -28,7 +27,7 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
-        val btAddQuestion: ImageButton = findViewById(R.id.addQuestionButton)
+        val btAddQuestion: ImageButton = findViewById(R.id.btAddQuestion)
 
         back.setOnClickListener {
             finish()
@@ -52,19 +51,36 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra("questionTitle", dataSet+btq1.text.toString())
                 bossLevel = "1"
                 intent.putExtra("bossLevel", bossLevel)
+                startActivity(intent)         }
+            R.id.buttonQ2 -> {
+                val btq2 = findViewById<Button>(R.id.buttonQ2)
+                val intent = Intent(this, FightMain::class.java)
+                bossLevel = "1"
+                intent.putExtra("bossLevel", bossLevel)
+                intent.putExtra("questionTitle", dataSet+btq2.text.toString())
                 startActivity(intent)
             }
-            R.id.buttonQ2 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-            }
             R.id.buttonQ3 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq3 = findViewById<Button>(R.id.buttonQ3)
+                val intent = Intent(this, FightMain::class.java)
+                intent.putExtra("questionTitle", dataSet+btq3.text.toString())
+                startActivity(intent)
             }
             R.id.buttonQ4 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq4 = findViewById<Button>(R.id.buttonQ4)
+                val intent = Intent(this, FightMain::class.java)
+                intent.putExtra("questionTitle", dataSet+btq4.text.toString())
+                startActivity(intent)
             }
             R.id.buttonQ5 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq5 = findViewById<Button>(R.id.buttonQ5)
+                val intent = Intent(this, FightMain::class.java)
+                intent.putExtra("questionTitle", dataSet+btq5.text.toString())
+                startActivity(intent)
+            }
+            R.id.btAddQuestion -> {
+                val intent = Intent(this, FightAddQuestion::class.java)
+                startActivity(intent)
             }
 
         }

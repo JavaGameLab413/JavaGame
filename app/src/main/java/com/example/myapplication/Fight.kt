@@ -3,6 +3,8 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -13,10 +15,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Fight : AppCompatActivity() , View.OnClickListener{
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
+
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         val btSection2 = findViewById<Button>(R.id.buttonSection2)
@@ -88,5 +97,13 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerTitle.text = sharedPreferences.getString("Title","").toString()
             }
 
+        simulateLoadingComplete()
+    }
+
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
     }
 }

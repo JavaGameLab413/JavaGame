@@ -12,8 +12,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
-import android.os.Handler
-import android.os.Looper
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,10 +29,6 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    // 宣告一個 CoroutineScope
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var loadingAnimation: LoadingAnimation
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
 
-        //loading動畫
-        loadingAnimation = LoadingAnimation(this)
 
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
@@ -62,9 +54,9 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-                // 執行loading動畫
-                loadingAnimation.start()
-                simulateLoadingComplete(Start::class.java)
+                // 啟動目標
+                val intent = Intent(this, Start::class.java)
+                startActivity(intent)
             }
         }
 
@@ -75,18 +67,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    }
-
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        handler.postDelayed({
-            // 加載完成後停止
-            loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
     }
 
     override fun onResume() {
