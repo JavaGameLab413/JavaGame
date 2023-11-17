@@ -41,6 +41,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
+
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
 
@@ -65,17 +66,17 @@ class Start : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.fight -> {
-                // 執行loading動畫
-                loadingAnimation.start()
-                simulateLoadingComplete(Fight::class.java)
+                // 啟動目標
+                val intent = Intent(this, Fight::class.java)
+                startActivity(intent)
             }
             R.id.history -> {
-                loadingAnimation.start()
-                simulateLoadingComplete(Record::class.java)
+                val intent = Intent(this, Record::class.java)
+                startActivity(intent)
             }
             R.id.shop -> {
-                loadingAnimation.start()
-                simulateLoadingComplete(Shop::class.java)
+                val intent = Intent(this, Shop::class.java)
+                startActivity(intent)
                 // 關閉頁面
                 // finish()
                 Log.d("test", "This is Debug.")
@@ -88,22 +89,18 @@ class Start : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
+    private fun simulateLoadingComplete() {
         handler.postDelayed({
             // 加載完成後停止
             loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
+        }, 800)
     }
 
 
     //刷新頁面
     override fun onResume() {
         super.onResume()
+        loadingAnimation.start()
         //實作文本(名稱)
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
@@ -135,12 +132,14 @@ class Start : AppCompatActivity(), View.OnClickListener {
                     }
 
                 }
-            }
 
+    }
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.start)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+        //停止動畫
+        simulateLoadingComplete()
 
     }
 

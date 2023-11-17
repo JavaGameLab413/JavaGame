@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -12,7 +14,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
-class   BackPack : AppCompatActivity(), View.OnClickListener {
+class BackPack : AppCompatActivity(), View.OnClickListener {
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
+
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
@@ -25,6 +31,11 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_back_pack)
 
         readBackPageData()
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
+
+        readData()
         getEquipment()
         readTitleData()
         //稱號
@@ -58,6 +69,62 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
         showWearEquipment()
         addTitle()
 
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        wear= sharedPreferences.getString("Title","").toString() //未來連接資料庫
+        //裝備顯示
+        var count = 1
+        for (i in equipmentNum) {
+            when (count) {
+                1 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment1, i)
+                    }
+                    count++
+                }
+                2 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment2, i)
+                    }
+                    count++
+                }
+                3 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment3, i)
+                    }
+                    count++
+                }
+                4 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment4, i)
+                    }
+                    count++
+                }
+                5 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment5, i)
+                    }
+                    count++
+                }
+
+            }
+        }
+
+        //重置稱號顯示
+        clearTitleView()
+
+        //稱號(未來跟隨資料庫)
+        val title = findViewById<TextView>(R.id.titleNames)
+        title.text = wear
+        addTitle("初心者")
+        addTitle("老手")
+
+        simulateLoadingComplete()
     }
 
     override fun onClick(view: View?) {
@@ -482,5 +549,11 @@ class   BackPack : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
+    }
 
 }

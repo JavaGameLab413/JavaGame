@@ -45,6 +45,10 @@ class FightMain : AppCompatActivity() {
         val btOptionsB = findViewById<Button>(R.id.OptionsB)
         val btOptionsC = findViewById<Button>(R.id.OptionsC)
         val btOptionsD = findViewById<Button>(R.id.OptionsD)
+        dataSet = intent.getStringExtra("questionTitle").toString()
+        Log.d(TAG, "DataSet : $dataSet")
+        //Log.d("Dataset", "DataSet : $dataSet")
+        bossLevelSet = intent.getStringExtra("bossLevel").toString()
 
         //裝備
         val equipment1: ImageButton = findViewById(R.id.equipment1)
@@ -58,6 +62,7 @@ class FightMain : AppCompatActivity() {
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
+            Toast.makeText(this, "123", Toast.LENGTH_SHORT).show()
         }
         btOptionsB.setOnClickListener {
             checkChoiceIsAns("SelectB")
