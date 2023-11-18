@@ -34,15 +34,28 @@ class Record : AppCompatActivity() {
         }
         
         val plot1: Button = findViewById(R.id.plot1)
+        val plot2: Button = findViewById(R.id.plot2)
         val teach1: Button = findViewById(R.id.teach1)
+        val teach2: Button = findViewById(R.id.teach2)
 
         plot1.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
             intent.putExtra("Title","Plot1")
             startActivity(intent)
         }
+        plot2.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Plot2")
+            startActivity(intent)
+        }
         teach1.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Teach1")
+            startActivity(intent)
+        }
+        teach2.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Teach2")
             startActivity(intent)
         }
 
