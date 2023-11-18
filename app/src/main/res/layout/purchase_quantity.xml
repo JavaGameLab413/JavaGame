@@ -11,6 +11,7 @@
         android:layout_height="281dp"
         android:layout_gravity="center_vertical"
         android:background="@drawable/window"
+        android:alpha="0.95"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,29 +96,42 @@
                 app:srcCompat="@drawable/add"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
+
             <ImageButton
                 android:id="@+id/yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_width="100dp"
+                android:layout_height="86dp"
+                android:layout_marginStart="40dp"
+                android:alpha="0.95"
                 android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/yes"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
             <ImageButton
                 android:id="@+id/no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="130dp"
+                android:alpha="0.95"
                 android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/no"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
         </LinearLayout>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
