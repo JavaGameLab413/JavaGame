@@ -309,12 +309,9 @@ class FightMain : AppCompatActivity() {
     }
 
     private var shouldShowExitDialog = true
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         showExitConfirmationDialog()
-    }
-    fun back(savedInstanceState: Bundle1?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shop)
     }
 
     private fun showExitConfirmationDialog() {
