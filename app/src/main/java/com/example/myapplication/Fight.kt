@@ -144,6 +144,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerTitle.text = docs.getString("TitleName").toString()
             }
         }
+    }
 
     private fun simulateLoadingComplete() {
         handler.postDelayed({

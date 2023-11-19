@@ -3,9 +3,9 @@ package com.example.myapplication
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -35,7 +35,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         loadingAnimation = LoadingAnimation(this)
         loadingAnimation.start()
 
-        readData()
         getEquipment()
         readTitleData()
         //稱號
@@ -68,62 +67,6 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         super.onResume()
         showWearEquipment()
         addTitle()
-
-
-        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        wear= sharedPreferences.getString("Title","").toString() //未來連接資料庫
-        //裝備顯示
-        var count = 1
-        for (i in equipmentNum) {
-            when (count) {
-                1 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment1, i)
-                    }
-                    count++
-                }
-                2 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment2, i)
-                    }
-                    count++
-                }
-                3 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment3, i)
-                    }
-                    count++
-                }
-                4 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment4, i)
-                    }
-                    count++
-                }
-                5 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment5, i)
-                    }
-                    count++
-                }
-
-            }
-        }
-
-        //重置稱號顯示
-        clearTitleView()
-
-        //稱號(未來跟隨資料庫)
-        val title = findViewById<TextView>(R.id.titleNames)
-        title.text = wear
-        addTitle("初心者")
-        addTitle("老手")
-
         simulateLoadingComplete()
     }
 

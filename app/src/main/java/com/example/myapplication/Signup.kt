@@ -88,7 +88,7 @@ class Signup : AppCompatActivity() {
                                             "Gold" to 0,
                                             "TitleNumber" to 0,
                                             "exp" to 0,
-                                            "TitlesOwned" to "1",
+                                            "TitlesOwned" to "0",
                                             "Equipment" to ""
                                         )
 
