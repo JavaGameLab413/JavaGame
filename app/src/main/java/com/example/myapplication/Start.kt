@@ -102,7 +102,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
-        val playerTitle = findViewById<TextView>(R.id.userTitle)
+
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
@@ -118,7 +118,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("name",documents.getString("PlayerId").toString())
                 playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
                 playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
-                playerTitle.text = sharedPreferences.getString("Title","").toString()
+                readTitle()
                 if (playerName.text == "a"){
                     Log.d("game","是測試者")
 
@@ -143,6 +143,29 @@ class Start : AppCompatActivity(), View.OnClickListener {
     override fun onPause() {
         super.onPause()
         mediaPlayer.release()
+    }
+
+
+    //讀稱號
+    private fun readTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
+            }
+        }
+
     }
 
 }

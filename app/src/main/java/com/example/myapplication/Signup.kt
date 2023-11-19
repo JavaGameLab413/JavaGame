@@ -84,7 +84,9 @@ class Signup : AppCompatActivity() {
                                             "Level" to 1,
                                             "Gold" to 0,
                                             "TitleNumber" to 0,
-                                            "exp" to 0
+                                            "exp" to 0,
+                                            "TitlesOwned" to "0",
+                                            "Equipment" to ""
                                         )
 
                                         //將資料寫入資料庫
@@ -120,6 +122,9 @@ class Signup : AppCompatActivity() {
                                         sharedPreferences.edit()
                                             .putString("ID", serialNumber.toString()).apply()
 
+                                    }
+                                    else{
+                                        Toast.makeText(this, "名稱重複", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                         }

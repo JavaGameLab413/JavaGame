@@ -310,7 +310,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 顯示使用者名稱和等級
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
-        val playerTitle = findViewById<TextView>(R.id.userTitle)
         val db = FirebaseFirestore.getInstance()
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val serialNumber = sharedPreferences.getString("ID", "-1").toString()
@@ -321,11 +320,33 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
                     String.format("Lv: %s", documents.getLong("Level").toString())
-                playerTitle.text = sharedPreferences.getString("Title","").toString()
+                readTitle()
             }
         simulateLoadingComplete()
     }
-    
+
+
+    //讀稱號
+    private fun readTitle() {
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener { doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener { docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
+            }
+        }
+    }
+
     private fun simulateLoadingComplete() {
         handler.postDelayed({
             // 加載完成後停止

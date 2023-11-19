@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -21,6 +22,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
     private val map: Map<String, Int> =
         mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
+    private var haveTitle: ArrayList<String> = ArrayList()
 
     private var wear: String = "" //未來連接資料庫
 
@@ -28,12 +30,15 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_back_pack)
 
+        readBackPageData()
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
         loadingAnimation.start()
 
-        readData()
         getEquipment()
+        readTitleData()
+        //稱號
+        haveTitle()
 
         val equipment1: ImageButton = findViewById(R.id.equipment1)
         val equipment2: ImageButton = findViewById(R.id.equipment2)
@@ -60,61 +65,8 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-
-        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        wear= sharedPreferences.getString("Title","").toString() //未來連接資料庫
-        //裝備顯示
-        var count = 1
-        for (i in equipmentNum) {
-            when (count) {
-                1 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment1, i)
-                    }
-                    count++
-                }
-                2 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment2, i)
-                    }
-                    count++
-                }
-                3 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment3, i)
-                    }
-                    count++
-                }
-                4 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment4, i)
-                    }
-                    count++
-                }
-                5 -> {
-                    val equipmentId = map[i]
-                    if (equipmentId != null) {
-                        showEquipment(equipmentId, R.id.equipment5, i)
-                    }
-                    count++
-                }
-
-            }
-        }
-
-        //重置稱號顯示
-        clearTitleView()
-
-        //稱號(未來跟隨資料庫)
-        val title = findViewById<TextView>(R.id.titleNames)
-        title.text = wear
-        addTitle("初心者")
-        addTitle("老手")
-
+        showWearEquipment()
+        addTitle()
         simulateLoadingComplete()
     }
 
@@ -124,36 +76,26 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment1)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment2 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment2)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment3 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment3)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment4 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment4)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipment5 -> {
                 //移除裝備物品
                 val equipment = findViewById<ImageButton>(R.id.equipment5)
                 equipmentNum.remove(equipment.tag)
-                //隱藏裝備欄物品
-                equipment.visibility = View.INVISIBLE
             }
             R.id.equipmentButton -> {
                 //切換畫面
@@ -164,14 +106,51 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                 change(R.id.title, R.id.equipment)
             }
 
+
         }
         //更新畫面
         onResume()
 
     }
 
+    //城市結束執行
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.e("a","stop")
+        //讀取本地資料庫User
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        //寫入資料庫
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        var equipment=""
+        //稱號寫入格式
+        for(i in equipmentNum){
+            equipment +="$i,"
+        }
+        Log.e("test",equipment)
+
+        docRef.get().addOnSuccessListener {
+            titleRef.whereEqualTo("TitleName",wear).get().addOnSuccessListener { docs->
+                for (doa in docs){
+                    val updates = hashMapOf(
+                        "Equipment" to equipment,
+                        "TitleNumber" to Integer.parseInt(doa.id)
+                    )
+                    docRef.update(updates as Map<String, Any>)
+                }
+            }
+        }
+    }
+
     //讀取使用者背包所擁有的物品及物品資訊
-    private fun readData() {
+    private fun readBackPageData() {
         val backPageDatabaseCollectionName = "BackPage"
         val itemDatabaseCollectionName = "Item"
 
@@ -219,6 +198,30 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+
+    }
+
+    //抓裝備中的稱號
+    private fun readTitleData(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                wear= docs.getString("TitleName").toString()
+                val title = findViewById<TextView>(R.id.titleNames)
+                title.text = wear
+            }
+
+        }
 
     }
 
@@ -314,51 +317,106 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
         equipment.visibility = View.VISIBLE
     }
 
+    private fun showWearEquipment(){
+        //重置裝備顯示
+        clearEquipment()
+
+        //裝備顯示
+        var count = 1
+        for (i in equipmentNum) {
+            when (count) {
+                1 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment1, i)
+                    }
+                    count++
+                }
+                2 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment2, i)
+                    }
+                    count++
+                }
+                3 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment3, i)
+                    }
+                    count++
+                }
+                4 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment4, i)
+                    }
+                    count++
+                }
+                5 -> {
+                    val equipmentId = map[i]
+                    if (equipmentId != null) {
+                        showEquipment(equipmentId, R.id.equipment5, i)
+                    }
+                    count++
+                }
+
+            }
+        }
+    }
+
     //添加稱號欄位
-    private fun addTitle(title: String) {
+    private fun addTitle() {
         val scrollViewLayout = findViewById<LinearLayout>(R.id.showTitle)
 
-        val customView = TitleView(this, null)
-        customView.setting(title)
-        customView.tag = title
+        //清除稱號欄位
+        scrollViewLayout.removeAllViews()
 
-        //View布局
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.gravity = Gravity.CENTER
-        layoutParams.bottomMargin = 20
 
-        //背景顏色
-        customView.setBackgroundColor(Color.parseColor("#CCFFFFFF"))
+        for(title in haveTitle.reversed()) {
+            val customView = TitleView(this, null)
+            customView.setting(title)
+            customView.tag = title
 
-        // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
-        customView.layoutParams = layoutParams
+            //View布局
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.gravity = Gravity.CENTER
+            layoutParams.bottomMargin = 20
 
-        //如果是穿戴中的打勾
-        if (title == wear) {
-            customView.visible(View.VISIBLE)
-        } else {
-            customView.visible(View.INVISIBLE)
+            //背景顏色
+            customView.setBackgroundColor(Color.parseColor("#CCFFFFFF"))
+
+            // 添加 CustomImageViewTextView 到 ScrollView 的子視圖中
+            customView.layoutParams = layoutParams
+
+            //如果是穿戴中的打勾
+            if (title == wear) {
+                customView.visible(View.VISIBLE)
+            } else {
+                customView.visible(View.INVISIBLE)
+            }
+
+            //設置每個動作
+            customView.setOnClickListener { view ->
+                wear = view.tag.toString()
+                changeTitle(view.tag.toString())
+                onResume()
+            }
+
+            scrollViewLayout.addView(customView)
         }
-
-        //設置每個動作
-        customView.setOnClickListener { view ->
-            wear = view.tag.toString()
-            changeTitle(view.tag.toString())
-            onResume()
-        }
-
-        scrollViewLayout.addView(customView)
-
 
     }
 
-    //清除標題欄位
-    private fun clearTitleView() {
-        val view = findViewById<LinearLayout>(R.id.showTitle)
-        view.removeAllViews()
+    private fun clearEquipment(){
+        val wear = findViewById<LinearLayout>(R.id.wear)
+        for (i in 0 until wear.childCount){
+            val child: View = wear.getChildAt(i)
+            child.visibility=View.INVISIBLE
+        }
     }
 
     //裝備及稱號頁面切換
@@ -372,15 +430,66 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
     //從資料庫取得裝備中的物品
     private fun getEquipment() {
-        equipmentNum.add("M2")
-        equipmentNum.add("M1")
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+
+        docRef.get().addOnSuccessListener {doc ->
+            val text = doc.getString("Equipment")
+            if (text != null) {
+                for(title in text.split(Regex(","))){
+                    if(title!=""){
+                        equipmentNum.add(title)
+                    }
+
+                }
+                showWearEquipment()
+            }
+
+        }
+
     }
 
     //改變稱號
     private fun changeTitle(title :String){
-        //讀取本地資料庫User
+        wear= title
+        val titleView = findViewById<TextView>(R.id.titleNames)
+        titleView.text = wear
+
+    }
+
+    //擁有的稱號
+    private fun haveTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        sharedPreferences.edit().putString("Title", title).apply()
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val text = doc.getString("TitlesOwned")
+            if (text != null) {
+                for(title in text.split(Regex(","))){
+                    titleRef.document(title).get().addOnSuccessListener {docs ->
+                        haveTitle.add(docs.getString("TitleName").toString())
+                    }
+                }
+            }
+
+
+        }
+
+
     }
 
     private fun simulateLoadingComplete() {
