@@ -63,7 +63,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/type"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection2"
@@ -71,7 +72,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/export"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection3"
@@ -79,7 +81,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberThree"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection4"
@@ -87,7 +90,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberFour"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection5"
@@ -95,7 +99,8 @@
                 android:layout_height="98dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberFive"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
 
         </LinearLayout>
