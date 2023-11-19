@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".FightAddQuestion"
+            android:exported="false" />
+        <activity
             android:name=".PlayerInfoLayout"
             android:exported="false" />
         <activity
@@ -24,36 +27,37 @@
             android:exported="false" />
         <activity
             android:name=".FightSelect"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ChatGPT"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Signup"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".BackPack"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Record"
             android:exported="false"
-            android:theme="@style/StoryFont"/>
+            android:theme="@style/StoryFont" />
         <activity
             android:name=".Fight"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Shop"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Start"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -64,11 +68,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Insert"/>
+        <activity android:name=".Insert" />
         <activity
             android:name=".Dialog"
             android:exported="false"
-            android:theme="@style/StoryFont"/>
+            android:theme="@style/StoryFont" />
     </application>
 
 </manifest>

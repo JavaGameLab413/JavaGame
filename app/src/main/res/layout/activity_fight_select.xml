@@ -119,4 +119,33 @@
         app:srcCompat="@drawable/turn"
         tools:ignore="MissingConstraints,UnknownIdInLayout" />
 
+    <ImageButton
+        android:id="@+id/btAddQuestion"
+        android:layout_width="44dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328"
+        app:srcCompat="@drawable/add_question"
+        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck"
+        android:contentDescription="@string/addQuestion" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="14dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="@string/addQuestion"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/btAddQuestion"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/btAddQuestion"
+        app:layout_constraintTop_toTopOf="@+id/btAddQuestion"
+        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck,TextSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,23 +1,20 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets.Type.navigationBars
-import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FightSelect : AppCompatActivity(), View.OnClickListener {
-    private val propertiesDatabaseCollectionName = "properties"
-    private var dataSet = ""
 
+class FightSelect : AppCompatActivity(), View.OnClickListener {
+    private val playerInfoDatabaseCollectionName = "PlayerInfo"
+    private var dataSet = ""
+    private var bossLevel = ""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val intent = intent
@@ -30,10 +27,14 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         val btq3 = findViewById<Button>(R.id.buttonQ3)
         val btq4 = findViewById<Button>(R.id.buttonQ4)
         val btq5 = findViewById<Button>(R.id.buttonQ5)
+        val btAddQuestion: ImageButton = findViewById(R.id.btAddQuestion)
 
-
-        back.setOnClickListener() {
+        back.setOnClickListener {
             finish()
+        }
+        btAddQuestion.setOnClickListener{
+            val intents = Intent(this, FightAddQuestion::class.java)
+            startActivity(intents)
         }
         btq1.setOnClickListener(this)
         btq2.setOnClickListener(this)
@@ -47,29 +48,54 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             R.id.buttonQ1 -> {
                 val btq1 = findViewById<Button>(R.id.buttonQ1)
                 val intent = Intent(this, FightMain::class.java)
-                intent.putExtra("questionTitle", dataSet+btq1.text.toString());
+                intent.putExtra("questionTitle", dataSet+btq1.text.toString())
+                bossLevel = "1"
+                intent.putExtra("bossLevel", bossLevel)
+                startActivity(intent)         }
+            R.id.buttonQ2 -> {
+                val btq2 = findViewById<Button>(R.id.buttonQ2)
+                val intent = Intent(this, FightMain::class.java)
+                bossLevel = "2"
+                intent.putExtra("bossLevel", bossLevel)
+                intent.putExtra("questionTitle", dataSet+btq2.text.toString())
                 startActivity(intent)
             }
-            R.id.buttonQ2 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
-            }
             R.id.buttonQ3 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq3 = findViewById<Button>(R.id.buttonQ3)
+                val intent = Intent(this, FightMain::class.java)
+                bossLevel = "3"
+                intent.putExtra("bossLevel", bossLevel)
+                intent.putExtra("questionTitle", dataSet+btq3.text.toString())
+                startActivity(intent)
             }
             R.id.buttonQ4 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq4 = findViewById<Button>(R.id.buttonQ4)
+                val intent = Intent(this, FightMain::class.java)
+                bossLevel = "4"
+                intent.putExtra("bossLevel", bossLevel)
+                intent.putExtra("questionTitle", dataSet+btq4.text.toString())
+                startActivity(intent)
             }
             R.id.buttonQ5 -> {
-                Toast.makeText(this, "此關卡尚未開啟，敬請期待!!", Toast.LENGTH_SHORT).show()
+                val btq5 = findViewById<Button>(R.id.buttonQ5)
+                val intent = Intent(this, FightMain::class.java)
+                bossLevel = "5"
+                intent.putExtra("bossLevel", bossLevel)
+                intent.putExtra("questionTitle", dataSet+btq5.text.toString())
+                startActivity(intent)
+            }
+            R.id.btAddQuestion -> {
+                val intent = Intent(this, FightAddQuestion::class.java)
+                startActivity(intent)
             }
 
         }
     }
-    private fun openQuestionActivity(questionTitle: String) {
-        val intent = Intent(this, FightMain::class.java)
-        intent.putExtra("questionTitle", questionTitle)
-        startActivity(intent)
-    }
+//    private fun openQuestionActivity(questionTitle: String) {
+//        val intent = Intent(this, FightMain::class.java)
+//        intent.putExtra("questionTitle", questionTitle)
+//        startActivity(intent)
+//    }
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)
@@ -89,40 +115,38 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
         playerTitle.setTextAppearance(R.style.AppTheme)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
 
-        db.collection(propertiesDatabaseCollectionName).whereEqualTo(
-            "serialNumber",
-            Integer.parseInt(sharedPreferences.getString("ID", "-1").toString())
-        )
-            .get()
+        val serialNumber = sharedPreferences.getString("ID", "-1").toString()
+        db.collection(playerInfoDatabaseCollectionName).document(serialNumber).get()
             .addOnSuccessListener { documents ->
-                playerName.text = documents.first().getString("name").toString()
+                playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text =
-                    String.format("%s G", documents.first().getLong("money").toString())
+                    String.format("%s G", documents.getLong("Gold").toString())
                 playerLevel.text =
-                    String.format("Lv: %s", documents.first().getLong("lv").toString())
+                    String.format("Lv: %s", documents.getLong("Level").toString())
+                readTitle()
             }
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
 
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+    //讀稱號
+    private fun readTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
             }
+        }
 
-        }
-        else {
-            // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        }
     }
 }
