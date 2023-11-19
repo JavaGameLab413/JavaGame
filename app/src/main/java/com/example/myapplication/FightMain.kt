@@ -1,14 +1,17 @@
 package com.example.myapplication
-
+import android.app.AlertDialog
+import android.widget.Toast
+import android.widget.Button
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.os.Bundle
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import android.os.Bundle as Bundle1
 
 class FightMain : AppCompatActivity() {
     private var answer = ""
@@ -29,9 +32,8 @@ class FightMain : AppCompatActivity() {
     private var bossAtk=0
     private var tampAtk=0
 
-
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle1?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
 
@@ -118,7 +120,7 @@ class FightMain : AppCompatActivity() {
                 val dOption = randomDocument.getString("SelectD")
                 answer = randomDocument.getString("Answer").toString()
                 Log.d(TAG, "Question : $question")
-                // TODO: 使用讀取到的變數
+
                 mainQuestion.text = question.toString()
                 btOptionsA.text = aOption.toString()
                 btOptionsB.text = bOption.toString()
@@ -173,7 +175,7 @@ class FightMain : AppCompatActivity() {
             val userLevel: Int = document.getLong("Level").toString().toInt()
             var userExp: Int = document.getLong("exp").toString().toInt()
 
-            val bossExpRef = db.collection("Boss").document(userLevel.toString())
+            val bossExpRef = db.collection("Boss").document(bossLevelSet)
             val levelRef = db.collection("Level").document(userLevel.toString())
 
             bossExpRef.get().addOnSuccessListener { bossDocument ->
@@ -254,6 +256,29 @@ class FightMain : AppCompatActivity() {
         enemyAnimator?.start()
     }
 
+    private var shouldShowExitDialog = true
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        showExitConfirmationDialog()
+    }
+
+    private fun showExitConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("返回戰鬥選單")
+        builder.setMessage("確定要返回戰鬥選單嗎？")
+
+        builder.setPositiveButton("是") { _,_ ->
+            shouldShowExitDialog = false
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        builder.setNegativeButton("否") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
     //從資料庫取得裝備中的物品
     private fun getEquipment() {
         clearEquipment()
@@ -445,7 +470,6 @@ class FightMain : AppCompatActivity() {
             child.visibility=View.INVISIBLE
         }
     }
-
 }
 
 

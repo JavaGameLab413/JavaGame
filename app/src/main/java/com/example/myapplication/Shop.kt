@@ -269,9 +269,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     "M6" -> commodity6.visibility = View.INVISIBLE
                                 }
                             }
+                        }else {
+                            Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
