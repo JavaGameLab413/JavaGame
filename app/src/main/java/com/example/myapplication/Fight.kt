@@ -126,7 +126,7 @@ class Fight : AppCompatActivity() , View.OnClickListener{
     }
 
     //讀稱號
-    private fun readTitle(){
+    private fun readTitle() {
         val playerInfoDatabaseCollectionName = "PlayerInfo"
         val titleDatabaseCollectionName = "Title"
 
@@ -137,14 +137,14 @@ class Fight : AppCompatActivity() , View.OnClickListener{
             .document(sharedPreferences.getString("ID", "-1").toString())
         val titleRef = db.collection(titleDatabaseCollectionName)
 
-        docRef.get().addOnSuccessListener {doc ->
+        docRef.get().addOnSuccessListener { doc ->
             val titleNumber = doc.getLong("TitleNumber")
-            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener { docs ->
                 val playerTitle = findViewById<TextView>(R.id.userTitle)
                 playerTitle.text = docs.getString("TitleName").toString()
             }
         }
-
+    }
     private fun simulateLoadingComplete() {
         handler.postDelayed({
             // 加載完成後停止
