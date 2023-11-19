@@ -27,4 +27,8 @@ class TitleView(context: Context, attrs: AttributeSet?) : LinearLayout(context, 
     fun visible(visible: Int) {
         select.visibility = visible
     }
+
+    fun setTextColor(color: Int){
+        titleName.setTextColor(color)
+    }
 }

@@ -395,6 +395,7 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             //如果是穿戴中的打勾
             if (title == wear) {
                 customView.visible(View.VISIBLE)
+                customView.setTextColor(Color.BLACK)
             } else {
                 customView.visible(View.INVISIBLE)
             }
