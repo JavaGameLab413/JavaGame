@@ -11,8 +11,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets.Type.navigationBars
-import android.view.WindowInsets.Type.statusBars
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -312,7 +310,6 @@ class Shop : AppCompatActivity(), View.OnClickListener {
         // 顯示使用者名稱和等級
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerLevel = findViewById<TextView>(R.id.level)
-        val playerTitle = findViewById<TextView>(R.id.userTitle)
         val db = FirebaseFirestore.getInstance()
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val serialNumber = sharedPreferences.getString("ID", "-1").toString()
@@ -323,30 +320,30 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
                     String.format("Lv: %s", documents.getLong("Level").toString())
-                playerTitle.text = sharedPreferences.getString("Title","").toString()
+                readTitle()
             }
         simulateLoadingComplete()
     }
 
-    // 隱藏系統狀態欄和導航欄
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+
+    //讀稱號
+    private fun readTitle() {
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener { doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener { docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
             }
-        }
-        else {
-            // 如果設備不支援 WindowInsetsController，使用舊版方法（版本低於Android 11）
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
 
@@ -356,4 +353,5 @@ class Shop : AppCompatActivity(), View.OnClickListener {
             loadingAnimation.stop()
         }, 800)
     }
+
 }
