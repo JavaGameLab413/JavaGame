@@ -177,8 +177,7 @@
         app:layout_constraintStart_toEndOf="@+id/TextPassword"
         app:layout_constraintTop_toTopOf="@+id/signupFrame"
         app:layout_constraintVertical_bias="0.826"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck"
-        android:inputType="TODO" />
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/ButtonSignup"
