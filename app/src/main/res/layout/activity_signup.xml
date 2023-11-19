@@ -32,10 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="45dp"
         app:layout_constraintEnd_toEndOf="@+id/signupBackground"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5
+"
         app:layout_constraintStart_toStartOf="@+id/signupBackground"
         app:layout_constraintTop_toTopOf="@+id/signupBackground"
         app:srcCompat="@drawable/signup_frame"
