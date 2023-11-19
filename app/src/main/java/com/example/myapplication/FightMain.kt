@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -58,7 +59,6 @@ class FightMain : AppCompatActivity() {
         //設置選項按下去的行為
         btOptionsA.setOnClickListener {
             checkChoiceIsAns("SelectA")
-            Toast.makeText(this, "123", Toast.LENGTH_SHORT).show()
         }
         btOptionsB.setOnClickListener {
             checkChoiceIsAns("SelectB")
