@@ -111,7 +111,7 @@ class Signup : AppCompatActivity() {
                                             "M5" to 0,
                                             "M6" to 0
                                         )
-                                        Log.d("testBackpage", "success!")
+                                        Log.d("testBackpack", "success!")
                                         writeBag.set(data3)
 
                                         //顯示註冊成功的彈窗

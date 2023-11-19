@@ -2,14 +2,13 @@ package com.example.myapplication
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+
 
 class EmailFunction {
     private var tag = "LoginFunction"
     fun send():String{
-        var mAuth = FirebaseAuth.getInstance()
-        var user = mAuth.currentUser
+        val mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
 
         user?.sendEmailVerification()
             ?.addOnCompleteListener { verificationTask ->
