@@ -22,11 +22,12 @@
     <ImageView
         android:id="@+id/enemyBackground"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:contentDescription="TODO"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/enemy"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,41 +39,23 @@
     <ImageView
         android:id="@+id/enemy"
         android:layout_width="305dp"
-        android:layout_height="436dp"
-        app:layout_constraintBottom_toBottomOf="@+id/background"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="@+id/enemyBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/enemyBackground"
         app:layout_constraintVertical_bias="0.349"
         app:srcCompat="@drawable/role"
         tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="1.以下哪個關鍵字用來宣告一個類別?"
-        android:textColor="#FFFEFE"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/questionBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/questionBackground"
-        app:layout_constraintVertical_bias="0.5"
-        tools:ignore="HardcodedText,TextSizeCheck,VisualLintOverlap" />
-
     <ImageView
         android:id="@+id/questionBackground"
         android:layout_width="match_parent"
-        android:layout_height="137dp"
+        android:layout_height="150dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/enemy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,56 +64,81 @@
         app:srcCompat="@drawable/rectangle2"
         tools:ignore="ContentDescription" />
 
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="45dp"
+        android:gravity="center"
+        android:text="1.以下哪個關鍵字用來宣告一個類別?"
+        android:textColor="#FFFEFE"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/questionBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/questionBackground"
+        app:layout_constraintVertical_bias="0.533"
+        tools:ignore="HardcodedText,TextSizeCheck,VisualLintOverlap" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="403dp"
-        android:layout_height="201dp"
+        android:layout_height="200dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy"
+        app:layout_constraintTop_toBottomOf="@+id/enemyBackground"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="TextSizeCheck">
 
         <Button
             android:id="@+id/OptionsA"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:backgroundTint="#FFD39B"
             android:text="A. public"
-            android:textColor="#000000"
             android:textAllCaps="false"
+            android:textColor="#000000"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsB"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:backgroundTint="#FFD39B"
             android:text="B. class"
-            android:textColor="#000000"
             android:textAllCaps="false"
+            android:textColor="#000000"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsC"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:backgroundTint="#FFD39B"
             android:text="C. static"
-            android:textColor="#000000"
             android:textAllCaps="false"
+            android:textColor="#000000"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/OptionsD"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:backgroundTint="#FFD39B"
             android:text="D. void"
-            android:textColor="#000000"
             android:textAllCaps="false"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/questionBackground"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
     </LinearLayout>
@@ -140,20 +148,32 @@
         style="@style/hp_progress_bar"
         android:layout_width="303dp"
         android:layout_height="27dp"
+        android:layout_marginTop="0dp"
         android:max="6"
         android:progress="6"
         android:rotation="180"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionBackground" />
+        app:layout_constraintTop_toTopOf="@+id/enemyBackground" />
 
     <ProgressBar
         android:id="@+id/playerHp"
         style="@style/hp_progress_bar"
         android:layout_width="303dp"
         android:layout_height="27dp"
+        android:layout_marginBottom="0dp"
         android:max="3"
         android:progress="3"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/enemyBackground"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        layout="@layout/component_equipments"
+        android:layout_width="280dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerHp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent" />
 
 
