@@ -138,13 +138,11 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
 
         docRef.get().addOnSuccessListener {
             titleRef.whereEqualTo("TitleName",wear).get().addOnSuccessListener { docs->
-                for (doa in docs){
-                    val updates = hashMapOf(
-                        "Equipment" to equipment,
-                        "TitleNumber" to Integer.parseInt(doa.id)
-                    )
-                    docRef.update(updates as Map<String, Any>)
-                }
+                val updates = hashMapOf(
+                    "Equipment" to equipment,
+                )
+                docRef.update(updates as Map<String, Any>)
+
             }
         }
     }
@@ -404,6 +402,26 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             customView.setOnClickListener { view ->
                 wear = view.tag.toString()
                 changeTitle(view.tag.toString())
+
+                val playerInfoDatabaseCollectionName = "PlayerInfo"
+                val titleDatabaseCollectionName = "Title"
+
+                val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+                val db = FirebaseFirestore.getInstance()
+                val docRef = db.collection(playerInfoDatabaseCollectionName)
+                    .document(sharedPreferences.getString("ID", "-1").toString())
+                val titleRef = db.collection(titleDatabaseCollectionName)
+                docRef.get().addOnSuccessListener {
+                    titleRef.whereEqualTo("TitleName",wear).get().addOnSuccessListener { docs->
+                        for (doa in docs){
+                            val updates = hashMapOf(
+                                "TitleNumber" to Integer.parseInt(doa.id)
+                            )
+                            docRef.update(updates as Map<String, Any>)
+                        }
+                    }
+                }
                 onResume()
             }
 
