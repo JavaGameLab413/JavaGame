@@ -96,6 +96,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/healingpotion"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -109,6 +110,7 @@
                 android:layout_marginEnd="30dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/healingpotion"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -132,6 +134,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/healingpotion"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
@@ -145,6 +148,7 @@
                 android:layout_marginEnd="30dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/healingpotion"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
