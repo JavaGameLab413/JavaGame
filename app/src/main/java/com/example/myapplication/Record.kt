@@ -63,7 +63,7 @@ class Record : AppCompatActivity() {
 
         // Animate layout1 to the right and layout2 to the left
         fun animateToLeft() {
-            ObjectAnimator.ofFloat(layout1, "translationX", -800f).apply {
+            ObjectAnimator.ofFloat(layout1, "translationX", -1200f).apply {
                 duration = 1500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
@@ -86,7 +86,7 @@ class Record : AppCompatActivity() {
                 start()
             }
 
-            ObjectAnimator.ofFloat(layout2, "translationX", 800f).apply {
+            ObjectAnimator.ofFloat(layout2, "translationX", 1200f).apply {
                 duration = 1500
                 interpolator = AccelerateDecelerateInterpolator()
                 start()
@@ -99,6 +99,7 @@ class Record : AppCompatActivity() {
         button.setOnClickListener {
             if (layout1.translationX == 0f) {
                 animateToLeft()
+
             } else {
                 animateToRight()
             }
