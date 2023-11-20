@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintVertical_bias="1"
         app:srcCompat="@drawable/add_question"
         tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck"
         android:contentDescription="@string/addQuestion" />
