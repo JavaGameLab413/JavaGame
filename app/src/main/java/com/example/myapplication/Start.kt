@@ -2,12 +2,9 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets.Type.navigationBars
-import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -41,6 +38,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
         //loading動畫
         loadingAnimation = LoadingAnimation(this)
 
+
         btDatabase = findViewById(R.id.insert)
         btGPT = findViewById(R.id.gpt)
 
@@ -65,17 +63,17 @@ class Start : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.fight -> {
-                // 執行loading動畫
-                loadingAnimation.start()
-                simulateLoadingComplete(Fight::class.java)
+                // 啟動目標
+                val intent = Intent(this, Fight::class.java)
+                startActivity(intent)
             }
             R.id.history -> {
-                loadingAnimation.start()
-                simulateLoadingComplete(Record::class.java)
+                val intent = Intent(this, Record::class.java)
+                startActivity(intent)
             }
             R.id.shop -> {
-                loadingAnimation.start()
-                simulateLoadingComplete(Shop::class.java)
+                val intent = Intent(this, Shop::class.java)
+                startActivity(intent)
                 // 關閉頁面
                 // finish()
                 Log.d("test", "This is Debug.")
@@ -88,26 +86,23 @@ class Start : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
+    private fun simulateLoadingComplete() {
         handler.postDelayed({
             // 加載完成後停止
             loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
+        }, 800)
     }
 
 
     //刷新頁面
     override fun onResume() {
         super.onResume()
+        loadingAnimation.start()
         //實作文本(名稱)
         val playerName = findViewById<TextView>(R.id.playerId)
         val playerMoney = findViewById<TextView>(R.id.gold)
         val playerLevel = findViewById<TextView>(R.id.level)
+
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         Log.d("ERR", sharedPreferences.getString("ID", "-1").toString())
@@ -123,6 +118,7 @@ class Start : AppCompatActivity(), View.OnClickListener {
                 Log.d("name",documents.getString("PlayerId").toString())
                 playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
                 playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
+                readTitle()
                 if (playerName.text == "a"){
                     Log.d("game","是測試者")
 
@@ -133,12 +129,14 @@ class Start : AppCompatActivity(), View.OnClickListener {
                     }
 
                 }
-            }
 
+    }
         //音樂
         mediaPlayer = MediaPlayer.create(this, R.raw.start)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+        //停止動畫
+        simulateLoadingComplete()
 
     }
 
@@ -147,26 +145,27 @@ class Start : AppCompatActivity(), View.OnClickListener {
         mediaPlayer.release()
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
 
-        val decorView = window.decorView
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+    //讀稱號
+    private fun readTitle(){
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener {doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener {docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
             }
-
-        } else {
-            // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
+
     }
 
 }

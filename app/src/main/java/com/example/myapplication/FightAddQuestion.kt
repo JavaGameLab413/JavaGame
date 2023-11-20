@@ -4,10 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +22,7 @@ class FightAddQuestion : AppCompatActivity() {
         val selectD: EditText = findViewById(R.id.selectDInput)
         val answer: Spinner = findViewById(R.id.answerInput)
         val send: Button = findViewById(R.id.send)
+        val back: Button = findViewById(R.id.back)
 
         send.setOnClickListener {
             val data: MutableMap<String, Any> = HashMap()
@@ -73,6 +71,9 @@ class FightAddQuestion : AppCompatActivity() {
                     }
                 }
             }
+        }
+        back.setOnClickListener {
+            finish()
         }
     }
 }

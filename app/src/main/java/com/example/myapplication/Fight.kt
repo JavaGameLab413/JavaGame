@@ -1,13 +1,12 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets.Type.navigationBars
-import android.view.WindowInsets.Type.statusBars
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -16,10 +15,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Fight : AppCompatActivity() , View.OnClickListener{
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight)
+
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         val btSection1 = findViewById<Button>(R.id.buttonSection1)
         val btSection2 = findViewById<Button>(R.id.buttonSection2)
@@ -87,30 +93,38 @@ class Fight : AppCompatActivity() , View.OnClickListener{
                 playerName.text = documents.getString("PlayerId").toString()
                 playerMoney.text = String.format("%s G",documents.getLong("Gold").toString())
                 playerLevel.text = String.format("Lv: %s",documents.getLong("Level").toString())
+                readTitle()
             }
 
+        simulateLoadingComplete()
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
 
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+    //讀稱號
+    private fun readTitle() {
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener { doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener { docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
             }
+        }
+    }
 
-        }
-        else {
-            // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        }
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
     }
 }

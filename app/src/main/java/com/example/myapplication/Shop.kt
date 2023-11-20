@@ -5,12 +5,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets.Type.navigationBars
-import android.view.WindowInsets.Type.statusBars
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +19,9 @@ import com.google.firebase.firestore.SetOptions
 
 @Suppress("NAME_SHADOWING", "DEPRECATION")
 class Shop : AppCompatActivity(), View.OnClickListener {
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
 
     private val playerInfoDatabaseCollectionName = "PlayerInfo"
     private var itemCase: String = ""
@@ -37,6 +40,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
+
+        loadingAnimation = LoadingAnimation(this)
+        loadingAnimation.start()
 
         // 返回按鈕
         val back: ImageButton = findViewById(R.id.back)
@@ -263,9 +269,9 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                                     "M6" -> commodity6.visibility = View.INVISIBLE
                                 }
                             }
+                        }else {
+                            Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        Toast.makeText(this, "餘額不足!!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -314,28 +320,38 @@ class Shop : AppCompatActivity(), View.OnClickListener {
                 playerName.text = documents.getString("PlayerId").toString()
                 playerLevel.text =
                     String.format("Lv: %s", documents.getLong("Level").toString())
+                readTitle()
             }
-        }
+        simulateLoadingComplete()
+    }
 
-    // 隱藏系統狀態欄和導航欄
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
+
+    //讀稱號
+    private fun readTitle() {
+        val playerInfoDatabaseCollectionName = "PlayerInfo"
+        val titleDatabaseCollectionName = "Title"
+
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection(playerInfoDatabaseCollectionName)
+            .document(sharedPreferences.getString("ID", "-1").toString())
+        val titleRef = db.collection(titleDatabaseCollectionName)
+
+        docRef.get().addOnSuccessListener { doc ->
+            val titleNumber = doc.getLong("TitleNumber")
+            titleRef.document(titleNumber.toString()).get().addOnSuccessListener { docs ->
+                val playerTitle = findViewById<TextView>(R.id.userTitle)
+                playerTitle.text = docs.getString("TitleName").toString()
             }
-        }
-        else {
-            // 如果設備不支援 WindowInsetsController，使用舊版方法（版本低於Android 11）
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
+
+    private fun simulateLoadingComplete() {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+        }, 800)
+    }
+
 }

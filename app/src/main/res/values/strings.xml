@@ -54,4 +54,9 @@
     </string-array>
     <string name="product_description">    產品介紹:</string>
     <string name="counterTV">1</string>
+    <string name="title">初心者</string>
+    <string name="lv">Lv:1</string>
+    <string name="addQuestion">新\n增\n題\n目</string>
+    <string name="email">信箱 :</string>
+
 </resources>
