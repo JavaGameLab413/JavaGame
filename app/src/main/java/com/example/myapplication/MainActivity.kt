@@ -32,9 +32,6 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    // 宣告一個 CoroutineScope
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var loadingAnimation: LoadingAnimation
     private var auth: FirebaseAuth? = null
     private var authStateListener: AuthStateListener? = null
 
@@ -48,9 +45,6 @@ class MainActivity : AppCompatActivity() {
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-        //loading動畫
-        loadingAnimation = LoadingAnimation(this)
-
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
             //判斷先前有無登入過
@@ -66,9 +60,9 @@ class MainActivity : AppCompatActivity() {
 
                 var email = EmailFunction()
                 email.send()
-                // 執行loading動畫
-                loadingAnimation.start()
-                simulateLoadingComplete(Start::class.java)
+                // 啟動目標
+                val intent = Intent(this, Start::class.java)
+                startActivity(intent)
             }
         }
 
@@ -81,17 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
-        handler.postDelayed({
-            // 加載完成後停止
-            loadingAnimation.stop()
-
-            // 啟動目標
-            val intent = Intent(this, targetActivityClass)
-            startActivity(intent)
-
-        }, 1000)
-    }
 
     override fun onResume() {
         super.onResume()
