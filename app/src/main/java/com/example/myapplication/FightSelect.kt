@@ -91,11 +91,6 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-//    private fun openQuestionActivity(questionTitle: String) {
-//        val intent = Intent(this, FightMain::class.java)
-//        intent.putExtra("questionTitle", questionTitle)
-//        startActivity(intent)
-//    }
     override fun onResume() {
         super.onResume()
         //實作文本(名稱)

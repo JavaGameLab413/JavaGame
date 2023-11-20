@@ -10,8 +10,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+
+
 class Signup : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +25,18 @@ class Signup : AppCompatActivity() {
         val name = findViewById<EditText>(R.id.InputName)
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
+        val email = findViewById<EditText>(R.id.InputEmail)
         // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val newDocRef = db.collection("users")
         var serialNumber: Int = -1
         signup.setOnClickListener {
+
+            val mAuth = FirebaseAuth.getInstance()
+            mAuth.createUserWithEmailAndPassword(email.text.toString(), password.toString())
+
+
             //判斷空值
             if (name.text.toString() == "") {
                 Toast.makeText(this, "暱稱不可為空!!!", Toast.LENGTH_SHORT).show()
@@ -123,26 +132,6 @@ class Signup : AppCompatActivity() {
                         }
                 }
             }//
-        }
-    }
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val window = this.window
-        val decorView = window.decorView
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            window.insetsController?.also {
-                it.hide(statusBars())
-                it.hide(navigationBars())
-            }
-        }
-        else {
-            // 如果设备不支持 WindowInsetsController，则可以尝试使用旧版方法  <版本低於Android 11>
-            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
     private fun containsSpecialCharacters(input: String): Boolean {

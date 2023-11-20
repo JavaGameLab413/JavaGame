@@ -4,14 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.view.WindowInsets.Type.*
-import android.view.KeyEvent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
+    // 宣告一個 CoroutineScope
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var loadingAnimation: LoadingAnimation
+    private var auth: FirebaseAuth? = null
+    private var authStateListener: AuthStateListener? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         val signOut = findViewById<Button>(R.id.sign_out)
         //讀取本地資料庫User
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-
+        //loading動畫
+        loadingAnimation = LoadingAnimation(this)
 
         //朝畫面點擊後切換畫面
         entry.setOnClickListener {
@@ -54,9 +63,12 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-                // 啟動目標
-                val intent = Intent(this, Start::class.java)
-                startActivity(intent)
+
+                var email = EmailFunction()
+                email.send()
+                // 執行loading動畫
+                loadingAnimation.start()
+                simulateLoadingComplete(Start::class.java)
             }
         }
 
@@ -67,6 +79,18 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun simulateLoadingComplete(targetActivityClass: Class<*>) {
+        handler.postDelayed({
+            // 加載完成後停止
+            loadingAnimation.stop()
+
+            // 啟動目標
+            val intent = Intent(this, targetActivityClass)
+            startActivity(intent)
+
+        }, 1000)
     }
 
     override fun onResume() {
