@@ -63,7 +63,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/type"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection2"
@@ -71,7 +72,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/export"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection3"
@@ -79,7 +81,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberThree"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection4"
@@ -87,7 +90,8 @@
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberFour"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/buttonSection5"
@@ -95,7 +99,8 @@
                 android:layout_height="98dp"
                 android:backgroundTint="#FFD39B"
                 android:text="@string/numberFive"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
 
         </LinearLayout>
@@ -119,13 +124,31 @@
 
     <ImageButton
         android:id="@+id/btAddQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="44dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back"
-        app:srcCompat="@android:mipmap/sym_def_app_icon"
-        android:contentDescription="TODO"
-        tools:ignore="ContentDescription,HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328"
+        app:srcCompat="@drawable/add_question"
+        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck"
+        android:contentDescription="@string/addQuestion" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="14dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="@string/addQuestion"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/btAddQuestion"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/btAddQuestion"
+        app:layout_constraintTop_toTopOf="@+id/btAddQuestion"
+        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck,TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,9 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="45dp"
         app:layout_constraintEnd_toEndOf="@+id/signupBackground"
+        app:layout_constraintHorizontal_bias="0.5
+"
         app:layout_constraintStart_toStartOf="@+id/signupBackground"
         app:layout_constraintTop_toTopOf="@+id/signupBackground"
         app:srcCompat="@drawable/signup_frame"
@@ -67,30 +69,6 @@
         app:layout_constraintStart_toStartOf="@+id/signupFrame"
         app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
-    <TextView
-        android:id="@+id/TextAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="220dp"
-        android:text="@string/account"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/signupFrame"
-        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
-
-    <TextView
-        android:id="@+id/TextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="320dp"
-        android:text="@string/password"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/signupFrame"
-        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
-
     <EditText
         android:id="@+id/InputName"
         android:layout_width="195dp"
@@ -101,13 +79,26 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/signupFrame"
         app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/TextName"
         app:layout_constraintTop_toTopOf="@+id/signupFrame"
-        app:layout_constraintVertical_bias="0.315"
+        app:layout_constraintVertical_bias="0.306"
         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/TextAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="184dp"
+        android:text="@string/account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <EditText
         android:id="@+id/InputAccount"
@@ -119,13 +110,26 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/signupFrame"
         app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/TextAccount"
         app:layout_constraintTop_toTopOf="@+id/signupFrame"
-        app:layout_constraintVertical_bias="0.585"
+        app:layout_constraintVertical_bias="0.49"
         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/TextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="248dp"
+        android:text="@string/password"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
 
     <EditText
         android:id="@+id/InputPassword"
@@ -137,13 +141,44 @@
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/signupFrame"
         app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/TextPassword"
         app:layout_constraintTop_toTopOf="@+id/signupFrame"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.648"
         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/TextEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="308dp"
+        android:text="@string/email"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/signupFrame"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame" />
+
+    <EditText
+        android:id="@+id/InputEmail"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:background="@drawable/text_frame"
+        android:ems="15"
+        android:fontFamily="sans-serif-black"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/signupFrame"
+        app:layout_constraintEnd_toEndOf="@+id/signupFrame"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toEndOf="@+id/TextPassword"
+        app:layout_constraintTop_toTopOf="@+id/signupFrame"
+        app:layout_constraintVertical_bias="0.826"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/ButtonSignup"
