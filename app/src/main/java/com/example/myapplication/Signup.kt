@@ -2,18 +2,14 @@ package com.example.myapplication
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.WindowInsets.Type.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 
 
 class Signup : AppCompatActivity() {
@@ -50,12 +46,12 @@ class Signup : AppCompatActivity() {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
                 } else if (password.text.toString().length > 9) {
                     Toast.makeText(this, "密碼超出長度!!!", Toast.LENGTH_SHORT).show()
-                } else if (name.text.toString().length > 8) {
+                } else if (name.text.toString().length > 7) {
                     Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
                 } else if (containsSpecialCharacters(password.text.toString())) {
-                    Toast.makeText(this, "請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "帳號或密碼請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
                 } else if (containsSpecialCharacters(account.text.toString())) {
-                    Toast.makeText(this, "請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "帳號或密碼請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
                 } else {
                     //由大到小排序並取得流水號的最大值
                     db.collection("PlayerInfo").get()
