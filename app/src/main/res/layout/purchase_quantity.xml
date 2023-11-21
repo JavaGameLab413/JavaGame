@@ -75,7 +75,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
                 android:background="#CFCFCF"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:shadowColor="#C2C2C2"
                 android:shadowDx="10.0"
                 android:shadowDy="1.0"
