@@ -66,7 +66,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="403dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/background"
@@ -78,9 +78,9 @@
 
         <Button
             android:id="@+id/OptionsA"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFD39B"
             android:text="A. public"
             android:textAllCaps="false"
@@ -89,9 +89,9 @@
 
         <Button
             android:id="@+id/OptionsB"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFD39B"
             android:text="B. class"
             android:textAllCaps="false"
@@ -100,9 +100,9 @@
 
         <Button
             android:id="@+id/OptionsC"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFD39B"
             android:text="C. static"
             android:textAllCaps="false"
@@ -111,14 +111,13 @@
 
         <Button
             android:id="@+id/OptionsD"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFD39B"
             android:text="D. void"
             android:textAllCaps="false"
             android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/questionBackground"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
     </LinearLayout>
