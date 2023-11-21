@@ -23,7 +23,7 @@ class Dialog : AppCompatActivity(){
     private var isRunning = false
 
     //控制跑條速度
-    private val delayInMillis = 50L
+    private val delayInMillis = 130L
 
     //文字輸入
     private val name: Queue<String> = LinkedList()
@@ -99,11 +99,14 @@ class Dialog : AppCompatActivity(){
         var charIndex = 0
         isRunning = true
         textToDisplay = context.poll() as String
-        //講話者名稱
+        // 講話者名稱
         val speakName = findViewById<TextView>(R.id.name)
-        speakName.text=name.poll()
+        speakName.text = name.poll()
+        // 將換行符號轉換為 Android 支持的格式
+        textToDisplay = textToDisplay.replace("\\n", "\n")
+        textToDisplay = textToDisplay.replace("\\t", "\t")
 
-        //排流程
+        // 排流程
         handler.post(object : Runnable {
             override fun run() {
                 if (isRunning) {
