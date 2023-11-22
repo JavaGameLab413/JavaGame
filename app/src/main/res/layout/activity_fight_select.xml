@@ -9,14 +9,14 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/fightView"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fight"
-        tools:ignore="MissingConstraints"
-        android:contentDescription="@string/fightView" />
+        tools:ignore="MissingConstraints" />
 
     <include
         android:id="@+id/include2"
