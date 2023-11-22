@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,7 +26,6 @@ class Signup : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.InputPassword)
         val email = findViewById<EditText>(R.id.InputEmail)
 
-
         // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
@@ -41,8 +41,10 @@ class Signup : AppCompatActivity() {
                 Toast.makeText(this, "帳號不可為空!!!", Toast.LENGTH_SHORT).show()
             } else if (password.text.toString() == "") {
                 Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
-            }else if(email.text.toString() == ""){
+            } else if (email.text.toString() == "") {
                 Toast.makeText(this, "信箱不可為空!!!", Toast.LENGTH_SHORT).show()
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
+                Toast.makeText(this, "請輸入正確的信箱格式!!!", Toast.LENGTH_SHORT).show()
             } else {
                 if (account.text.toString().length > 9) {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
