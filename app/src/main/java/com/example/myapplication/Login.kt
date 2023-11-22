@@ -49,11 +49,17 @@ class Login : AppCompatActivity() {
 
                         //抓流水號
                         val serialNumber = documents.getLong("serialNumber").toString()
+
                         Log.d(TAG, serialNumber)
                         //將ID寫入本地資料庫PlayerInfo
                         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
                         sharedPreferences.edit().putString("ID", serialNumber).apply()
                         sharedPreferences.edit().putString("Title", "初心者").apply()
+                        db.collection("PlayerInfo").document(serialNumber).get().addOnSuccessListener { doc ->
+                            val name = doc.getString("PlayerId")
+                            sharedPreferences.edit().putString("name", name).apply()
+                        }
+
 
                     } else {
                         // 密碼錯誤

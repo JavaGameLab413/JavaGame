@@ -136,6 +136,7 @@ class Signup : AppCompatActivity() {
                                                 getSharedPreferences("User", MODE_PRIVATE)
                                             sharedPreferences.edit()
                                                 .putString("ID", serialNumber.toString()).apply()
+                                            sharedPreferences.edit().putString("name", name.text.toString()).apply()
 
                                         } else {
                                             //顯示註冊失敗的彈窗

@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -101,7 +102,15 @@ class Dialog : AppCompatActivity(){
         textToDisplay = context.poll() as String
         // 講話者名稱
         val speakName = findViewById<TextView>(R.id.name)
-        speakName.text = name.poll()
+        val na = name.poll()
+        if(na=="玩家"){
+            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+            Log.e("text",sharedPreferences.getString("name","").toString())
+            speakName.text=sharedPreferences.getString("name","").toString()
+        }else{
+            speakName.text = na
+        }
+
         // 將換行符號轉換為 Android 支持的格式
         textToDisplay = textToDisplay.replace("\\n", "\n")
         textToDisplay = textToDisplay.replace("\\t", "\t")
