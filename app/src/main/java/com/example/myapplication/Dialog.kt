@@ -86,6 +86,7 @@ class Dialog : AppCompatActivity(){
             //Log.e("ASD",context.poll())
             animateTextWithHandler()
         }
+        acquirementTitle(title.toString())
 
     }
 
@@ -139,6 +140,28 @@ class Dialog : AppCompatActivity(){
     //停止閃爍動畫
     private fun stopAnimation() {
         blinkAnimation.cancel()
+    }
+
+    private fun acquirementTitle(s:String){
+        val db = FirebaseFirestore.getInstance()
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val serialNumber = sharedPreferences.getString("ID","-1").toString()
+        val userReference=db.collection("PlayerInfo").document(serialNumber)
+        when(s){
+            "Plot1"->{
+
+                db.collection("PlayerInfo").document(serialNumber).get().addOnSuccessListener {doc->
+                    var titlesOwned = doc.getString("TitlesOwned")
+                    if (titlesOwned != null) {
+                        if(!titlesOwned.contains("01")){
+                            titlesOwned+=",01"
+                            userReference.update("TitlesOwned",titlesOwned)
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
 }
