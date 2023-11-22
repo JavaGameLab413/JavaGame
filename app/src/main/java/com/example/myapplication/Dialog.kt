@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -74,6 +73,10 @@ class Dialog : AppCompatActivity(){
         val db = FirebaseFirestore.getInstance()
         val intent = intent
         val title=intent.getStringExtra("Title")
+        if(title=="Plot1" || title=="Plot2"){
+            val role =findViewById<ImageView>(R.id.dialog_role)
+            role.visibility=View.INVISIBLE
+        }
 
         db.collection(title.toString()).get().addOnSuccessListener {doc ->
 
@@ -105,7 +108,6 @@ class Dialog : AppCompatActivity(){
         val na = name.poll()
         if(na=="玩家"){
             val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-            Log.e("text",sharedPreferences.getString("name","").toString())
             speakName.text=sharedPreferences.getString("name","").toString()
         }else{
             speakName.text = na
