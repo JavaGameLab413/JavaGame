@@ -38,10 +38,10 @@
     <string name="change">change</string>
     <string name="teach">教學</string>
     <string name="plot">劇情</string>
-    <string name="plot1">初到</string>
-    <string name="plot2">神祕小傢伙</string>
+    <string name="plot1">序章</string>
+    <string name="plot2">初到</string>
     <string name="teach1">基礎</string>
-    <string name="teach2">第二章</string>
+    <string name="teach2">輸出/輸入</string>
     <string name="fightView">fightView</string>
     <string name="packageView">packageView</string>
     <string name="equipment">裝備</string>
@@ -58,5 +58,6 @@
     <string name="lv">Lv:1</string>
     <string name="email">信箱 :</string>
     <string name="addQuestion">新增題目</string>
+    <string name="skip">Skip</string>
 
 </resources>

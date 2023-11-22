@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +67,9 @@ class Dialog : AppCompatActivity(){
 
             }
         }
+
+        val skip = findViewById<Button>(R.id.skip)
+        skip.setOnClickListener { finish() }
 
     }
 
