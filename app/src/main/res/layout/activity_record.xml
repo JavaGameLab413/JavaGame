@@ -158,6 +158,7 @@
                         android:text="@string/teach2"
                         android:textColor="@color/black"
                         android:textSize="20sp"
+                        android:visibility="invisible"
                         tools:ignore="VisualLintButtonSize" />
 
                 </LinearLayout>
