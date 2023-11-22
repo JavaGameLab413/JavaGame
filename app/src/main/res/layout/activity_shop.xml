@@ -145,7 +145,6 @@
 
     <!--隱藏刷新按鈕-->
     <Button
-        android:visibility="invisible"
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
