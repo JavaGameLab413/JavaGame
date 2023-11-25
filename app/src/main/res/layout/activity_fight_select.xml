@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:text="@string/q1"
+                android:text="@string/簡單"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:text="@string/q2"
+                android:text="@string/中等"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -78,27 +78,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="#FFD39B"
-                android:text="@string/q3"
+                android:text="@string/困難"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/buttonQ4"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:backgroundTint="#FFD39B"
-                android:text="@string/q4"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/buttonQ5"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:backgroundTint="#FFD39B"
-                android:text="@string/q5"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
         </LinearLayout>
 
     </ScrollView>

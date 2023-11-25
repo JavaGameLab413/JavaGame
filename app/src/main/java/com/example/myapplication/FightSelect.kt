@@ -16,17 +16,15 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
     private var dataSet = ""
     private var bossLevel = ""
     override fun onCreate(savedInstanceState: Bundle?) {
-
         val intent = intent
         dataSet = intent.getStringExtra("questionTitle").toString()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_select)
+
         val back: ImageButton = findViewById(R.id.back)
         val btq1 = findViewById<Button>(R.id.buttonQ1)
         val btq2 = findViewById<Button>(R.id.buttonQ2)
         val btq3 = findViewById<Button>(R.id.buttonQ3)
-        val btq4 = findViewById<Button>(R.id.buttonQ4)
-        val btq5 = findViewById<Button>(R.id.buttonQ5)
         val btAddQuestion: ImageButton = findViewById(R.id.btAddQuestion)
 
         back.setOnClickListener {
@@ -36,12 +34,16 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
             val intents = Intent(this, FightAddQuestion::class.java)
             startActivity(intents)
         }
+
+        val titleName = findViewById<TextView>(R.id.title)
+        val buttonText = intent.getStringExtra("buttonText")
+        titleName.text = buttonText
+
         btq1.setOnClickListener(this)
         btq2.setOnClickListener(this)
         btq3.setOnClickListener(this)
-        btq4.setOnClickListener(this)
-        btq5.setOnClickListener(this)
     }
+
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -66,22 +68,6 @@ class FightSelect : AppCompatActivity(), View.OnClickListener {
                 bossLevel = "3"
                 intent.putExtra("bossLevel", bossLevel)
                 intent.putExtra("questionTitle", dataSet+btq3.text.toString())
-                startActivity(intent)
-            }
-            R.id.buttonQ4 -> {
-                val btq4 = findViewById<Button>(R.id.buttonQ4)
-                val intent = Intent(this, FightMain::class.java)
-                bossLevel = "4"
-                intent.putExtra("bossLevel", bossLevel)
-                intent.putExtra("questionTitle", dataSet+btq4.text.toString())
-                startActivity(intent)
-            }
-            R.id.buttonQ5 -> {
-                val btq5 = findViewById<Button>(R.id.buttonQ5)
-                val intent = Intent(this, FightMain::class.java)
-                bossLevel = "5"
-                intent.putExtra("bossLevel", bossLevel)
-                intent.putExtra("questionTitle", dataSet+btq5.text.toString())
                 startActivity(intent)
             }
             R.id.btAddQuestion -> {
