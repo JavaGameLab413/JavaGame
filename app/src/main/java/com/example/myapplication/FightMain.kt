@@ -203,6 +203,7 @@ class FightMain : AppCompatActivity() {
 
             finish()
             checkLevel()
+            changMoney()
         } else {
             onResume()
         }
@@ -219,7 +220,7 @@ class FightMain : AppCompatActivity() {
         enemyAnimator?.cancel()
         enemyAnimator = null
     }
-    private fun correct() {
+    private fun changMoney(){
 
         val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
         val playerInfoDatabaseCollectionName = "PlayerInfo"
@@ -231,14 +232,17 @@ class FightMain : AppCompatActivity() {
             .document(sharedPreferences.getString("ID", "-1").toString())
         information.get().addOnSuccessListener { documents ->
             var money: Int = Integer.parseInt(documents.getLong("Gold").toString())
-            val addMoney = 10
-            money += addMoney
-            writeData.update("Gold", money)
+            val bossMoneyRef = db.collection("Boss").document(bossLevelSet)
+            bossMoneyRef.get().addOnSuccessListener { bossDocument ->
+                val bossmoney: Int = Integer.parseInt(bossDocument.getLong("bossMoney").toString())
+                money += bossmoney
+                writeData.update("Gold", money)
 
 
-
+            }
         }
-
+    }
+    private fun correct() {
         startAnimation()
     }
     private fun startAnimation(){

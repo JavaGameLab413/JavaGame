@@ -58,5 +58,8 @@
     <string name="lv">Lv:1</string>
     <string name="email">信箱 :</string>
     <string name="addQuestion">新增題目</string>
+    <string name="簡單">簡單</string>
+    <string name="中等">中等</string>
+    <string name="困難">困難</string>
 
 </resources>
