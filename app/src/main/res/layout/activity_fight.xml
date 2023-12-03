@@ -75,7 +75,14 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
 
-
+            <Button
+                android:id="@+id/buttonSection3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:backgroundTint="#420303"
+                android:text="@string/魔王"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
 
         </LinearLayout>
