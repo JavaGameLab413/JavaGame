@@ -1,92 +1,22 @@
 # JavaGame
 [![Android CI](https://github.com/JavaGameLab413/JavaGame/actions/workflows/android.yml/badge.svg)](https://github.com/JavaGameLab413/JavaGame/actions/workflows/android.yml)
 
+## about
+我們的畢業專題是一個基於Android平台的教學應用程式，旨在以互動的方式教授Java程式語言。此應用程序融合了教學系統和劇情系統，透過這兩種元素的結合，激發學生對學習的興趣與動機。
 
-## Getting started
+透過我們的應用程式，我們希望突顯程式語言學習的重要性。教學系統提供清晰的課程內容，引導使用者從基礎到進階的學習。劇情系統則以引人入勝的方式，結合了互動劇情和學習任務，使學習過程更加生動有趣。
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+為了評估學生對Java程式的掌握程度，我們加入了戰鬥功能。這種獨特的學習方式使用選擇題的戰鬥模式，考驗學生的知識水平。同時，學生可以透過商店購買道具，在戰鬥中應用這些道具，提升戰鬥能力。
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+這個專題的核心目標在於以有趣且具挑戰性的方式來教授程式語言，透過劇情和互動教學來激發學生對於學習的熱情，讓學習成為一種愉快的體驗。
 
-## Add your files
+## system
+我們的系統針對初學者和希望複習 Java 的玩家，同時也歡迎對程式語言感興趣、願意透過劇情學習的玩家加入。與其他類似系統相比，我們更貼近玩家的需求。我們期望通過持續收集玩家的反饋，不斷更新和改進系統功能。此外，在教學部分，我們將分享自身學習中的困難和體會，讓玩家更能投入學習，感受到共同學習的溫暖感覺，進而激發學習動力。
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+在系統建立階段，我們專注於如何讓玩家持續在系統中學習和遊玩。因此，我們使用了穩健的架構，並融入引人入勝的故事內容。透過與玩家的互動，我們深入了解他們的需求，並開發更多有趣的功能。
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/Stincky/project.git
-git branch -M main
-git push -uf origin main
-```
+系統內的音樂和圖片完全避免版權疑慮。所有素材都是透過 AI 生成和後續工具修改，因此在使用上十分安全可靠。程式碼撰寫部分使用 Kotlin 和 Java。我們採用 Kotlin 主要是因為 Android Studio 官方推薦，且 Kotlin 提供最多函示庫，後端資料庫使用 Google 的 Firebase。在開發過程中，我們使用 CI（持續整合）來快速供給不同使用者進行測試。
 
-## Integrate with your tools
+為了保障使用者資訊安全，我們提供完善的功能，讓使用者能夠完全刪除自己的帳號，以避免個人資料持續儲存在我們的資料庫中，也遵循 Google 推出的政策，提供使用者更多權限。
 
-- [ ] [Set up project integrations](https://gitlab.com/Stincky/project/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+在遊戲玩法方面，我們鼓勵使用者參與遊戲的開發，並採納他們的建議更新題目，並為他們的貢獻提供勳章及嘉獎。玩家可在商城中購買限定物品和稱號。初期我們預計會邀請學生參與測試，協助系統開發並創造更引人入勝的遊戲體驗。
