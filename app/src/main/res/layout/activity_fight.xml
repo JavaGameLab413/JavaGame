@@ -79,28 +79,10 @@
                 android:id="@+id/buttonSection3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:backgroundTint="#FFD39B"
-                android:text="@string/numberThree"
-                android:textColor="@color/black"
-                android:textSize="20sp"/>
-
-            <Button
-                android:id="@+id/buttonSection4"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:backgroundTint="#FFD39B"
-                android:text="@string/numberFour"
-                android:textColor="@color/black"
-                android:textSize="20sp"/>
-
-            <Button
-                android:id="@+id/buttonSection5"
-                android:layout_width="match_parent"
-                android:layout_height="98dp"
-                android:backgroundTint="#FFD39B"
-                android:text="@string/numberFive"
-                android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:backgroundTint="#420303"
+                android:text="@string/魔王"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
 
         </LinearLayout>
@@ -132,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backGround"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
+        app:layout_constraintVertical_bias="0.95"
         app:srcCompat="@drawable/add_question"
         tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck"
         android:contentDescription="@string/addQuestion" />
