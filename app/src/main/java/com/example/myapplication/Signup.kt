@@ -50,7 +50,7 @@ class Signup : AppCompatActivity() {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
                 } else if (password.text.toString().length > 9) {
                     Toast.makeText(this, "密碼超出長度!!!", Toast.LENGTH_SHORT).show()
-                } else if (name.text.toString().length > 5) {
+                } else if (name.text.toString().length > 7) {
                     Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
                 } else if (containsSpecialCharacters(password.text.toString())) {
                     Toast.makeText(this, "帳號或密碼請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
