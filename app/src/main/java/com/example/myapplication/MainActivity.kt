@@ -57,9 +57,6 @@ class MainActivity : AppCompatActivity() {
                 // 啟動新的 Activity
                 startActivity(intent)
             } else {
-
-                var email = EmailFunction()
-                email.send()
                 // 啟動目標
                 val intent = Intent(this, Start::class.java)
                 startActivity(intent)
