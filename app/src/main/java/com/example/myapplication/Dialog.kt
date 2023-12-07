@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,7 @@ class Dialog : AppCompatActivity(){
     private var isRunning = false
 
     //控制跑條速度
-    private val delayInMillis = 50L
+    private val delayInMillis = 130L
 
     //文字輸入
     private val name: Queue<String> = LinkedList()
@@ -67,12 +68,19 @@ class Dialog : AppCompatActivity(){
             }
         }
 
+        val skip = findViewById<Button>(R.id.skip)
+        skip.setOnClickListener { finish() }
+
     }
 
     private  fun read(){
         val db = FirebaseFirestore.getInstance()
         val intent = intent
         val title=intent.getStringExtra("Title")
+        if(title=="Plot1" || title=="Plot2"){
+            val role =findViewById<ImageView>(R.id.dialog_role)
+            role.visibility=View.INVISIBLE
+        }
 
         db.collection(title.toString()).get().addOnSuccessListener {doc ->
 
@@ -82,6 +90,7 @@ class Dialog : AppCompatActivity(){
             //Log.e("ASD",context.poll())
             animateTextWithHandler()
         }
+        acquirementTitle(title.toString())
 
     }
 
@@ -99,11 +108,21 @@ class Dialog : AppCompatActivity(){
         var charIndex = 0
         isRunning = true
         textToDisplay = context.poll() as String
-        //講話者名稱
+        // 講話者名稱
         val speakName = findViewById<TextView>(R.id.name)
-        speakName.text=name.poll()
+        val na = name.poll()
+        if(na=="玩家"){
+            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+            speakName.text=sharedPreferences.getString("name","").toString()
+        }else{
+            speakName.text = na
+        }
 
-        //排流程
+        // 將換行符號轉換為 Android 支持的格式
+        textToDisplay = textToDisplay.replace("\\n", "\n")
+        textToDisplay = textToDisplay.replace("\\t", "\t")
+
+        // 排流程
         handler.post(object : Runnable {
             override fun run() {
                 if (isRunning) {
@@ -125,6 +144,28 @@ class Dialog : AppCompatActivity(){
     //停止閃爍動畫
     private fun stopAnimation() {
         blinkAnimation.cancel()
+    }
+
+    private fun acquirementTitle(s:String){
+        val db = FirebaseFirestore.getInstance()
+        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+        val serialNumber = sharedPreferences.getString("ID","-1").toString()
+        val userReference=db.collection("PlayerInfo").document(serialNumber)
+        when(s){
+            "Plot1"->{
+
+                db.collection("PlayerInfo").document(serialNumber).get().addOnSuccessListener {doc->
+                    var titlesOwned = doc.getString("TitlesOwned")
+                    if (titlesOwned != null) {
+                        if(!titlesOwned.contains("01")){
+                            titlesOwned+=",01"
+                            userReference.update("TitlesOwned",titlesOwned)
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
 }

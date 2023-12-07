@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -23,15 +24,13 @@ class Signup : AppCompatActivity() {
         val account = findViewById<EditText>(R.id.InputAccount)
         val password = findViewById<EditText>(R.id.InputPassword)
         val email = findViewById<EditText>(R.id.InputEmail)
+
         // 存取資料庫
         val db = FirebaseFirestore.getInstance()
         // Create a new document with a generated ID
         val newDocRef = db.collection("users")
         var serialNumber: Int = -1
         signup.setOnClickListener {
-
-            val mAuth = FirebaseAuth.getInstance()
-            mAuth.createUserWithEmailAndPassword(email.text.toString(), password.toString())
 
 
             //判斷空值
@@ -41,6 +40,10 @@ class Signup : AppCompatActivity() {
                 Toast.makeText(this, "帳號不可為空!!!", Toast.LENGTH_SHORT).show()
             } else if (password.text.toString() == "") {
                 Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
+            } else if (email.text.toString() == "") {
+                Toast.makeText(this, "信箱不可為空!!!", Toast.LENGTH_SHORT).show()
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
+                Toast.makeText(this, "請輸入正確的信箱格式!!!", Toast.LENGTH_SHORT).show()
             } else {
                 if (account.text.toString().length > 9) {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
@@ -53,6 +56,8 @@ class Signup : AppCompatActivity() {
                 } else if (containsSpecialCharacters(account.text.toString())) {
                     Toast.makeText(this, "帳號或密碼請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
                 } else {
+                    val mAuth = FirebaseAuth.getInstance()
+                    mAuth.createUserWithEmailAndPassword(email.text.toString(), password.toString())
                     //由大到小排序並取得流水號的最大值
                     db.collection("PlayerInfo").get()
                         .addOnSuccessListener { documents ->
@@ -136,6 +141,7 @@ class Signup : AppCompatActivity() {
                                                 getSharedPreferences("User", MODE_PRIVATE)
                                             sharedPreferences.edit()
                                                 .putString("ID", serialNumber.toString()).apply()
+                                            sharedPreferences.edit().putString("name", name.text.toString()).apply()
 
                                         } else {
                                             //顯示註冊失敗的彈窗

@@ -170,6 +170,7 @@
         android:ems="15"
         android:fontFamily="sans-serif-black"
         android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/signupFrame"

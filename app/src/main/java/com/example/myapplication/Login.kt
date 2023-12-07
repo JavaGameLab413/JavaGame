@@ -33,40 +33,53 @@ class Login : AppCompatActivity() {
 
         //設置登入按鈕功能
         login.setOnClickListener {
-            val account = inputAccount.text.toString()
-            //Log.d("test", inputAccount.text.toString())
-            readDocRed.document(account).get()
-                .addOnSuccessListener { documents ->
-                    // 找到使用者，檢查密碼
-                    val password = documents.getString(playerAccountDatabasePasswordField)
-                    if (password == inputPassword.text.toString()) {
-                        // 密碼正確，登錄成功
-                        Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Login success!")
-                        //切換畫面
-                        finish()
+            if(inputAccount.text.toString()==""){
+                Toast.makeText(this, "帳號不可為空!!!", Toast.LENGTH_SHORT).show()
+            }else if(inputPassword.text.toString()==""){
+                Toast.makeText(this, "密碼不可為空!!!", Toast.LENGTH_SHORT).show()
+            }else{
+                val account = inputAccount.text.toString()
+                //Log.d("test", inputAccount.text.toString())
+                readDocRed.document(account).get()
+                    .addOnSuccessListener { documents ->
+                        // 找到使用者，檢查密碼
+                        val password = documents.getString(playerAccountDatabasePasswordField)
+                        if (password == inputPassword.text.toString()) {
+                            // 密碼正確，登錄成功
+                            Toast.makeText(this, "登入成功!", Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Login success!")
+                            //切換畫面
+                            finish()
 
 
-                        //抓流水號
-                        val serialNumber = documents.getLong("serialNumber").toString()
-                        Log.d(TAG, serialNumber)
-                        //將ID寫入本地資料庫PlayerInfo
-                        val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
-                        sharedPreferences.edit().putString("ID", serialNumber).apply()
-                        sharedPreferences.edit().putString("Title", "初心者").apply()
+                            //抓流水號
+                            val serialNumber = documents.getLong("serialNumber").toString()
 
-                    } else {
-                        // 密碼錯誤
+                            Log.d(TAG, serialNumber)
+                            //將ID寫入本地資料庫PlayerInfo
+                            val sharedPreferences = getSharedPreferences("User", MODE_PRIVATE)
+                            sharedPreferences.edit().putString("ID", serialNumber).apply()
+                            sharedPreferences.edit().putString("Title", "初心者").apply()
+                            db.collection("PlayerInfo").document(serialNumber).get().addOnSuccessListener { doc ->
+                                val name = doc.getString("PlayerId")
+                                sharedPreferences.edit().putString("name", name).apply()
+                            }
+
+
+                        } else {
+                            // 密碼錯誤
+                            Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "Incorrect password!")
+                        }
+
+                    }.addOnFailureListener {
+                        // 讀取資料失敗
                         Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, "Incorrect password!")
+                        Log.d(TAG, "User not found!")
+
                     }
+            }
 
-                }.addOnFailureListener {
-                    // 讀取資料失敗
-                    Toast.makeText(this, "登入失敗!", Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "User not found!")
-
-                }
         }
         //新增帳號功能按鈕監聽
         add.setOnClickListener {

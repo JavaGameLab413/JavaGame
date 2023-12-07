@@ -22,7 +22,7 @@ class FightMain : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     private val map: Map<String, Int> =
-        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1) //物品圖片位置
+        mapOf("M1" to R.drawable.healing_potion, "M2" to R.drawable.powerup1,"M3" to R.drawable.bag_sword) //物品圖片位置
     private var equipmentNum = ArrayList<String>(5) //裝備中的物品名稱
 
     private var userHp=0
