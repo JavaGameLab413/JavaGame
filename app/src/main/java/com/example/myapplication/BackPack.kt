@@ -100,10 +100,22 @@ class BackPack : AppCompatActivity(), View.OnClickListener {
             R.id.equipmentButton -> {
                 //切換畫面
                 change(R.id.equipment, R.id.title)
+
+                val equipmentButton: Button = findViewById(R.id.equipmentButton)
+                val titleButton: Button = findViewById(R.id.titleButton)
+
+                equipmentButton.setTextColor(Color.RED)
+                titleButton.setTextColor(Color.WHITE)
             }
             R.id.titleButton -> {
                 //切換畫面
                 change(R.id.title, R.id.equipment)
+
+                val equipmentButton: Button = findViewById(R.id.equipmentButton)
+                val titleButton: Button = findViewById(R.id.titleButton)
+
+                equipmentButton.setTextColor(Color.WHITE)
+                titleButton.setTextColor(Color.RED)
             }
 
 
