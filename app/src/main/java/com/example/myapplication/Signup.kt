@@ -46,11 +46,11 @@ class Signup : AppCompatActivity() {
             }else if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
                 Toast.makeText(this, "請輸入正確的信箱格式!!!", Toast.LENGTH_SHORT).show()
             } else {
-                if (account.text.toString().length > 9) {
+                if (account.text.toString().length > 14) {
                     Toast.makeText(this, "帳號超出長度!!!", Toast.LENGTH_SHORT).show()
-                } else if (password.text.toString().length > 9) {
+                } else if (password.text.toString().length > 14) {
                     Toast.makeText(this, "密碼超出長度!!!", Toast.LENGTH_SHORT).show()
-                } else if (name.text.toString().length > 5) {
+                } else if (name.text.toString().length > 12) {
                     Toast.makeText(this, "名字超出長度!!!", Toast.LENGTH_SHORT).show()
                 } else if (containsSpecialCharacters(password.text.toString())) {
                     Toast.makeText(this, "帳號或密碼請勿使用特殊字元!!!", Toast.LENGTH_SHORT).show()
