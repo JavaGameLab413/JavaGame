@@ -11,15 +11,22 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Create Release
+      id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: Test Release
-        draft: false
-        prerelease: false
-        asset_path: ./app/build/outputs/apk/release/app-release.apk
-        asset_name: app-release.apk
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body: Description of the release
+
+    - name: Upload APK to release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./path/to/your/apk.apk
+        asset_name: apk.apk
         asset_content_type: application/vnd.android.package-archive
+
