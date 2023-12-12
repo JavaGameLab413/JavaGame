@@ -77,10 +77,6 @@ class Dialog : AppCompatActivity(){
         val db = FirebaseFirestore.getInstance()
         val intent = intent
         val title=intent.getStringExtra("Title")
-        if(title=="Plot1" || title=="Plot2"){
-            val role =findViewById<ImageView>(R.id.dialog_role)
-            role.visibility=View.INVISIBLE
-        }
 
         db.collection(title.toString()).get().addOnSuccessListener {doc ->
 
@@ -116,6 +112,13 @@ class Dialog : AppCompatActivity(){
             speakName.text=sharedPreferences.getString("name","").toString()
         }else{
             speakName.text = na
+        }
+        if(na=="卡特戴蒙"){
+            val role =findViewById<ImageView>(R.id.dialog_role)
+            role.visibility=View.VISIBLE
+        }else{
+            val role =findViewById<ImageView>(R.id.dialog_role)
+            role.visibility=View.INVISIBLE
         }
 
         // 將換行符號轉換為 Android 支持的格式
