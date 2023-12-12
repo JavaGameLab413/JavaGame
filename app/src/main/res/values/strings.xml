@@ -9,7 +9,7 @@
     <string name="password">密碼 :</string>
     <string name="login2">登入</string>
     <string name="type">類型</string>
-    <string name="export">輸出/輸入</string>
+    <string name="export">輸入輸出</string>
     <string name="numberThree">第三章</string>
     <string name="numberFour">第四章</string>
     <string name="numberFive">第五章</string>
@@ -52,12 +52,16 @@
         <item>C</item>
         <item>D</item>
     </string-array>
-    <string name="product_description">    產品介紹:</string>
+    <string name="product_description">產品介紹:</string>
     <string name="counterTV">1</string>
     <string name="title">初心者</string>
     <string name="lv">Lv:1</string>
     <string name="email">信箱 :</string>
     <string name="addQuestion">新增題目</string>
+    <string name="簡單">簡單</string>
+    <string name="中等">中等</string>
+    <string name="困難">困難</string>
+    <string name="魔王">魔王</string>
     <string name="skip">Skip</string>
 
 </resources>
