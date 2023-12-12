@@ -40,8 +40,14 @@
     <string name="plot">劇情</string>
     <string name="plot1">序章</string>
     <string name="plot2">初到</string>
+    <string name="plot3">神秘隧道</string>
+    <string name="plot4">初到</string>
+    <string name="plot5">初到</string>
     <string name="teach1">基礎</string>
     <string name="teach2">輸出/輸入</string>
+    <string name="teach3">輸出/輸入</string>
+    <string name="teach4">輸出/輸入</string>
+    <string name="teach5">輸出/輸入</string>
     <string name="fightView">fightView</string>
     <string name="packageView">packageView</string>
     <string name="equipment">裝備</string>

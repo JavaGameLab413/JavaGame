@@ -33,8 +33,14 @@ class Record : AppCompatActivity() {
         
         val plot1: Button = findViewById(R.id.plot1)
         val plot2: Button = findViewById(R.id.plot2)
+        val plot3: Button = findViewById(R.id.plot3)
+        val plot4: Button = findViewById(R.id.plot4)
+        val plot5: Button = findViewById(R.id.plot5)
         val teach1: Button = findViewById(R.id.teach1)
         val teach2: Button = findViewById(R.id.teach2)
+        val teach3: Button = findViewById(R.id.teach3)
+        val teach4: Button = findViewById(R.id.teach4)
+        val teach5: Button = findViewById(R.id.teach5)
 
         plot1.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
@@ -46,6 +52,21 @@ class Record : AppCompatActivity() {
             intent.putExtra("Title","Plot2")
             startActivity(intent)
         }
+        plot3.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Plot3")
+            startActivity(intent)
+        }
+        plot4.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Plot4")
+            startActivity(intent)
+        }
+        plot5.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Plot5")
+            startActivity(intent)
+        }
         teach1.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
             intent.putExtra("Title","Teach1")
@@ -54,6 +75,21 @@ class Record : AppCompatActivity() {
         teach2.setOnClickListener{
             val intent = Intent(this, Dialog::class.java)
             intent.putExtra("Title","Teach2")
+            startActivity(intent)
+        }
+        teach3.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Teach3")
+            startActivity(intent)
+        }
+        teach4.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Teach4")
+            startActivity(intent)
+        }
+        teach5.setOnClickListener{
+            val intent = Intent(this, Dialog::class.java)
+            intent.putExtra("Title","Teach5")
             startActivity(intent)
         }
 

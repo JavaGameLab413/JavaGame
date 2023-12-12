@@ -106,6 +106,36 @@
                         android:textSize="20sp"
                         tools:ignore="VisualLintButtonSize" />
 
+                    <Button
+                        android:id="@+id/plot3"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFD39B"
+                        android:text="@string/plot3"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
+
+                    <Button
+                        android:id="@+id/plot4"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFD39B"
+                        android:text="@string/plot4"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
+
+                    <Button
+                        android:id="@+id/plot5"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFD39B"
+                        android:text="@string/plot5"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
+
                 </LinearLayout>
 
             </ScrollView>
@@ -158,7 +188,36 @@
                         android:text="@string/teach2"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:visibility="invisible"
+                        tools:ignore="VisualLintButtonSize" />
+
+                    <Button
+                        android:id="@+id/teach3"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#C1FFC1"
+                        android:text="@string/teach3"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
+
+                    <Button
+                        android:id="@+id/teach4"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#C1FFC1"
+                        android:text="@string/teach4"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:ignore="VisualLintButtonSize" />
+
+                    <Button
+                        android:id="@+id/teach5"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#C1FFC1"
+                        android:text="@string/teach5"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
                         tools:ignore="VisualLintButtonSize" />
 
                 </LinearLayout>
