@@ -31,10 +31,13 @@ class FightMain : AppCompatActivity() {
     private var bossAtk=0
     private var tampAtk=0
 
+    private var same = ArrayList<Int>()
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle1?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_main)
+
 
         getEquipment()
 
@@ -108,7 +111,12 @@ class FightMain : AppCompatActivity() {
                 // 集合中文檔的總數
                 val totalDocuments = documents.size()
                 // 生成一個隨機數字，作為要讀取的文檔的索引
-                val randomIndex = (0 until totalDocuments).random()
+                var randomIndex = (0 until totalDocuments).random()
+                //重複題目
+                while(same.contains(randomIndex)){
+                    randomIndex = (0 until totalDocuments).random()
+                }
+                same.add(randomIndex)
                 // 取得指定索引的文檔
                 val randomDocument = documents.documents[randomIndex]
                 // 從文檔中讀取欄位值
