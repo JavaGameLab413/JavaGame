@@ -14,7 +14,7 @@ class FightAddQuestion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fight_add_question)
-        val database: EditText = findViewById(R.id.dataBaseInput)
+        val database = "GiveQuestion"
         val question: EditText = findViewById(R.id.questionInput)
         val selectA: EditText = findViewById(R.id.selectAInput)
         val selectB: EditText = findViewById(R.id.selectBInput)
@@ -34,13 +34,13 @@ class FightAddQuestion : AppCompatActivity() {
             data["Answer"] = "Select" + answer.selectedItem.toString()
 
             if ("" == data["Info"] || "" == data["SelectA"] || "" == data["SelectB"] ||
-                "" == data["SelectC"] || "" == data["SelectD"] || "" == database.toString().trim()
+                "" == data["SelectC"] || "" == data["SelectD"] || "" == database.trim()
             ) {
                 Toast.makeText(this, "請避免空值", Toast.LENGTH_SHORT).show()
             } else {
                 // 存取資料庫
                 val dbCollection =
-                    FirebaseFirestore.getInstance().collection(database.text.toString())
+                    FirebaseFirestore.getInstance().collection(database)
                 dbCollection.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val querySnapshot = task.result
