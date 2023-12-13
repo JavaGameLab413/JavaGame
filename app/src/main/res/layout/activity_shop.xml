@@ -40,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.335"
+        app:layout_constraintVertical_bias="0.35"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -55,8 +55,8 @@
 
             <ImageButton
                 android:id="@+id/commodity1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
@@ -65,8 +65,8 @@
 
             <ImageButton
                 android:id="@+id/commodity2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:background="#00FFFFFF"
@@ -86,8 +86,8 @@
 
             <ImageButton
                 android:id="@+id/commodity3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
@@ -97,8 +97,8 @@
 
             <ImageButton
                 android:id="@+id/commodity4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:background="#00FFFFFF"
@@ -162,8 +162,8 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:backgroundTint="#00F6F6F6"
         android:contentDescription="@string/back"
         android:scaleType="fitXY"

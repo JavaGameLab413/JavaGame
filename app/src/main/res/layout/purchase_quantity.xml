@@ -35,7 +35,7 @@
                 android:gravity="bottom|center_horizontal"
                 android:text=""
                 android:textColor="#FBFBFB"
-                android:textSize="25sp" />
+                android:textSize="26sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,9 +48,9 @@
 
             <ImageButton
                 android:id="@+id/minusNumber"
-                android:layout_width="50dp"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="15dp"
                 android:contentDescription="@string/minusNumber"
                 android:minWidth="68dp"
                 android:minHeight="58dp"
@@ -63,7 +63,7 @@
                 android:layout_width="87dp"
                 android:layout_height="37dp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="15dp"
                 android:background="#CFCFCF"
                 android:gravity="center"
                 android:shadowColor="#C2C2C2"
@@ -72,13 +72,13 @@
                 android:shadowRadius="3.0"
                 android:text="@string/counterTV"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="26sp"
                 tools:ignore="TextSizeCheck" />
 
 
             <ImageButton
                 android:id="@+id/addNumber"
-                android:layout_width="50dp"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/addNumber"
                 android:minWidth="68dp"
@@ -95,7 +95,7 @@
 
             <ImageButton
                 android:id="@+id/yes"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
                 android:alpha="0.95"
@@ -109,7 +109,7 @@
 
             <ImageButton
                 android:id="@+id/no"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="107dp"
                 android:background="#00FFFFFF"

@@ -21,9 +21,10 @@
             android:id="@+id/dynamic_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=" "
             android:hint="輸入您的名字"
             android:inputType="text"
-            tools:ignore="MissingConstraints"
-            android:autofillHints=" " />
+            android:textSize="24sp"
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

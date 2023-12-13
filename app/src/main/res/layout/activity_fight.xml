@@ -32,12 +32,12 @@
         android:layout_height="56dp"
         android:text="@string/java"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="44sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.02"
         tools:ignore="TextSizeCheck" />
 
     <ScrollView
@@ -64,7 +64,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/type"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/buttonSection2"
@@ -73,7 +73,7 @@
                 android:backgroundTint="#FFD39B"
                 android:text="@string/export"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/buttonSection3"
@@ -82,7 +82,7 @@
                 android:backgroundTint="#420303"
                 android:text="@string/魔王"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
 
         </LinearLayout>
@@ -90,8 +90,8 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:backgroundTint="#00F6F6F6"
         android:contentDescription="@string/back"
         android:scaleType="fitXY"
@@ -106,9 +106,10 @@
 
     <ImageButton
         android:id="@+id/btAddQuestion"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/addQuestion"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/backGround"
@@ -116,7 +117,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95"
         app:srcCompat="@drawable/add_question"
-        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck"
-        android:contentDescription="@string/addQuestion" />
+        tools:ignore="MissingConstraints,UnknownIdInLayout,DuplicateSpeakableTextCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

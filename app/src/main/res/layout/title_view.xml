@@ -17,13 +17,13 @@
         android:layout_weight="1"
         android:fontFamily="@font/yujiboku_regular"
         android:gravity="bottom"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/select"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="10dp"
         android:layout_weight="0.2"
         android:scaleType="centerInside"
