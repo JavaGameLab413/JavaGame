@@ -111,6 +111,11 @@ class FightMain : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 // 集合中文檔的總數
                 val totalDocuments = documents.size()
+                if(same.size==totalDocuments-1){
+                    Toast.makeText(this, "回合數結束! 戰鬥失敗!", Toast.LENGTH_SHORT)
+                        .show()
+                    finish()
+                }
                 // 生成一個隨機數字，作為要讀取的文檔的索引
                 var randomIndex = (0 until totalDocuments).random()
                 //重複題目
