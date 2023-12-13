@@ -30,6 +30,7 @@ class FightMain : AppCompatActivity() {
     private var bossHp=0
     private var bossAtk=0
     private var tampAtk=0
+    private var magnification=1
 
     private var same = ArrayList<Int>()
 
@@ -152,8 +153,9 @@ class FightMain : AppCompatActivity() {
                 Log.d(TAG, "Boss HP: $bossHp")
                 Toast.makeText(this, correctOutput, Toast.LENGTH_SHORT)
                     .show()
-                enemyHp.progress -= (userAtk+tampAtk)
+                enemyHp.progress -= (userAtk+tampAtk)*magnification
                 tampAtk = 0
+                magnification=1
                 correct()
             } else {
                 Log.d(TAG, "User HP: $userHp")
@@ -161,6 +163,7 @@ class FightMain : AppCompatActivity() {
                     .show()
                 playerHp.progress -= bossAtk
                 tampAtk = 0
+                magnification=1
             }
             checkFinish()
 
@@ -437,7 +440,16 @@ class FightMain : AppCompatActivity() {
                         else{
                             Toast.makeText(this, "$name 每次攻擊只能用一個", Toast.LENGTH_SHORT).show()
                         }
-
+                    }
+                    "CriticalHit"->{
+                        if(magnification==1){
+                            magnification = Integer.parseInt(effect[1])
+                            Toast.makeText(this, "已使用 $name", Toast.LENGTH_SHORT).show()
+                            deletePotion(s)
+                        }
+                        else{
+                            Toast.makeText(this, "$name 每次攻擊只能用一個", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
